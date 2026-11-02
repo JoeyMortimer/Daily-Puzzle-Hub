@@ -103,3 +103,27 @@ body.dark .wend-board>.board-cell{color:#102e2b!important}
   color: #185c43;
   line-height: 1;
 }
+
+/* WEND CONTINUOUS TRAILS V2 */
+.wend-board {
+ position:relative;
+ gap:0!important;
+ border:3px solid #344846;
+ border-radius:9px;
+ overflow:hidden;
+ isolation:isolate;
+}
+.wend-board .board-cell {
+ border:1px solid rgba(40,65,61,.12);
+ border-radius:0!important;
+ color:transparent!important;
+ font-size:0!important;
+}
+.wend-board .wend-trail-svg {
+ position:absolute;
+ inset:0;
+ width:100%;
+ height:100%;
+ z-index:5;
+ pointer-events:none;
+}

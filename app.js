@@ -162,53 +162,89 @@ function answerHTML(a,g){if(!a)return `<p class="answer-desc">Not verified for t
  }
 }
 
+
 function markWendDirections(){
-  const answer = dayData?.games?.wend?.answer;
-  const board = document.querySelector(
-    '[data-game="wend"] .wend-board'
-  );
+ const a = dayData?.games?.wend?.answer;
+ const board = document.querySelector('[data-game="wend"] .wend-board');
+ if(!board || !Array.isArray(a?.paths) || !Array.isArray(a?.grid)) return;
 
-  if(!board || !Array.isArray(answer?.paths) ||
-     !Array.isArray(answer?.grid)) return;
+ const rows = a.grid.length, cols = a.grid[0]?.length;
+ if(!cols || board.children.length !== rows*cols) return;
 
-  const cols = answer.grid[0]?.length;
-  if(!cols || board.children.length !==
-     answer.grid.length * cols) return;
+ const colours = ['#fa554b','#9fc000','#686cf0','#dc48a5','#e5a532','#23a99d'];
+ const point = ([r,c]) => [(c-.5)*100,(r-.5)*100];
+ const lines=[], arrows=[], letters=[], rings=[], ticks=[];
 
-  answer.paths.forEach((path,wi)=>{
-    path.forEach(([r,c],index)=>{
-      const cell = board.children[(r-1)*cols+c-1];
-      if(!cell) return;
+ a.paths.forEach((path,i)=>{
+   if(!Array.isArray(path) || !path.length) return;
+   const colour = colours[i%colours.length];
+   const pts = path.map(p=>point(p).join(',')).join(' ');
 
-      const next = path[index+1];
-      let arrow = '';
+   lines.push(
+     `<polyline points="${pts}" fill="none" stroke="white"
+       stroke-width="77" stroke-linecap="round"
+       stroke-linejoin="round"/>
+      <polyline points="${pts}" fill="none" stroke="${colour}"
+       stroke-width="69" stroke-linecap="round"
+       stroke-linejoin="round"/>`
+   );
 
-      if(next){
-        if(next[0] < r) arrow = '↑';
-        else if(next[0] > r) arrow = '↓';
-        else if(next[1] < c) arrow = '←';
-        else if(next[1] > c) arrow = '→';
-      }
+   path.forEach((pos,j)=>{
+     const [r,c]=pos, [x,y]=point(pos), next=path[j+1];
 
-      const marker = index===0 ? 'S' :
-        index===path.length-1 ? 'E' : '';
+     letters.push(
+       `<text x="${x}" y="${y}" text-anchor="middle"
+         dominant-baseline="central" font-size="43"
+         font-weight="850" fill="#192c2c">
+         ${esc(a.grid[r-1][c-1])}</text>`
+     );
 
-      const markerHTML = marker
-        ? `<span class="wend-path-marker ${marker==='E'?'end':''}">${marker}</span>`
-        : '';
+     if(next){
+       const [nx,ny]=point(next);
+       const arrow=nx>x?'›':nx<x?'‹':ny>y?'⌄':'⌃';
+       arrows.push(
+         `<text x="${(x+nx)/2}" y="${(y+ny)/2}"
+           text-anchor="middle" dominant-baseline="central"
+           font-size="37" font-weight="850"
+           fill="#263b38">${arrow}</text>`
+       );
+     }
+   });
 
-      cell.insertAdjacentHTML('beforeend',
-        `${markerHTML}
-         <span class="wend-path-step">${index+1}</span>
-         ${arrow?`<span class="wend-path-arrow">${arrow}</span>`:''}`
-      );
+   const [sx,sy]=point(path[0]);
+   const [ex,ey]=point(path[path.length-1]);
 
-      cell.setAttribute('aria-label',
-        `${answer.words?.[wi]||'Word'}: letter ${index+1} of ${path.length}; `+
-        (marker==='S'?'start':marker==='E'?'end':`next ${arrow}`)
-      );
-    });
-  });
+   rings.push(
+     `<circle cx="${sx}" cy="${sy}" r="32"
+       fill="none" stroke="white" stroke-width="5"/>
+      <circle cx="${ex}" cy="${ey}" r="31"
+       fill="none" stroke="white"
+       stroke-opacity=".75" stroke-width="3"/>`
+   );
+
+   ticks.push(
+     `<circle cx="${sx+28}" cy="${sy-30}" r="18"
+       fill="#fff" stroke="#20966b" stroke-width="3"/>
+      <text x="${sx+28}" y="${sy-29}"
+       text-anchor="middle" dominant-baseline="central"
+       font-size="26" font-weight="850"
+       fill="#20966b">✓</text>`
+   );
+ });
+
+ board.insertAdjacentHTML('beforeend',
+   `<svg class="wend-trail-svg"
+     viewBox="0 0 ${cols*100} ${rows*100}"
+     preserveAspectRatio="none" aria-hidden="true">
+     ${lines.join('')}${arrows.join('')}
+     ${rings.join('')}${letters.join('')}${ticks.join('')}
+   </svg>`
+ );
+
+ const note=board.nextElementSibling;
+ if(note?.classList.contains('answer-desc')){
+   note.textContent='Follow each coloured trail from its tick to the outlined final letter. Chevrons show direction.';
+ }
 }
 
 function render(){const visible=GAMES.filter(g=>(activeFilter==='all'||g.category===activeFilter||(activeFilter==='favourites'&&favourites.includes(g.id)))&&(`${g.title} ${g.desc} ${g.kind}`.toLowerCase().includes(searchText)));
