@@ -642,3 +642,39 @@ body.dark .mathler-board .board-cell.empty{
 .wend-trail-svg circle[stroke-opacity] {
   display: none !important;
 }
+
+
+/* DPH ZIP AND TANGO ALIGNMENT V6 */
+
+/* ZIP: align the SVG with the inside of the 4px border */
+.zip-path-wrap svg.zip-route {
+  top: 4px !important;
+  left: 4px !important;
+  right: auto !important;
+  bottom: auto !important;
+  width: calc(100% - 8px) !important;
+  height: calc(100% - 8px) !important;
+  z-index: 5 !important;
+}
+
+/* Centre checkpoint numbers precisely over the path */
+.zip-path-wrap .board-cell {
+  position: relative !important;
+}
+
+.zip-path-wrap .board-cell span {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 7 !important;
+  display: grid !important;
+  place-items: center !important;
+}
+
+/* TANGO: tilt the crescent clockwise */
+.tango-board .board-cell.moon::after {
+  left: calc(50% - 7px) !important;
+  top: calc(50% - 3px) !important;
+  transform: translate(-50%, -50%) !important;
+}
