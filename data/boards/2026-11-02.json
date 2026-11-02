@@ -285,9 +285,18 @@
       "The queen in row 2 belongs in column 2."
     ],
     "pinpoint": [
-      "The first revealed word is BODY.",
-      "The second revealed word is GREETING.",
-      "The third revealed word is ADDRESS."
+      "Body",
+      "Greeting",
+      "Address",
+      "Signature",
+      "P.S. (after the main text)"
+    ],
+    "crossclimb": [
+      "Something a broken pipe or tap may have.",
+      "What a bird eats with.",
+      "An animal whose name also means to tolerate.",
+      "A type of wild pig.",
+      "To fly upward, high and majestically."
     ]
   }
 }

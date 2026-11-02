@@ -166,4 +166,4 @@ def enrich_daily_boards(day, data, root, fetch=None):
     for game,clues in (external.get('clues') or {}).items():
         entry=data.get('games',{}).get(game)
         if entry and entry.get('status')=='verified' and isinstance(clues,list):
-            entry['clues']=[str(x) for x in clues[:4] if isinstance(x,str) and x.strip()]
+            entry['clues']=[str(x) for x in clues[:5] if isinstance(x,str) and x.strip()]

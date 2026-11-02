@@ -24,7 +24,7 @@ function ukToday(){const parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe
 function prettyDate(day){return new Intl.DateTimeFormat('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(day+'T12:00:00Z'))}
 function addDays(day,delta){const d=new Date(day+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+delta);return d.toISOString().slice(0,10)}
 function safeExternal(url){try{const u=new URL(url);return /^https?:$/.test(u.protocol)?u.href:'#'}catch{return '#'}}
-async function selectDate(day){if(!/^\d{4}-\d{2}-\d{2}$/.test(day))return;selectedDay=day;revealed.clear();clueLevels.clear();$('date-input').value=day;$('date-heading').textContent=prettyDate(day);const notice=$('data-notice');notice.hidden=true;const snapshot=day;
+async function selectDate(day){if(!/^\d{4}-\d{2}-\d{2}$/.test(day))return;selectedDay=day;revealed.clear();clueLevels.clear();dphProgress.clear();$('date-input').value=day;$('date-heading').textContent=prettyDate(day);const notice=$('data-notice');notice.hidden=true;const snapshot=day;
   /* Prefer the latest daily JSON over embedded data. */
   try{const response=await fetch(`data/${day}.json`,{cache:'no-store'});if(!response.ok)throw new Error('No daily data');const found=await response.json();if(found.date!==day)throw new Error('Wrong date');if(selectedDay!==snapshot)return;dayData=found}
   catch(_){if(selectedDay!==snapshot)return;if(embedded&&embedded.date===day){dayData=embedded;render();return;}dayData={date:day,games:{}};notice.textContent=`We don't have checked answers for ${prettyDate(day)} yet. You can still open each game or its answer-source link. We never display an older puzzle as today's answer.`;notice.hidden=false}
@@ -169,6 +169,170 @@ function dphQueensPhase2(a){
     return `<div class="board-cell ${queen?'queen':''}" style="${style}" aria-label="Row ${r+1} column ${c+1}: ${queen?'queen':'empty'} in region ${esc(zone)}">${queen?'♛':'×'}</div>`;
   }).join('')).join('');
   return `<div class="game-board queens-board p2-regions" style="grid-template-columns:repeat(${n},minmax(0,1fr))">${cells}</div><p class="answer-desc">Complete verified colour-region map; one queen in every region, row and column.</p>`;
+}
+
+/* DPH REFINED CLUES AND BOARD DISPLAY V3 — actual puzzle clues, not rules. */
+const dphProgress = new Map();
+
+function dphClues(g,d){
+  if(!d || d.status!=='verified' || !d.answer) return [];
+  const a=d.answer, id=g?.id;
+  const supplied=Array.isArray(d.clues)?d.clues.filter(x=>typeof x==='string'&&x.trim()).map(x=>x.trim()):[];
+  if(id==='zip') return [];
+  if(id==='pinpoint') return supplied.length===5?supplied:[];
+  if(id==='crossclimb') return supplied.length===5?supplied:[];
+  if(id==='queens' && supplied.length) return supplied.slice(0,3);
+  if(id==='patches') {
+    const rects=Array.isArray(a.rects)?a.rects:[];
+    if(!rects.length)return [];
+    const p=rects[0], area=x=>(x[2]-x[0]+1)*(x[3]-x[1]+1);
+    const biggest=[...rects].sort((x,y)=>area(y)-area(x))[0];
+    return [
+      `A ${area(p)}-cell patch starts at row ${p[0]}, column ${p[1]}.`,
+      `One of the largest patches covers ${area(biggest)} cells.`,
+      `Try placing a ${biggest[2]-biggest[0]+1}×${biggest[3]-biggest[1]+1} patch beginning at row ${biggest[0]}, column ${biggest[1]}.`
+    ];
+  }
+  if(id==='wordle'){
+    const w=String(a.value||'').toUpperCase();
+    if(!/^[A-Z]{5}$/.test(w)) return [];
+    const vowels=[...w].filter(ch=>'AEIOU'.includes(ch)).length;
+    return [`The answer begins with ${w[0]}.`,`It contains ${vowels} vowel${vowels===1?'':'s'} (A, E, I, O or U).`,`Its final letter is ${w[4]}.`];
+  }
+  if(id==='wend'){
+    const words=Array.isArray(a.words)?a.words:[];
+    return words.map((w,i)=>`Word ${i+1} begins with ${String(w)[0]} (${String(w).length} letters).`);
+  }
+  if(id==='tango'){
+    const rows=a.rows;
+    return Array.isArray(rows)&&rows.length>=4?[[1,1],[2,4],[4,3]].map(([r,c])=>`Row ${r}, column ${c} is ${rows[r-1][c-1]==='M'?'a moon':'a sun'}.`):[];
+  }
+  if(id==='mini-sudoku'){
+    const rows=a.rows;
+    return Array.isArray(rows)&&rows.length>=6?[[1,1],[3,4],[6,6]].map(([r,c])=>`Row ${r}, column ${c} contains ${rows[r-1][c-1]}.`):[];
+  }
+  if(id==='strands'){
+    const hints=[];
+    if(a.theme)hints.push(`The theme is “${a.theme}”.`);
+    if(a.spangram)hints.push(`The spangram begins with ${a.spangram[0]}.`);
+    if(a.paths?.[a.spangram]?.[0]) {
+      const [r,c]=a.paths[a.spangram][0];
+      hints.push(`Start tracing the spangram from row ${r}, column ${c}.`);
+    }
+    return hints;
+  }
+  if(id==='queens'){
+    const cols=a.cols;
+    if(!Array.isArray(cols))return [];
+    return [
+      `Try row 1, column ${cols[0]} as a starting placement.`,
+      `The queen in row 2 goes in column ${cols[1]}.`,
+      `The queen in the final row goes in column ${cols.at(-1)}.`
+    ];
+  }
+  if(id==='mathler'){
+    const expr=String(a.value||a.equation||'');
+    const hints=[];
+    if(a.target!==undefined)hints.push(`Today's target is ${a.target}.`);
+    if(expr)hints.push(`The first character is ${expr[0]}.`);
+    const op=expr.match(/[+\-*/]/);
+    if(op)hints.push(`One operator is ${op[0]}.`);
+    return hints;
+  }
+  if(id==='sumplete'){
+    const k=a.kept;
+    if(!Array.isArray(k)||!k.length)return [];
+    return [`The number in row 1, column 1 is ${k[0][0]?'kept':'deleted'}.`,
+      `Row 1 keeps ${k[0].filter(Boolean).length} number${k[0].filter(Boolean).length===1?'':'s'}.`,
+      `Row 2 keeps ${k[1].filter(Boolean).length} numbers.`];
+  }
+  return supplied;
+}
+
+function dphClueBase(g,hints){
+  if(!hints.length)return '';
+  const shown=Math.min(clueLevels.get(g.id)||0,hints.length);
+  const isPin=g.id==='pinpoint', isCross=g.id==='crossclimb';
+  const heading=isPin?'REVEAL THE FIVE WORDS':isCross?'WORD CLUES':'NEED A CLUE?';
+  const lines=hints.slice(0,shown).map((h,i)=>`<div class="dph-hint-row"><span class="dph-hint-number">${i+1}</span><span>${esc(h)}</span></div>`).join('');
+  return `<section class="clue-panel dph-clue-panel" aria-label="Optional clues for ${esc(g.title)}">
+    <div class="clue-panel-head"><span>${heading}</span><small>${shown} / ${hints.length} shown</small></div>
+    ${lines}
+    <div class="clue-buttons">
+      ${shown<hints.length?`<button type="button" class="clue-next" data-clue="${esc(g.id)}" data-clue-action="next">${isPin?'Reveal word':isCross?'Reveal word clue':'Reveal clue'} ${shown+1}</button>`:'<span class="clue-complete">All clues revealed</span>'}
+      ${shown>0?`<button type="button" class="clue-reset" data-clue="${esc(g.id)}" data-clue-action="reset">Hide clues</button>`:''}
+    </div>
+  </section>`;
+}
+
+function dphLadderProgress(a){
+  const words=Array.isArray(a.words)?a.words:[];
+  if(words.length!==7)return '';
+  const n=Math.min(dphProgress.get('crossclimb')||0,words.length);
+  const cells=words.map((word,i)=>{
+    const visible=i<n;
+    const letters=String(word).split('').map(ch=>`<span class="dph-rung-cell">${visible?esc(ch):''}</span>`).join('');
+    return `<div class="dph-rung"><small>${i===0?'TOP WORD':i===6?'BOTTOM WORD':`RUNG ${i}`}</small><div class="dph-rung-letters ${visible?'is-visible':''}">${letters}</div></div>`;
+  }).join('');
+  return `<section class="dph-progress"><h4>Reveal the ladder</h4><p class="answer-desc">Uncover one rung at a time, without showing the whole solution.</p>${cells}
+    <div class="dph-progress-actions">${n<words.length?'<button type="button" data-dph-progress="crossclimb" data-progress-action="next">Reveal next rung</button>':''}
+      ${n>0?'<button type="button" data-dph-progress="crossclimb" data-progress-action="reset">Start over</button>':''}</div>
+    <small>${n} of ${words.length} rungs revealed</small></section>`;
+}
+
+function dphPatchesProgress(a){
+  const rects=Array.isArray(a.rects)?a.rects:[];
+  if(!rects.length)return '';
+  const side=Math.max(...rects.map(rect=>Math.max(rect[2],rect[3])));
+  const n=Math.min(dphProgress.get('patches')||0,rects.length);
+  const palette=['#efd6cd','#cde5f4','#d4ebd4','#f4dfb0','#dfcff0','#d2eae4','#f0c8dc','#e6e0c9','#cce6df','#e6d4c3','#cde8ab','#e1dce9'];
+  const overlays=rects.slice(0,n).map((v,i)=>{
+    const [r1,c1,r2,c2]=v,area=(r2-r1+1)*(c2-c1+1);
+    return `<div class="dph-patch-overlay" style="grid-row:${r1}/${r2+1};grid-column:${c1}/${c2+1};background:${palette[i%palette.length]}">${area}</div>`;
+  }).join('');
+  return `<section class="dph-progress"><h4>Reveal the patches</h4><p class="answer-desc">Show one rectangular area at a time.</p>
+    <div class="dph-patch-grid" style="grid-template-columns:repeat(${side},1fr);grid-template-rows:repeat(${side},1fr);background-size:calc(100% / ${side}) calc(100% / ${side})">${overlays}</div>
+    <div class="dph-progress-actions">${n<rects.length?'<button type="button" data-dph-progress="patches" data-progress-action="next">Reveal next patch</button>':''}
+      ${n>0?'<button type="button" data-dph-progress="patches" data-progress-action="reset">Start over</button>':''}</div>
+    <small>${n} of ${rects.length} patches revealed</small></section>`;
+}
+
+function dphClueCard(g,d){
+  if(!g||!d||d.status!=='verified')return '';
+  if(g.id==='zip')return '';
+  const hints=dphClues(g,d);
+  const cluePanel=dphClueBase(g,hints);
+  if(g.id==='crossclimb')return cluePanel+dphLadderProgress(d.answer||{});
+  if(g.id==='patches')return cluePanel+dphPatchesProgress(d.answer||{});
+  return cluePanel;
+}
+
+/* Draw NYT-style circular Strands trails. Do not synthesize a grid. */
+function dphStrands(a){
+  const title=`<p class="answer-desc">THEME · ${esc(a.theme||'')}</p>`;
+  const words=[...(a.words||[]),a.spangram].filter(Boolean);
+  const list=`<div class="answer-tag-row">${words.map((w,i)=>`<span class="answer-tag" style="background:${i===words.length-1?'#ffe29b':'#d6f2fa'}">${esc(w)}</span>`).join('')}</div>`;
+  const grid=a.grid;
+  if(!Array.isArray(grid)||grid.length!==8||!grid.every(row=>Array.isArray(row)&&row.length===6))
+    return title+list+'<p class="answer-desc">A confirmed letter grid is not available for this date.</p>';
+  const paths=a.paths||{};
+  const used=new Set();
+  const lines=[], disks=[];
+  const point=([r,c])=>[(c-.5)*100,(r-.5)*100];
+  const blues=['#a9dcec','#a8deec','#b0e2ed','#9fd6e7','#b3dfea','#a4d5e5','#a9dce8'];
+  words.forEach((word,i)=>{
+    const path=paths[word];
+    if(!Array.isArray(path)||path.length!==word.length)return;
+    const color=(i===words.length-1)?'#ffcc32':blues[i%blues.length];
+    lines.push(`<polyline points="${path.map(p=>point(p).join(',')).join(' ')}" fill="none" stroke="${color}" stroke-width="75" stroke-linecap="round" stroke-linejoin="round"/>`);
+    path.forEach(([r,c])=>{used.add(`${r},${c}`);const [x,y]=point([r,c]);disks.push(`<circle cx="${x}" cy="${y}" r="37" fill="${color}"/>`);});
+  });
+  const cells=grid.flatMap((row,r)=>row.map((letter,c)=>{
+    const x=(c+.5)*100,y=(r+.5)*100;
+    const filled=used.has(`${r+1},${c+1}`);
+    return `${!filled?`<circle cx="${x}" cy="${y}" r="37" fill="#eaf4f7" stroke="#c6dfe6" stroke-width="1.5"/>`:''}<text x="${x}" y="${y+2}" text-anchor="middle" dominant-baseline="middle" fill="#143442" font-size="41" font-weight="700">${esc(letter)}</text>`;
+  })).join('');
+  return title+`<div class="dph-native-strands"><svg viewBox="0 0 600 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Solved Strands letter grid with blue theme-word trails and yellow spangram">${lines.join('')}${disks.join('')}${cells}</svg></div>`+list+`<p class="answer-desc">${used.size===48?'All answer words are traced in blue, with the spangram in yellow.':'The available word paths are highlighted. Unverified paths are not drawn.'}</p>`;
 }
 
 function cardHTML(g){const d=dayData?.games?.[g.id];const status=gameStatus(d);const saved=favourites.includes(g.id),isRevealed=revealed.has(g.id);const number=d?.number?esc(d.number):'Awaiting answer';let answer='';if(isRevealed)answer=`<div class="answer-area"><div class="answer-label">${d?.status==='verified'?'THE ANSWER':'WHAT WE KNOW'}</div>${answerHTML(d?.answer,g)}${d?.status==='example'?'<p class="answer-desc">Example, not an independently verified daily solution.</p>':''}</div>`;
@@ -489,7 +653,7 @@ function markWendDirections(){
 function render(){const visible=GAMES.filter(g=>(activeFilter==='all'||g.category===activeFilter||(activeFilter==='favourites'&&favourites.includes(g.id)))&&(`${g.title} ${g.desc} ${g.kind}`.toLowerCase().includes(searchText)));
  visible.sort((a,b)=>Number(favourites.includes(b.id))-Number(favourites.includes(a.id))||GAMES.indexOf(a)-GAMES.indexOf(b));$('cards').innerHTML=visible.map(cardHTML).join('');markWendDirections();$('game-count').textContent=visible.length;$('empty-search').hidden=!!visible.length;const verified=GAMES.filter(g=>dayData?.games?.[g.id]?.status==='verified').length;$('date-subtitle').textContent=`${verified} checked solutions · ${GAMES.length} games in one place.`;document.querySelectorAll('[data-filter]').forEach(el=>{const active=el.dataset.filter===activeFilter;el.classList.toggle('active',active);if(el.tagName==='BUTTON')el.setAttribute('aria-pressed',String(active))})}
 function setFilter(filter){activeFilter=filter;render();if(window.innerWidth<850)$('games').scrollIntoView({behavior:'smooth',block:'start'})}
-document.addEventListener('click',event=>{const filter=event.target.closest('[data-filter]');if(filter){setFilter(filter.dataset.filter);return}const cb=event.target.closest('[data-clue]');if(cb){const id=cb.dataset.clue;const g=GAMES.find(g=>g.id===id);const max=dphClues(g,dayData?.games?.[id]).length;if(cb.dataset.clueAction==='reset')clueLevels.delete(id);else clueLevels.set(id,Math.min(max,(clueLevels.get(id)||0)+1));render();return;}const btn=event.target.closest('[data-reveal]');if(btn){if(revealed.has(btn.dataset.reveal))revealed.delete(btn.dataset.reveal);else revealed.add(btn.dataset.reveal);render();return}const save=event.target.closest('[data-save]');if(save){const id=save.dataset.save;favourites=favourites.includes(id)?favourites.filter(x=>x!==id):[...favourites,id];storage.set('dph:favourites',favourites);render();return}});
+document.addEventListener('click',event=>{const filter=event.target.closest('[data-filter]');if(filter){setFilter(filter.dataset.filter);return}const pb=event.target.closest('[data-dph-progress]');if(pb){const id=pb.dataset.dphProgress;if(pb.dataset.progressAction==='reset')dphProgress.delete(id);else dphProgress.set(id,(dphProgress.get(id)||0)+1);render();return;}const cb=event.target.closest('[data-clue]');if(cb){const id=cb.dataset.clue;const g=GAMES.find(g=>g.id===id);const max=dphClues(g,dayData?.games?.[id]).length;if(cb.dataset.clueAction==='reset')clueLevels.delete(id);else clueLevels.set(id,Math.min(max,(clueLevels.get(id)||0)+1));render();return;}const btn=event.target.closest('[data-reveal]');if(btn){if(revealed.has(btn.dataset.reveal))revealed.delete(btn.dataset.reveal);else revealed.add(btn.dataset.reveal);render();return}const save=event.target.closest('[data-save]');if(save){const id=save.dataset.save;favourites=favourites.includes(id)?favourites.filter(x=>x!==id):[...favourites,id];storage.set('dph:favourites',favourites);render();return}});
 $('search-input').addEventListener('input',event=>{searchText=event.target.value.trim().toLowerCase();render()});
 $('date-input').addEventListener('change',event=>selectDate(event.target.value));
 $('prev-day').addEventListener('click',()=>selectDate(addDays(selectedDay,-1)));

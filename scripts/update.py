@@ -183,6 +183,18 @@ def zip_checkpoints(text, path, day):
     if any(step is None for step in steps) or steps[0]!=0 or steps[-1]!=len(path)-1 or steps!=sorted(set(steps)):return None
     return [list(row) for row in candidates]
 
+
+def dph_extract_pinpoint_clues(text):
+    """Extract exactly five numbered clues from a dated Pinpoint page."""
+    if not text or 'Today' not in text:return None
+    pattern=r'\bClue\s*#\s*([1-5])\b.*?\bHide\b\s*(.+?)(?=\b[1-5]\s+Reveal\s+Clue\s*#|\bGive me a hint\b|\bToday.s Pinpoint Answer\b|$)'
+    matches=re.findall(pattern,text,flags=re.I|re.S)
+    values={}
+    for num,value in matches:
+        candidate=' '.join(value.split()).strip(' .')
+        if 2<=len(candidate)<=60 and num not in values:values[num]=candidate
+    return [values[str(n)] for n in range(1,6)] if len(values)==5 else None
+
 def update_linkedin(day,out):
     diff=(day-BASE).days
     for game,base in BASE_NUM.items():
@@ -200,6 +212,9 @@ def update_linkedin(day,out):
                 # Full original board region geometry is NOT available from this feed.
                 result['crownRegions']=['Lavender','Pastel Green','Light Gray','Vibrant Coral','Lime Yellow','Soft Blue','Peach Orange']
             out['games'][game]={'status':'verified','number':f'#{n}','hint':[],'answer':result,'source':url}
+            if game=='pinpoint':
+                clues=dph_extract_pinpoint_clues(txt)
+                if clues:out['games'][game]['clues']=clues
             print('  ✓',game,'#'+str(n))
         else:
             out['games'][game]={'status':'missing','number':f'#{n}','hint':[],'answer':None,'source':f'{BASE_LINK}{game}/'}
