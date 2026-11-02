@@ -2,6 +2,7 @@
 const GAMES = [
  {id:'wordle',title:'Wordle',category:'nyt',kind:'WORD GAME',icon:'W',colour:'green',desc:'The world’s favourite five-letter daily guessing game.',play:'https://www.nytimes.com/games/wordle/index.html'},
  {id:'strands',title:'Strands',category:'nyt',kind:'WORD SEARCH',icon:'S',colour:'blue',desc:'Find all the themed words and the hidden spangram.',play:'https://www.nytimes.com/games/strands'},
+ /* DPH-CROSSWORDLE-HONEST-STATUS-V2 */
  {id:'crosswordle',title:'Crosswordle',category:'nyt',kind:'WORD LOGIC',icon:'C',colour:'purple',desc:'Swap letter tiles to complete the daily crossword grid.',play:'https://crosswordle.com/'},
  {id:'mathler',title:'Mathler',category:'math',kind:'NUMBER PUZZLE',icon:'÷',colour:'gold',desc:'Find the six-character hidden calculation.',play:'https://www.mathler.com/'},
  {id:'sumplete',title:'Sumplete',category:'math',kind:'NUMBER LOGIC',icon:'∑',colour:'coral',desc:'Keep or remove numbers to hit each row and column total.',play:'https://sumplete.com/'},
@@ -38,6 +39,7 @@ function cardHTML(g){const d=dayData?.games?.[g.id];const status=gameStatus(d);c
 }
 function gridHTML(rows,cls,extraClass=(r,c,v)=>'',renderCell=(r,c,v)=>esc(v)){const cols=rows[0]?.length||0;return `<div class="game-board ${cls}" style="grid-template-columns:repeat(${cols},minmax(0,1fr))">${rows.map((row,r)=>row.map((v,c)=>`<div class="board-cell ${extraClass(r,c,v)}" aria-label="Row ${r+1}, column ${c+1}: ${esc(v)}">${renderCell(r,c,v)}</div>`).join('')).join('')}</div>`}
 /* DPH VISUAL UPGRADE V1 */
+/* DPH-QUEENS-REGION-BORDERS-V2 */
 const DPH_BOARD_COLOURS=['#f1cfdd','#e4d7f5','#edf1a9','#f2e4cd','#ffd7af','#f6b9a7','#bedaf7','#cae8d0','#dbdfe4'];
 const DPH_REGION_COLOURS={
  'rose pink':'#f1cfdd','lavender':'#e4d7f5','lime yellow':'#edf1a9',
@@ -58,7 +60,14 @@ function dphQueens(a){
    const queen=a.cols[r]===c+1;
    const region=actual?a.regions[r][c]:queen&&crownRegions?crownRegions[r]:null;
    const bg=region!==null&&region!==undefined?dphRegionColour(region):'#eef3ed';
-   cells.push(`<div class="board-cell ${queen?'queen':''}" style="background:${bg}!important" title="Row ${r+1}, column ${c+1}${queen?', queen':''}" aria-label="Row ${r+1}, column ${c+1}${queen?', queen':''}">${queen?'♛':''}</div>`);
+    // Region outlines are only drawn when the entire original map is known.
+    const borders=actual?[
+      r===0||a.regions[r-1][c]!==region?'border-top:3px solid #34544a':'',
+      c===0||a.regions[r][c-1]!==region?'border-left:3px solid #34544a':'',
+      r===n-1||a.regions[r+1][c]!==region?'border-bottom:3px solid #34544a':'',
+      c===n-1||a.regions[r][c+1]!==region?'border-right:3px solid #34544a':''
+    ].filter(Boolean).join(';'):'';
+   cells.push(`<div class="board-cell ${queen?'queen':''}" style="background:${bg}!important;${borders}" title="Row ${r+1}, column ${c+1}${queen?', queen':''}" aria-label="Row ${r+1}, column ${c+1}${queen?', queen':''}">${queen?'♛':''}</div>`);
  }
  const note=actual?'Colours show the original puzzle regions.':crownRegions?'Queen squares are coloured by their published region names. Other region boundaries are not yet available.':'Queen positions shown. Original colour-region map is not available yet.';
  return `<div class="game-board queens-board" style="grid-template-columns:repeat(${n},minmax(0,1fr))">${cells.join('')}</div><p class="answer-desc">${note} Queen columns by row: ${esc(a.cols.join(', '))}.</p>`;
@@ -89,6 +98,7 @@ function dphZip(a){
  const note=markers.size?`The numbered circles are the actual puzzle checkpoints (1–${lastNum}), not step counts. The green line visits all ${path.length} squares.`:`The green line visits all ${path.length} squares. Original numbered checkpoints have not been confirmed for this date, so none are invented.`;
  return `<div class="zip-path-wrap" role="img" aria-label="Solved Zip route with ${path.length} squares"><div class="game-board zip-board zip-line-board" style="grid-template-columns:repeat(${side},minmax(0,1fr))">${cells}</div><svg class="zip-route" viewBox="0 0 ${side*100} ${side*100}" preserveAspectRatio="none" aria-hidden="true"><polyline points="${points}" fill="none" stroke="#087c68" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${(c0-.5)*100}" cy="${(r0-.5)*100}" r="22" fill="#27855c"/><circle cx="${(c1-.5)*100}" cy="${(r1-.5)*100}" r="22" fill="#3071b5"/></svg></div><p class="answer-desc">${note}</p>`;
 }
+/* DPH-WEND-BOARD-ENHANCEMENT-V2 */
 function dphWend(a){
  const words=Array.isArray(a.words)?a.words:[];
  const colours=['#d8e8ff','#f6d6e6','#fce6b4','#d6efd3','#e2d8fb','#f7d8ca','#e2ead6','#dce5f0'];
@@ -119,7 +129,7 @@ function dphWend(a){
      const blocked=letter===null||letter==='#'||letter==='';
      const wi=positionMap.get(`${r+1},${c+1}`);
      const bg=blocked?'#394d50':wi===undefined?'#edf3ee':colours[wi%colours.length];
-     return `<div class="board-cell ${blocked?'wend-wall':''}" style="background:${bg}!important" aria-label="${blocked?'Blocked cell':`Row ${r+1} column ${c+1}: ${esc(letter)}`}">${blocked?'':esc(letter)}</div>`;
+     return `<div class="board-cell ${blocked?'wend-wall':''}" style="background:${bg}!important" title="R${r+1}C${c+1}${blocked?' blocked':` · ${esc(letter)}`}" aria-label="${blocked?'Blocked cell':`Row ${r+1} column ${c+1}: ${esc(letter)}`}">${blocked?'':esc(letter)}</div>`;
    }).join('')).join('');
    return `<div class="game-board wend-board" style="grid-template-columns:repeat(${n},minmax(0,1fr))">${cells}</div><p class="answer-desc">The letter colours show each word's route in the original puzzle board.</p><div class="answer-tag-row">${words.map((w,i)=>`<span class="answer-tag" style="background:${colours[i%colours.length]}">${esc(w)}</span>`).join('')}</div>`;
  }

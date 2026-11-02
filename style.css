@@ -54,3 +54,10 @@ body.dark .wend-word-tiles span, body.dark .queens-board .queen {color:#163630!i
 .game-card[data-game="mini-sudoku"] .sudoku-board>.board-cell:nth-child(6n){border-right:0!important}
 body.dark .game-card[data-game="mini-sudoku"] .sudoku-board>.board-cell{background:#284239!important;color:#eaf8ee!important}
 .crosswordle-board{gap:0;border:2px solid #29463d}.crosswordle-board .board-cell{border:1px solid #a9bdb1;border-radius:0;background:#fafcfa}.crosswordle-board .board-cell.wall{background:#29463d}
+
+/* DPH-BOARD-V2 */
+.queens-board{gap:0!important;border:2px solid #34544a;border-radius:2px;overflow:hidden}
+.queens-board>.board-cell{border-radius:0!important;min-width:0}
+.wend-board{gap:2px;max-width:330px}
+.wend-board>.board-cell{aspect-ratio:1;min-width:0;border-radius:4px!important;color:#183a37!important}
+body.dark .wend-board>.board-cell{color:#102e2b!important}

@@ -360,6 +360,83 @@ def checked_wend_board(day,out):
     entry['boardSource']=url
     print('  ✓ wend: original grid and paths')
 
+
+# DPH-WEND-ORIGINAL-PATHS-V2
+WEND_KNOWN_PATHS = {
+    '2026-11-02': {
+        'number': 147,
+        'words': ['PEA', 'EAST', 'TEACH', 'MEASURE'],
+        'paths': [
+            [[5,1],[4,1],[3,1]],
+            [[3,4],[3,5],[2,5],[1,5]],
+            [[4,5],[5,5],[5,4],[5,3],[4,3]],
+            [[2,1],[1,1],[1,2],[1,3],[2,3],[3,3],[3,2]],
+        ],
+    },
+}
+
+def dph_parse_wend_paths(text, words):
+    """Parse actual coordinate trails from a dated article, never infer paths."""
+    if not text or not words: return None
+    tail = re.split(r'How to Solve Today.s Wend|How to Solve Wend', text, maxsplit=1, flags=re.I)
+    if len(tail) != 2: return None
+    section = tail[1]
+    paths = []
+    for word in words:
+        match = re.search(
+            rf'\b{re.escape(word)}\s*:\s*((?:R\d+C\d+\s*(?:(?:→|->|⇒|to)\s*)?)+)',
+            section, re.I
+        )
+        if not match: return None
+        coords = [[int(r), int(c)] for r,c in re.findall(r'R(\d+)C(\d+)', match.group(1), re.I)]
+        if len(coords) != len(word): return None
+        paths.append(coords)
+    return paths
+
+def dph_verified_wend_grid(words, paths):
+    """Build a full grid only from verified paths covering all nonblocked cells."""
+    if not 2 <= len(words) <= 12 or len(words) != len(paths): return None
+    occupied = {}
+    maximum = 0
+    for word, coords in zip(words, paths):
+        if not (word.isalpha() and word.isascii()) or len(coords) != len(word): return None
+        previous = None
+        for (r,c), letter in zip(coords, word.upper()):
+            if not (isinstance(r,int) and isinstance(c,int) and 1 <= r <= 9 and 1 <= c <= 9):return None
+            if (r,c) in occupied: return None
+            if previous and abs(previous[0]-r)+abs(previous[1]-c) != 1:return None
+            occupied[r,c] = letter
+            maximum = max(maximum, r, c)
+            previous = (r,c)
+    if maximum < 5 or maximum > 9 or len(occupied) < 12:return None
+    # Blocked cells are those not used by any of the verified, exhaustive word trails.
+    grid = [[occupied.get((r,c),'#') for c in range(1,maximum+1)] for r in range(1,maximum+1)]
+    return {'grid':grid,'paths':paths}
+
+def dph_attach_wend_grid(day, out):
+    game = out['games'].get('wend')
+    if not game or game.get('status') != 'verified': return
+    answer = game.get('answer') or {}
+    if answer.get('grid') and answer.get('paths'): return
+    words = [w.upper() for w in answer.get('words', [])]
+    number = BASE_NUM['wend'] + (day-BASE).days
+    date_key = day.isoformat()
+    source = f'{BASE_LINK}wend/{number}-answer/'
+    saved = WEND_KNOWN_PATHS.get(date_key)
+    if saved and saved['number'] == number and saved['words'] == words:
+        paths = saved['paths']
+    else:
+        # The primary feed used above already provides answer words, but we
+        # need the original trails, so request the same date-matched article.
+        page = checked_page(fetch(source),day,'Wend',number)
+        paths = dph_parse_wend_paths(page,words)
+    if paths is None: return
+    verified = dph_verified_wend_grid(words, paths)
+    if verified is None: return
+    answer.update(verified)
+    game['boardSource'] = source
+    print(f'  ✓ wend original {len(verified["grid"])}×{len(verified["grid"])} grid and paths')
+
 def update(day,force=False):
     output=ROOT/'data'/f'{day}.json'
     if output.exists() and not force:
@@ -374,6 +451,7 @@ def update(day,force=False):
     update_linkedin(day,obj)
     checked_wend_board(day,obj)
     checked_mathler(day,obj)
+    dph_attach_wend_grid(day,obj)
     # A temporary failure must not erase a verified record for the SAME date.
     if output.exists():
         try:
