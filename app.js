@@ -25,9 +25,9 @@ function prettyDate(day){return new Intl.DateTimeFormat('en-GB',{weekday:'long',
 function addDays(day,delta){const d=new Date(day+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+delta);return d.toISOString().slice(0,10)}
 function safeExternal(url){try{const u=new URL(url);return /^https?:$/.test(u.protocol)?u.href:'#'}catch{return '#'}}
 async function selectDate(day){if(!/^\d{4}-\d{2}-\d{2}$/.test(day))return;selectedDay=day;revealed.clear();$('date-input').value=day;$('date-heading').textContent=prettyDate(day);const notice=$('data-notice');notice.hidden=true;const snapshot=day;
-  if(embedded && day===embedded.date){dayData=embedded;render();return}
+  /* Prefer the latest daily JSON over embedded data. */
   try{const response=await fetch(`data/${day}.json`,{cache:'no-store'});if(!response.ok)throw new Error('No daily data');const found=await response.json();if(found.date!==day)throw new Error('Wrong date');if(selectedDay!==snapshot)return;dayData=found}
-  catch(_){if(selectedDay!==snapshot)return;dayData={date:day,games:{}};notice.textContent=`We don't have checked answers for ${prettyDate(day)} yet. You can still open each game or its answer-source link. We never display an older puzzle as today's answer.`;notice.hidden=false}
+  catch(_){if(selectedDay!==snapshot)return;if(embedded&&embedded.date===day){dayData=embedded;render();return;}dayData={date:day,games:{}};notice.textContent=`We don't have checked answers for ${prettyDate(day)} yet. You can still open each game or its answer-source link. We never display an older puzzle as today's answer.`;notice.hidden=false}
   render();
 }
 function gameStatus(d){if(!d)return {label:'NOT YET VERIFIED',cls:'missing'};if(d.status==='verified')return {label:'✓ ANSWER VERIFIED',cls:''};if(d.status==='missing')return {label:'NOT YET VERIFIED',cls:'missing'};if(d.status==='example')return {label:'EXAMPLE ONLY',cls:'example'};return {label:'GUIDE AVAILABLE',cls:'guide'}}
