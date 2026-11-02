@@ -1,0 +1,287 @@
+{
+  "date": "2026-11-02",
+  "editorialNote": "Daily answers are imported on a best-effort basis, validated, and linked to the original reference. Missing results are never passed off as verified.",
+  "games": {
+    "crosswordle": {
+      "status": "guide",
+      "number": "Original game",
+      "hint": [
+        "The original has no unique single solution."
+      ],
+      "answer": {
+        "type": "notice",
+        "title": "No single fixed answer",
+        "value": "Fill real guesses that match the coloured reverse-Wordle pattern. Multiple solutions can be valid."
+      },
+      "source": "https://allthedles.com/games/crosswordle/"
+    },
+    "mathler": {
+      "status": "guide",
+      "number": "Daily equation",
+      "hint": [
+        "The exact equation has to match the hidden answer, not merely equal the target."
+      ],
+      "answer": {
+        "type": "notice",
+        "title": "Solution not independently verified",
+        "value": "Use the original puzzle clues or choose an independent solver. We do not invent an equation."
+      },
+      "source": "https://www.mathler.com/"
+    },
+    "wordle": {
+      "status": "verified",
+      "number": "#1962",
+      "hint": [],
+      "answer": {
+        "type": "word",
+        "value": "SCOOT"
+      },
+      "source": "https://www.nytimes.com/svc/wordle/v2/2026-11-02.json"
+    },
+    "strands": {
+      "status": "missing",
+      "number": "#974",
+      "answer": null,
+      "source": "https://hintsheet.com/strands/answer-today"
+    },
+    "sumplete": {
+      "status": "verified",
+      "number": "5×5 · #1335",
+      "hint": [],
+      "answer": {
+        "type": "sumplete",
+        "grid": [
+          [
+            6,
+            3,
+            9,
+            7,
+            2
+          ],
+          [
+            2,
+            3,
+            5,
+            3,
+            8
+          ],
+          [
+            9,
+            7,
+            5,
+            1,
+            2
+          ],
+          [
+            8,
+            2,
+            5,
+            2,
+            1
+          ],
+          [
+            8,
+            1,
+            5,
+            8,
+            6
+          ]
+        ],
+        "kept": [
+          [
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            0
+          ]
+        ],
+        "rowTargets": [
+          3,
+          8,
+          17,
+          15,
+          13
+        ],
+        "colTargets": [
+          17,
+          12,
+          15,
+          12,
+          0
+        ]
+      },
+      "source": "https://walkthroughs.net/sumplete-answers/november-2-2026"
+    },
+    "pinpoint": {
+      "status": "verified",
+      "number": "#916",
+      "hint": [],
+      "answer": {
+        "type": "word",
+        "value": "Parts of written correspondence (letter or email)"
+      },
+      "source": "https://lianswers.com/linkedin/pinpoint/916-answer/"
+    },
+    "crossclimb": {
+      "status": "verified",
+      "number": "#916",
+      "hint": [],
+      "answer": {
+        "type": "ladder",
+        "words": [
+          "LEAD",
+          "LEAK",
+          "BEAK",
+          "BEAR",
+          "BOAR",
+          "SOAR",
+          "STAR"
+        ],
+        "description": "Bookend phrase: LEAD STAR."
+      },
+      "source": "https://lianswers.com/linkedin/crossclimb/916-answer/"
+    },
+    "queens": {
+      "status": "verified",
+      "number": "#916",
+      "hint": [],
+      "answer": {
+        "type": "queens",
+        "cols": [
+          7,
+          2,
+          4,
+          6,
+          3,
+          5,
+          1
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/queens/916-answer/"
+    },
+    "tango": {
+      "status": "verified",
+      "number": "#756",
+      "hint": [],
+      "answer": {
+        "type": "tango",
+        "rows": [
+          [
+            "S",
+            "M",
+            "S",
+            "M",
+            "M",
+            "S"
+          ],
+          [
+            "S",
+            "M",
+            "S",
+            "M",
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "M",
+            "S",
+            "S",
+            "M"
+          ],
+          [
+            "M",
+            "S",
+            "S",
+            "M",
+            "S",
+            "M"
+          ],
+          [
+            "S",
+            "M",
+            "M",
+            "S",
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "M",
+            "S",
+            "S",
+            "M"
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/tango/756-answer/"
+    },
+    "zip": {
+      "status": "missing",
+      "number": "#595",
+      "hint": [],
+      "answer": null,
+      "source": "https://lianswers.com/linkedin/zip/"
+    },
+    "mini-sudoku": {
+      "status": "missing",
+      "number": "#448",
+      "hint": [],
+      "answer": null,
+      "source": "https://lianswers.com/linkedin/mini-sudoku/"
+    },
+    "patches": {
+      "status": "missing",
+      "number": "#230",
+      "hint": [],
+      "answer": null,
+      "source": "https://lianswers.com/linkedin/patches/"
+    },
+    "wend": {
+      "status": "verified",
+      "number": "#147",
+      "hint": [],
+      "answer": {
+        "type": "words",
+        "words": [
+          "PEA",
+          "EAST",
+          "TEACH",
+          "MEASURE"
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/wend/147-answer/"
+    }
+  }
+}
