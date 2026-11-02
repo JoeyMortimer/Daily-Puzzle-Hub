@@ -1,0 +1,24 @@
+{
+  "2026-11-02": {
+    "number": 916,
+    "regions": [
+      "GGYYYYV",
+      "GGLLYYY",
+      "YYLLCCY",
+      "YYYYCCY",
+      "YYYBBYY",
+      "OYYBBYY",
+      "OYYYYYY"
+    ],
+    "palette": {
+      "G": "Pastel Green",
+      "Y": "Lime Yellow",
+      "V": "Lavender",
+      "L": "Light Gray",
+      "C": "Vibrant Coral",
+      "B": "Soft Blue",
+      "O": "Peach Orange"
+    },
+    "source": "https://www.thewordfinder.com/linkedin-games-hub/queens-hints/"
+  }
+}

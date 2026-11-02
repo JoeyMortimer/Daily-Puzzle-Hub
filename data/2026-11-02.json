@@ -496,9 +496,74 @@
           "Lime Yellow",
           "Soft Blue",
           "Peach Orange"
+        ],
+        "regions": [
+          [
+            "Pastel Green",
+            "Pastel Green",
+            "Lime Yellow",
+            "Lime Yellow",
+            "Lime Yellow",
+            "Lime Yellow",
+            "Lavender"
+          ],
+          [
+            "Pastel Green",
+            "Pastel Green",
+            "Light Gray",
+            "Light Gray",
+            "Lime Yellow",
+            "Lime Yellow",
+            "Lime Yellow"
+          ],
+          [
+            "Lime Yellow",
+            "Lime Yellow",
+            "Light Gray",
+            "Light Gray",
+            "Vibrant Coral",
+            "Vibrant Coral",
+            "Lime Yellow"
+          ],
+          [
+            "Lime Yellow",
+            "Lime Yellow",
+            "Lime Yellow",
+            "Lime Yellow",
+            "Vibrant Coral",
+            "Vibrant Coral",
+            "Lime Yellow"
+          ],
+          [
+            "Lime Yellow",
+            "Lime Yellow",
+            "Lime Yellow",
+            "Soft Blue",
+            "Soft Blue",
+            "Lime Yellow",
+            "Lime Yellow"
+          ],
+          [
+            "Peach Orange",
+            "Lime Yellow",
+            "Lime Yellow",
+            "Soft Blue",
+            "Soft Blue",
+            "Lime Yellow",
+            "Lime Yellow"
+          ],
+          [
+            "Peach Orange",
+            "Lime Yellow",
+            "Lime Yellow",
+            "Lime Yellow",
+            "Lime Yellow",
+            "Lime Yellow",
+            "Lime Yellow"
+          ]
         ]
       },
-      "source": "https://lianswers.com/linkedin/queens/916-answer/",
+      "source": "https://www.thewordfinder.com/linkedin-games-hub/queens-hints/",
       "clues": [
         "The lavender region is only one cell, so its queen is forced.",
         "The green region lies in row 2. Try eliminating other colours from that row.",

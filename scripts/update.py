@@ -464,6 +464,8 @@ def update(day,force=False):
     update_strands(day,obj)
     update_sumplete(day,obj)
     update_linkedin(day,obj)
+    from queens_solver import enrich_queens
+    enrich_queens(day.isoformat(), obj)
     from phase2_boards import enrich_daily_boards
     enrich_daily_boards(day,obj,ROOT,fetch=fetch)
     checked_wend_board(day,obj)
