@@ -449,6 +449,8 @@ def update(day,force=False):
     update_strands(day,obj)
     update_sumplete(day,obj)
     update_linkedin(day,obj)
+    from phase2_boards import enrich_daily_boards
+    enrich_daily_boards(day,obj,ROOT,fetch=fetch)
     checked_wend_board(day,obj)
     checked_mathler(day,obj)
     dph_attach_wend_grid(day,obj)

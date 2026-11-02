@@ -678,3 +678,26 @@ body.dark .mathler-board .board-cell.empty{
   top: calc(50% - 3px) !important;
   transform: translate(-50%, -50%) !important;
 }
+
+
+/* DPH PHASE 2: progressive clues and solved boards */
+.clue-panel{margin-top:12px;padding:12px;border:1px solid #d8e8d7;border-radius:10px;background:#f5f9f1}
+.clue-panel-head{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#4d795d;font-size:10px;font-weight:850;letter-spacing:1px}
+.clue-panel-head small{font-size:10px;font-weight:700;letter-spacing:normal;color:#6f8676}
+.clue-line{font-size:12px;line-height:1.55;margin:10px 0 5px;color:#254b3c}
+.clue-line strong{display:block;font-size:10px;color:#52745f;margin-bottom:3px;letter-spacing:.5px}
+.clue-buttons{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:10px}
+.clue-next,.clue-reset{border-radius:8px;border:1px solid #c9dfc9;padding:8px 11px;font-size:11px;font-weight:800;background:#fff;color:#285c40}
+.clue-next:hover,.clue-reset:hover{background:#e8f5df}
+.clue-reset{background:transparent;border-color:transparent;text-decoration:underline}
+.clue-complete{font-size:11px;color:#437650}
+.clue-disclaimer{font-size:10px;color:#78907e;margin:8px 0 0;line-height:1.5}
+.strands-board{width:min(100%,330px);position:relative;margin:12px auto;aspect-ratio:6 / 8;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:repeat(8,minmax(0,1fr));gap:2px;padding:5px;background:#eef5f6;border:2px solid #9bc8d4;border-radius:12px;overflow:hidden;isolation:isolate}
+.strands-cell{display:grid;place-items:center;position:relative;z-index:2;font-weight:850;font-size:clamp(15px,3vw,22px);color:#173845;background:transparent!important;border-radius:3px;min-width:0}
+.strands-route-svg{position:absolute;inset:5px;width:calc(100% - 10px);height:calc(100% - 10px);z-index:1;pointer-events:none}
+.queens-board.p2-regions{gap:0!important;border:2px solid #29372c;border-radius:5px;overflow:hidden}
+.queens-board.p2-regions .board-cell{border-radius:0!important;font-size:clamp(18px,3vw,27px);color:#1b2d26!important}
+body.dark .clue-panel{background:#19362c;border-color:#38654a}
+body.dark .clue-line{color:#e5f2e8}
+body.dark .clue-next{background:#234b39;color:#efffef}
+body.dark .clue-panel-head{color:#b5e0b5}
