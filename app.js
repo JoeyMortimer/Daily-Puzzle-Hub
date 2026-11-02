@@ -2,7 +2,7 @@
 const GAMES = [
  {id:'wordle',title:'Wordle',category:'nyt',kind:'WORD GAME',icon:'W',colour:'green',desc:'The world’s favourite five-letter daily guessing game.',play:'https://www.nytimes.com/games/wordle/index.html'},
  {id:'strands',title:'Strands',category:'nyt',kind:'WORD SEARCH',icon:'S',colour:'blue',desc:'Find all the themed words and the hidden spangram.',play:'https://www.nytimes.com/games/strands'},
- {id:'crosswordle',title:'Crosswordle',category:'nyt',kind:'WORD LOGIC',icon:'C',colour:'purple',desc:'Reverse-Wordle: build guesses to fit coloured clues.',play:'https://crosswordle.vercel.app/'},
+ {id:'crosswordle',title:'Crosswordle',category:'nyt',kind:'WORD LOGIC',icon:'C',colour:'purple',desc:'Swap letter tiles to complete the daily crossword grid.',play:'https://crosswordle.com/'},
  {id:'mathler',title:'Mathler',category:'math',kind:'NUMBER PUZZLE',icon:'÷',colour:'gold',desc:'Find the six-character hidden calculation.',play:'https://www.mathler.com/'},
  {id:'sumplete',title:'Sumplete',category:'math',kind:'NUMBER LOGIC',icon:'∑',colour:'coral',desc:'Keep or remove numbers to hit each row and column total.',play:'https://sumplete.com/'},
  {id:'pinpoint',title:'Pinpoint',category:'linkedin',kind:'LINKEDIN · WORDS',icon:'◎',colour:'green',desc:'Find the category shared by five clues.',play:'https://www.linkedin.com/games/pinpoint'},
@@ -33,23 +33,99 @@ function gameStatus(d){if(!d)return {label:'NOT YET VERIFIED',cls:'missing'};if(
 function cardHTML(g){const d=dayData?.games?.[g.id];const status=gameStatus(d);const saved=favourites.includes(g.id),isRevealed=revealed.has(g.id);const number=d?.number?esc(d.number):'Awaiting answer';let answer='';if(isRevealed)answer=`<div class="answer-area"><div class="answer-label">${d?.status==='verified'?'THE ANSWER':'WHAT WE KNOW'}</div>${answerHTML(d?.answer,g)}${d?.status==='example'?'<p class="answer-desc">Example, not an independently verified daily solution.</p>':''}</div>`;
  const source=d?.source?`<a href="${esc(safeExternal(d.source))}" target="_blank" rel="noopener noreferrer">View source ↗</a>`:'<span style="font-size:10px;color:#97a69e">No checked source for this date</span>';
  const hints=d?.hint?.length?`<details class="hint-details"><summary>Need a hint instead?</summary><ol class="hint-list">${d.hint.map(h=>`<li>${esc(h)}</li>`).join('')}</ol></details>`:'';
- const other=g.id==='crosswordle'?`<a href="https://crosswordle.com/" target="_blank" rel="noopener noreferrer">Swap-based variant ↗</a>`:'';
+ const other=g.id==='crosswordle'?`<a href="https://www.wordunscrambler.net/crosswordle-solver/" target="_blank" rel="noopener noreferrer">Open daily grid solver ↗</a>`:g.id==='mathler'?`<a href="https://www.fiveletterwords.io/mathler-solver" target="_blank" rel="noopener noreferrer">Open Mathler helper ↗</a>`:'';
  return `<article class="game-card" data-game="${esc(g.id)}"><div class="card-top"><div class="game-identity"><div class="game-icon ${g.colour}" aria-hidden="true">${esc(g.icon)}</div><div><h3 class="game-title">${esc(g.title)}</h3><div class="game-type">${esc(g.kind)}</div></div></div><button class="save-btn ${saved?'is-saved':''}" type="button" data-save="${g.id}" aria-label="${saved?'Remove':'Add'} ${g.title} ${saved?'from':'to'} favourites" aria-pressed="${saved}">${saved?'★':'☆'}</button></div><p class="card-desc">${esc(g.desc)}</p><div class="card-meta"><span class="card-number">${number}</span><span class="card-status ${status.cls}">${status.label}</span></div><div class="card-actions"><button class="reveal-button" type="button" data-reveal="${g.id}" aria-expanded="${isRevealed}" ${!d||d.status==='missing'?'disabled title="No checked answer for this date"':''}>${isRevealed?'Hide answer ↑':d?.status==='verified'?'Reveal answer ↓':d?.status==='missing'||!d?'Awaiting answer':'View guide ↓'}</button><a class="play-button" href="${esc(safeExternal(g.play))}" target="_blank" rel="noopener noreferrer" aria-label="Play ${esc(g.title)} on the original website">Play ↗</a></div>${hints}${answer}<div class="source-row">${source}${other}</div></article>`;
 }
 function gridHTML(rows,cls,extraClass=(r,c,v)=>'',renderCell=(r,c,v)=>esc(v)){const cols=rows[0]?.length||0;return `<div class="game-board ${cls}" style="grid-template-columns:repeat(${cols},minmax(0,1fr))">${rows.map((row,r)=>row.map((v,c)=>`<div class="board-cell ${extraClass(r,c,v)}" aria-label="Row ${r+1}, column ${c+1}: ${esc(v)}">${renderCell(r,c,v)}</div>`).join('')).join('')}</div>`}
+/* DPH VISUAL UPGRADE V1 */
+const DPH_BOARD_COLOURS=['#f1cfdd','#e4d7f5','#edf1a9','#f2e4cd','#ffd7af','#f6b9a7','#bedaf7','#cae8d0','#dbdfe4'];
+const DPH_REGION_COLOURS={
+ 'rose pink':'#f1cfdd','lavender':'#e4d7f5','lime yellow':'#edf1a9',
+ 'warm beige':'#f2e4cd','peach orange':'#ffd7af','vibrant coral':'#f6b9a7',
+ 'soft blue':'#bedaf7','pastel green':'#cae8d0','light gray':'#dbdfe4'
+};
+function dphRegionColour(key){
+ if(typeof key==='number' && Number.isInteger(key))return DPH_BOARD_COLOURS[((key%DPH_BOARD_COLOURS.length)+DPH_BOARD_COLOURS.length)%DPH_BOARD_COLOURS.length];
+ if(typeof key==='string')return DPH_REGION_COLOURS[key.toLowerCase().trim()]||'#e3e9e5';
+ return '#e3e9e5';
+}
+function dphQueens(a){
+ const n=a.cols.length;
+ const actual=Array.isArray(a.regions)&&a.regions.length===n&&a.regions.every(row=>Array.isArray(row)&&row.length===n);
+ const crownRegions=Array.isArray(a.crownRegions)&&a.crownRegions.length===n?a.crownRegions:null;
+ const cells=[];
+ for(let r=0;r<n;r++)for(let c=0;c<n;c++){
+   const queen=a.cols[r]===c+1;
+   const region=actual?a.regions[r][c]:queen&&crownRegions?crownRegions[r]:null;
+   const bg=region!==null&&region!==undefined?dphRegionColour(region):'#eef3ed';
+   cells.push(`<div class="board-cell ${queen?'queen':''}" style="background:${bg}!important" title="Row ${r+1}, column ${c+1}${queen?', queen':''}" aria-label="Row ${r+1}, column ${c+1}${queen?', queen':''}">${queen?'♛':''}</div>`);
+ }
+ const note=actual?'Colours show the original puzzle regions.':crownRegions?'Queen squares are coloured by their published region names. Other region boundaries are not yet available.':'Queen positions shown. Original colour-region map is not available yet.';
+ return `<div class="game-board queens-board" style="grid-template-columns:repeat(${n},minmax(0,1fr))">${cells.join('')}</div><p class="answer-desc">${note} Queen columns by row: ${esc(a.cols.join(', '))}.</p>`;
+}
+function dphZip(a){
+ const path=a.path||[];const side=Math.sqrt(path.length);
+ if(!Number.isInteger(side)||side<3)return '<p class="answer-desc">Route data is incomplete.</p>';
+ const index=Array.from({length:side},()=>Array(side).fill(null));
+ path.forEach(([r,c],i)=>{if(index[r-1]&&c>0&&c<=side)index[r-1][c-1]=i+1});
+ const cells=index.flat().map(v=>`<div class="board-cell ${v===1?'start':v===path.length?'end':''}" aria-label="Step ${esc(v||'?')}"><span>${v===1?'1':v===path.length?esc(v):v%5===0?esc(v):'·'}</span></div>`).join('');
+ const points=path.map(([r,c])=>`${(c-.5)*100},${(r-.5)*100}`).join(' ');
+ const [r0,c0]=path[0], [r1,c1]=path[path.length-1];
+ return `<div class="zip-path-wrap" role="img" aria-label="Connected route through ${path.length} tiles, starting at row ${r0} column ${c0} and ending at row ${r1} column ${c1}"><div class="game-board zip-board zip-line-board" style="grid-template-columns:repeat(${side},minmax(0,1fr))">${cells}</div><svg class="zip-route" viewBox="0 0 ${side*100} ${side*100}" preserveAspectRatio="none" aria-hidden="true"><polyline points="${points}" fill="none" stroke="#087c68" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${(c0-.5)*100}" cy="${(r0-.5)*100}" r="22" fill="#27855c"/><circle cx="${(c1-.5)*100}" cy="${(r1-.5)*100}" r="22" fill="#3071b5"/></svg></div><p class="answer-desc">The green line is the actual route through all ${path.length} cells. The start and finish are marked; every fifth step is numbered.</p>`;
+}
+function dphWend(a){
+ const words=Array.isArray(a.words)?a.words:[];
+ const colours=['#d8e8ff','#f6d6e6','#fce6b4','#d6efd3','#e2d8fb','#f7d8ca','#e2ead6','#dce5f0'];
+ const grid=a.grid;
+ const paths=a.paths;
+ const validShape=Array.isArray(grid)&&grid.length>0&&grid.every(row=>Array.isArray(row)&&row.length===grid[0].length)&&Array.isArray(paths)&&paths.length===words.length&&paths.every((p,i)=>Array.isArray(p)&&p.length===words[i].length);
+ const actual=validShape&&(()=>{
+   const used=new Set();let count=0;
+   for(const row of grid)for(const cell of row)if(cell!==null&&cell!==''&&cell!=='#')count++;
+   for(let i=0;i<paths.length;i++){
+     let spelling='';let previous=null;
+     for(const pos of paths[i]){
+       if(!Array.isArray(pos)||pos.length!==2)return false;
+       const [r,c]=pos, key=`${r},${c}`;
+       if(!Number.isInteger(r)||!Number.isInteger(c)||r<1||r>grid.length||c<1||c>grid[0].length||used.has(key))return false;
+       if(previous&&Math.abs(previous[0]-r)+Math.abs(previous[1]-c)!==1)return false;
+       const cell=grid[r-1][c-1];if(!cell||cell==='#')return false;
+       used.add(key);spelling+=cell;previous=pos;
+     }
+     if(spelling.toUpperCase()!==words[i].toUpperCase())return false;
+   }
+   return used.size===count;
+ })();
+ if(actual){
+   const n=grid[0].length;const positionMap=new Map();
+   paths.forEach((path,wi)=>path.forEach((pos,k)=>{if(Array.isArray(pos)&&pos.length===2)positionMap.set(`${pos[0]},${pos[1]}`,wi)}));
+   const cells=grid.map((row,r)=>row.map((letter,c)=>{
+     const blocked=letter===null||letter==='#'||letter==='';
+     const wi=positionMap.get(`${r+1},${c+1}`);
+     const bg=blocked?'#394d50':wi===undefined?'#edf3ee':colours[wi%colours.length];
+     return `<div class="board-cell ${blocked?'wend-wall':''}" style="background:${bg}!important" aria-label="${blocked?'Blocked cell':`Row ${r+1} column ${c+1}: ${esc(letter)}`}">${blocked?'':esc(letter)}</div>`;
+   }).join('')).join('');
+   return `<div class="game-board wend-board" style="grid-template-columns:repeat(${n},minmax(0,1fr))">${cells}</div><p class="answer-desc">The letter colours show each word's route in the original puzzle board.</p><div class="answer-tag-row">${words.map((w,i)=>`<span class="answer-tag" style="background:${colours[i%colours.length]}">${esc(w)}</span>`).join('')}</div>`;
+ }
+ // Exact original row/column positions are not provided by the current importer.
+ // Avoid inventing a board or falsely presenting a made-up path as official.
+ const rows=words.map((w,i)=>`<div class="wend-word-row" aria-label="${esc(w)}"><span class="wend-word-name">${esc(w)}</span><div class="wend-word-tiles">${[...w].map(ch=>`<span style="background:${colours[i%colours.length]}">${esc(ch)}</span>`).join('')}</div></div>`).join('');
+ return `<div class="wend-word-rows">${rows}</div><p class="answer-desc">These are the solved words shown as letter tiles, not their original board positions. The full board and connected word paths need additional source data.</p>`;
+}
+
 function answerHTML(a,g){if(!a)return `<p class="answer-desc">Not verified for this date. Choose “Play” to open the game.</p>`;
  switch(a.type){
   case 'word':return `<div class="answer-word">${esc(a.value)}</div>`;
   case 'strands':return `<div class="answer-desc">THEME · ${esc(a.theme)}</div><p class="answer-desc">SPANGRAM</p><div class="answer-word">${esc(a.spangram)}</div><p class="answer-desc">THEME WORDS</p><div class="answer-tag-row">${a.words.map(w=>`<span class="answer-tag">${esc(w)}</span>`).join('')}</div>`;
-  case 'words':return `<div class="answer-tag-row">${a.words.map(w=>`<span class="answer-tag">${esc(w)}</span>`).join('')}</div>`;
+  case 'words':return g.id==='wend'?dphWend(a):`<div class="answer-tag-row">${a.words.map(w=>`<span class="answer-tag">${esc(w)}</span>`).join('')}</div>`;
   case 'ladder':return `<div class="answer-ladder">${a.words.map(w=>`<span>${esc(w)}</span>`).join('')}</div><p class="answer-desc">${esc(a.description||'')}</p>`;
-  case 'queens':{const grid=a.cols.map((col,r)=>Array.from({length:a.cols.length},(_,c)=>(c+1===col)?'♛':'·'));return gridHTML(grid,'queens-board',(r,c,v)=>v==='♛'?'queen':'',(_r,_c,v)=>v==='♛'?'♛':'')+`<p class="answer-desc">Columns by row: ${esc(a.cols.join(', '))}.</p>`}
+  case 'queens':return dphQueens(a);
   case 'sudoku':return gridHTML(a.rows,'sudoku-board');
   case 'tango':return gridHTML(a.rows,'tango-board',(_r,_c,v)=>v==='M'?'moon':'',(_r,_c,v)=>v==='M'?'☾':'☀');
-  case 'zip':{const side=Math.sqrt(a.path.length);const matrix=Array.from({length:side},()=>Array(side).fill(''));a.path.forEach(([r,c],i)=>{if(matrix[r-1])matrix[r-1][c-1]=i+1});return gridHTML(matrix,'zip-board',(_r,_c,v)=>v===1?'start':v===a.path.length?'end':'')+`<p class="answer-desc">Numbers show the step order through all ${a.path.length} cells. Start at 1, finish at ${a.path.length}.</p>`}
+  case 'zip':return dphZip(a);
   case 'patches':{const side=Math.max(...a.rects.map(rect=>Math.max(rect[2],rect[3])));const matrix=Array.from({length:side},()=>Array(side).fill(null));a.rects.forEach(([r1,c1,r2,c2],index)=>{for(let r=r1;r<=r2;r++)for(let c=c1;c<=c2;c++)matrix[r-1][c-1]={index,label:r===r1&&c===c1?(r2-r1+1)*(c2-c1+1):''}});const colours=['#dceaf8','#e8d9ed','#c8e6e3','#fce9bd','#f2c6be','#e8e7bd','#d5edc6','#fae1b3','#d6def5','#fbd9e9','#c4e7ef','#d7eaca','#ecddc5','#e0e2ed'];return gridHTML(matrix,'patches-board',()=>'',(_r,_c,v)=>`<span style="background:${colours[v?.index%colours.length]};width:100%;height:100%;border-radius:3px;display:grid;place-items:center">${v?.label||''}</span>`)+'<p class="answer-desc">Each colour is a rectangle. Numbers indicate patch area in cells.</p>'}
   case 'sumplete':{let out='<div class="sumplete-table">';for(let r=0;r<5;r++){for(let c=0;c<5;c++)out+=`<div class="board-cell ${a.kept[r][c]?'keep':'delete'}">${esc(a.grid[r][c])}</div>`;out+=`<div class="board-cell target">${esc(a.rowTargets[r])}</div>`}for(let c=0;c<5;c++)out+=`<div class="board-cell target">${esc(a.colTargets[c])}</div>`;out+='<div class="board-cell target">✓</div></div><p class="answer-desc">Green = keep · Red crossed out = delete · Targets shown on the right and bottom.</p>';return out}
-  case 'math':return `<div class="math-answer">${esc(a.value)} = 2</div><p class="answer-desc">${esc(a.description||'')}</p>`;
+  case 'math':return `<div class="math-answer">${esc(a.value)}${a.target!==undefined?` = ${esc(a.target)}`:''}</div><p class="answer-desc">${esc(a.description||'')}</p>`;
   case 'notice':return `<strong class="answer-word" style="font-size:17px">${esc(a.title)}</strong><p class="answer-desc">${esc(a.value)}</p>`;
   default:return '<p class="answer-desc">No compatible answer format.</p>';
  }

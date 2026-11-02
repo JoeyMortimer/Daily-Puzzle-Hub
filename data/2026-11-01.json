@@ -42,17 +42,16 @@
     },
     "crosswordle": {
       "status": "guide",
-      "number": "Original game",
+      "number": "Daily 7×7 / 9×9",
       "hint": [
-        "This version works backwards: you see the target word and coloured tiles.",
-        "More than one set of valid guess words may solve a board."
+        "Swap scrambled letters into solved words."
       ],
       "answer": {
         "type": "notice",
-        "title": "No single fixed answer",
-        "value": "The original reverse-Wordle Crosswordle accepts multiple valid rows. Open the game for the coloured pattern; a unique daily word list is not available here."
+        "title": "Daily grid not yet verified",
+        "value": "This is the tile-swapping Crosswordle at crosswordle.com. A validated completed board has not yet been imported. The daily solver link below may help."
       },
-      "source": "https://allthedles.com/games/crosswordle/"
+      "source": "https://crosswordle.com/"
     },
     "mathler": {
       "status": "example",

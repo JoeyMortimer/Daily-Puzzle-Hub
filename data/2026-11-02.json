@@ -4,16 +4,16 @@
   "games": {
     "crosswordle": {
       "status": "guide",
-      "number": "Original game",
+      "number": "Daily 7×7 / 9×9",
       "hint": [
-        "The original has no unique single solution."
+        "Swap the scrambled letters into solved words."
       ],
       "answer": {
         "type": "notice",
-        "title": "No single fixed answer",
-        "value": "Fill real guesses that match the coloured reverse-Wordle pattern. Multiple solutions can be valid."
+        "title": "Daily grid not yet verified",
+        "value": "This is the tile-swapping Crosswordle at crosswordle.com. A validated completed board has not yet been imported. The daily solver link below may help."
       },
-      "source": "https://allthedles.com/games/crosswordle/"
+      "source": "https://crosswordle.com/"
     },
     "mathler": {
       "status": "guide",
@@ -198,6 +198,15 @@
           3,
           5,
           1
+        ],
+        "crownRegions": [
+          "Lavender",
+          "Pastel Green",
+          "Light Gray",
+          "Vibrant Coral",
+          "Lime Yellow",
+          "Soft Blue",
+          "Peach Orange"
         ]
       },
       "source": "https://lianswers.com/linkedin/queens/916-answer/"

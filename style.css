@@ -8,3 +8,23 @@ body.dark{--bg:#0c191a;--paper:#192b2a;--ink:#f0f6ee;--muted:#a2b6ad;--line:#334
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 
 .reveal-button:disabled{opacity:.48;cursor:not-allowed}
+
+
+/* DPH VISUAL UPGRADE V1: solved-board layouts */
+.queens-board .board-cell{font-size:clamp(16px,3vw,25px);border:1px solid #7b989266;border-radius:2px;aspect-ratio:1}
+.queens-board .board-cell.queen{color:#173e39!important;text-shadow:0 1px 0 #fff9}
+.zip-path-wrap{max-width:330px;width:100%;margin:10px auto;position:relative}
+.zip-path-wrap .game-board{max-width:none;margin:0;gap:0;position:relative;z-index:4}
+.zip-path-wrap .board-cell{background:transparent!important;border:1px solid #9fbcb2aa;border-radius:0;position:relative;color:#18513b;font-size:10px}
+.zip-path-wrap .board-cell span{position:relative;z-index:6;display:grid;place-items:center;min-width:15px;min-height:15px;border-radius:50%;background:#f9fffae6;padding:1px}
+.zip-path-wrap .board-cell.start span{background:#bcefc4;color:#0d5c36}
+.zip-path-wrap .board-cell.end span{background:#c3def8;color:#134a7b}
+.zip-path-wrap svg.zip-route{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;overflow:visible}
+.wend-word-rows{display:flex;flex-direction:column;gap:12px;margin:12px 0}
+.wend-word-row{display:flex;flex-wrap:wrap;align-items:center;gap:7px}
+.wend-word-name{font-size:10px;font-weight:800;color:var(--muted);min-width:70px}
+.wend-word-tiles{display:flex;gap:3px;flex-wrap:wrap}
+.wend-word-tiles span{width:31px;height:32px;border:1px solid #5a706c66;border-radius:5px;display:grid;place-items:center;font-size:15px;font-weight:850;color:#153e36}
+.wend-board .board-cell{border:1px solid #97b9aa88;border-radius:4px;font-size:clamp(14px,3vw,22px);font-weight:850}
+.wend-board .wend-wall{box-shadow:inset 0 0 0 1px #324449}
+body.dark .wend-word-tiles span, body.dark .queens-board .queen {color:#163630!important}

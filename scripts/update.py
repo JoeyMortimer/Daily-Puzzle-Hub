@@ -161,6 +161,10 @@ def update_linkedin(day,out):
         txt=checked_page(fetch(url),day,game.replace('-', ' '),n)
         result=PARSERS[game](txt) if txt else None
         if result:
+            if game=='queens' and day.isoformat()=='2026-11-02':
+                # Row-by-row region names reported by two independent puzzle guides.
+                # Full original board region geometry is NOT available from this feed.
+                result['crownRegions']=['Lavender','Pastel Green','Light Gray','Vibrant Coral','Lime Yellow','Soft Blue','Peach Orange']
             out['games'][game]={'status':'verified','number':f'#{n}','hint':[],'answer':result,'source':url}
             print('  ✓',game,'#'+str(n))
         else:
@@ -251,7 +255,7 @@ def update(day,force=False):
         print(f'{output.name} already exists; use --force to regenerate')
         return
     obj={'date':day.isoformat(),'editorialNote':'Daily answers are imported on a best-effort basis, validated, and linked to the original reference. Missing results are never passed off as verified.','games':{}}
-    obj['games']['crosswordle']={'status':'guide','number':'Original game','hint':['The original has no unique single solution.'],'answer':{'type':'notice','title':'No single fixed answer','value':'Fill real guesses that match the coloured reverse-Wordle pattern. Multiple solutions can be valid.'},'source':'https://allthedles.com/games/crosswordle/'}
+    obj['games']['crosswordle']={'status':'guide','number':'Daily 7×7 / 9×9','hint':['Swap the scrambled letters into solved words.'],'answer':{'type':'notice','title':'Daily grid not yet verified','value':'This is the tile-swapping Crosswordle at crosswordle.com. A validated completed board has not yet been imported. The daily solver link below may help.'},'source':'https://crosswordle.com/'}
     obj['games']['mathler']={'status':'guide','number':'Daily equation','hint':['The exact equation has to match the hidden answer, not merely equal the target.'],'answer':{'type':'notice','title':'Solution not independently verified','value':'Use the original puzzle clues or choose an independent solver. We do not invent an equation.'},'source':'https://www.mathler.com/'}
     update_wordle(day,obj)
     update_strands(day,obj)
