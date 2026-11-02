@@ -463,3 +463,41 @@ body.dark .mathler-board .board-cell.empty{
 .mathler-board .board-cell.empty {
   display: none !important;
 }
+
+
+/* DPH SMALL TWEAKS V3 */
+
+/* 1) SUMPLETE: make cells square */
+.sumplete-table .board-cell{
+  aspect-ratio: 1 / 1 !important;
+  width: 56px !important;
+  height: auto !important;
+}
+.sumplete-table{
+  align-items: start !important;
+}
+
+/* 2) CROSSCLIMB: let the ladder fill the card width */
+[data-game="crossclimb"] .answer-body,
+[data-game="crossclimb"] .ladder,
+[data-game="crossclimb"] .ladder-rows,
+[data-game="crossclimb"] .answer-list{
+  width: 100% !important;
+  max-width: none !important;
+}
+[data-game="crossclimb"] .answer-row,
+[data-game="crossclimb"] .ladder-row,
+[data-game="crossclimb"] .answer-pill,
+[data-game="crossclimb"] .ladder-word{
+  width: 100% !important;
+  max-width: none !important;
+  box-sizing: border-box !important;
+}
+
+/* 3) ZIP: show the grid inside the puzzle box */
+.zip-path-wrap .game-board{
+  position: relative;
+}
+.zip-path-wrap .board-cell{
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.85) !important;
+}
