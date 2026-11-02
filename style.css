@@ -34,3 +34,11 @@ body.dark .wend-word-tiles span, body.dark .queens-board .queen {color:#163630!i
 .game-grid {
     align-items: start;
 }
+
+
+/* DPH ZIP CHECKPOINTS V2: don't stretch the opposite card when revealing a solution */
+.game-grid {align-items:start!important;grid-auto-rows:max-content!important}
+.game-grid > .game-card {align-self:start!important;height:auto!important}
+.game-card > .card-desc {flex-grow:0!important}
+/* Numbers are original checkpoints. Keep route line below them. */
+.zip-path-wrap .board-cell span {font-size:12px;min-width:20px;min-height:20px;font-weight:850}

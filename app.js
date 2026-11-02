@@ -64,14 +64,30 @@ function dphQueens(a){
  return `<div class="game-board queens-board" style="grid-template-columns:repeat(${n},minmax(0,1fr))">${cells.join('')}</div><p class="answer-desc">${note} Queen columns by row: ${esc(a.cols.join(', '))}.</p>`;
 }
 function dphZip(a){
- const path=a.path||[];const side=Math.sqrt(path.length);
+ const path=Array.isArray(a.path)?a.path:[], side=Math.sqrt(path.length);
  if(!Number.isInteger(side)||side<3)return '<p class="answer-desc">Route data is incomplete.</p>';
- const index=Array.from({length:side},()=>Array(side).fill(null));
- path.forEach(([r,c],i)=>{if(index[r-1]&&c>0&&c<=side)index[r-1][c-1]=i+1});
- const cells=index.flat().map(v=>`<div class="board-cell ${v===1?'start':v===path.length?'end':''}" aria-label="Step ${esc(v||'?')}"><span>${v===1?'1':v===path.length?esc(v):v%5===0?esc(v):'·'}</span></div>`).join('');
+ const markers=new Map(), positions=new Map();
+ path.forEach(([r,c],i)=>positions.set(`${r},${c}`,i));
+ let lastStep=-1,lastNum=0,valid=true;
+ const entries=Array.isArray(a.checkpoints)?a.checkpoints:[];
+ for(const row of entries){
+   if(!Array.isArray(row)||row.length!==3){valid=false;break;}
+   const [number,r,c]=row,step=positions.get(`${r},${c}`);
+   if(!Number.isInteger(number)||number!==lastNum+1||step===undefined||step<=lastStep){valid=false;break;}
+   markers.set(`${r},${c}`,number);lastNum=number;lastStep=step;
+ }
+ if(!valid||markers.size<2||lastStep!==path.length-1||positions.get(`${entries[0]?.[1]},${entries[0]?.[2]}`)!==0)markers.clear();
+ const cells=Array.from({length:side},(_,r)=>Array.from({length:side},(_,c)=>{
+   const mark=markers.get(`${r+1},${c+1}`),first=path[0][0]===r+1&&path[0][1]===c+1;
+   const last=path[path.length-1][0]===r+1&&path[path.length-1][1]===c+1;
+   const label=mark===undefined?'':String(mark);
+   const title=mark!==undefined?`Checkpoint ${mark}`:(first?'Route start':last?'Route finish':'Path cell');
+   return `<div class="board-cell ${first?'start':last?'end':''}" aria-label="${title}">${label?`<span>${label}</span>`:''}</div>`;
+ }).join('')).join('');
  const points=path.map(([r,c])=>`${(c-.5)*100},${(r-.5)*100}`).join(' ');
- const [r0,c0]=path[0], [r1,c1]=path[path.length-1];
- return `<div class="zip-path-wrap" role="img" aria-label="Connected route through ${path.length} tiles, starting at row ${r0} column ${c0} and ending at row ${r1} column ${c1}"><div class="game-board zip-board zip-line-board" style="grid-template-columns:repeat(${side},minmax(0,1fr))">${cells}</div><svg class="zip-route" viewBox="0 0 ${side*100} ${side*100}" preserveAspectRatio="none" aria-hidden="true"><polyline points="${points}" fill="none" stroke="#087c68" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${(c0-.5)*100}" cy="${(r0-.5)*100}" r="22" fill="#27855c"/><circle cx="${(c1-.5)*100}" cy="${(r1-.5)*100}" r="22" fill="#3071b5"/></svg></div><p class="answer-desc">The green line is the actual route through all ${path.length} cells. The start and finish are marked; every fifth step is numbered.</p>`;
+ const [r0,c0]=path[0],[r1,c1]=path[path.length-1];
+ const note=markers.size?`The numbered circles are the actual puzzle checkpoints (1–${lastNum}), not step counts. The green line visits all ${path.length} squares.`:`The green line visits all ${path.length} squares. Original numbered checkpoints have not been confirmed for this date, so none are invented.`;
+ return `<div class="zip-path-wrap" role="img" aria-label="Solved Zip route with ${path.length} squares"><div class="game-board zip-board zip-line-board" style="grid-template-columns:repeat(${side},minmax(0,1fr))">${cells}</div><svg class="zip-route" viewBox="0 0 ${side*100} ${side*100}" preserveAspectRatio="none" aria-hidden="true"><polyline points="${points}" fill="none" stroke="#087c68" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${(c0-.5)*100}" cy="${(r0-.5)*100}" r="22" fill="#27855c"/><circle cx="${(c1-.5)*100}" cy="${(r1-.5)*100}" r="22" fill="#3071b5"/></svg></div><p class="answer-desc">${note}</p>`;
 }
 function dphWend(a){
  const words=Array.isArray(a.words)?a.words:[];

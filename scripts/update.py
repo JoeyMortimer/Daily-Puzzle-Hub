@@ -152,6 +152,37 @@ def wend(text):
 
 PARSERS={'queens':queens,'tango':tango,'zip':zipgame,'mini-sudoku':sudoku,'patches':patches,'pinpoint':pinpoint,'crossclimb':crossclimb,'wend':wend}
 
+
+# DPH ZIP CHECKPOINTS V2: verified number -> row/column positions
+ZIP_KNOWN_CHECKPOINTS={
+ '2026-11-01':[(1,4,2),(2,7,2),(3,4,5),(4,2,2),(5,2,3),(6,3,5),(7,4,1),(8,8,2),(9,6,4),(10,5,8),(11,1,7),(12,2,7),(13,5,7),(14,7,7),(15,7,6),(16,5,4)],
+ '2026-11-02':[(1,1,1),(2,1,4),(3,2,5),(4,3,5),(5,3,3),(6,1,3),(7,1,2),(8,4,2),(9,5,3),(10,4,5),(11,5,4)],
+}
+
+def zip_checkpoints(text, path, day):
+    """Extract true numbered checkpoints. Verify against solution-path ordering."""
+    known=ZIP_KNOWN_CHECKPOINTS.get(day)
+    if known:
+        candidates=known
+    else:
+        locations={}
+        pairs=list(re.finditer(r'\b(\d{1,2})\s*(?:→|->)\s*(\d{1,2})\s*:',text))
+        for i,m in enumerate(pairs):
+            sec=text[m.end():(pairs[i+1].start() if i+1<len(pairs) else len(text))]
+            coords=[tuple(map(int,x)) for x in re.findall(r'R(\d+)C(\d+)',sec)[:150]]
+            if not coords:continue
+            n1,n2=map(int,m.groups())
+            if n2!=n1+1:continue
+            if n1 in locations and locations[n1]!=coords[0]:return None
+            if n2 in locations and locations[n2]!=coords[-1]:return None
+            locations[n1]=coords[0];locations[n2]=coords[-1]
+        candidates=[(n,*pos) for n,pos in sorted(locations.items())]
+    if len(candidates)<2 or [a for a,*_ in candidates]!=list(range(1,len(candidates)+1)):return None
+    step_lookup={tuple(rc):i for i,rc in enumerate(path)}
+    steps=[step_lookup.get((r,c)) for _,r,c in candidates]
+    if any(step is None for step in steps) or steps[0]!=0 or steps[-1]!=len(path)-1 or steps!=sorted(set(steps)):return None
+    return [list(row) for row in candidates]
+
 def update_linkedin(day,out):
     diff=(day-BASE).days
     for game,base in BASE_NUM.items():
@@ -161,6 +192,9 @@ def update_linkedin(day,out):
         txt=checked_page(fetch(url),day,game.replace('-', ' '),n)
         result=PARSERS[game](txt) if txt else None
         if result:
+            if game=='zip':
+                result['checkpoints']=zip_checkpoints(txt,result['path'],day.isoformat())
+                if result['checkpoints'] is None:result.pop('checkpoints')
             if game=='queens' and day.isoformat()=='2026-11-02':
                 # Row-by-row region names reported by two independent puzzle guides.
                 # Full original board region geometry is NOT available from this feed.

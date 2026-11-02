@@ -25,9 +25,10 @@ def validate(game_id,entry):
         assert all(not(rows[r][c]==rows[r][c+1]==rows[r][c+2]) for r in range(6) for c in range(4))
         assert all(not(rows[r][c]==rows[r+1][c]==rows[r+2][c]) for r in range(4) for c in range(6))
     if t=='zip':
-        path=a['path'];assert len(path)==64 and len({tuple(p) for p in path})==64
-        assert all(1<=r<=8 and 1<=c<=8 for r,c in path)
-        assert all(abs(path[i][0]-path[i-1][0])+abs(path[i][1]-path[i-1][1])==1 for i in range(1,64))
+        path=a['path'];n=len(path);side=int(n**0.5)
+        assert side in (6,7,8,9) and n==side*side and len({tuple(p) for p in path})==n
+        assert all(1<=r<=side and 1<=c<=side for r,c in path)
+        assert all(abs(path[i][0]-path[i-1][0])+abs(path[i][1]-path[i-1][1])==1 for i in range(1,n))
     if t=='sudoku':
         rows=a['rows'];digits=set(range(1,7))
         assert len(rows)==6 and all(set(r)==digits for r in rows)
@@ -35,10 +36,12 @@ def validate(game_id,entry):
         assert all({rows[r][c] for r in range(br,br+2) for c in range(bc,bc+3)}==digits for br in range(0,6,2) for bc in range(0,6,3))
     if t=='patches':
         occupied=[]
+        side=max(max(r2,c2) for _,_,r2,c2 in a['rects'])
+        assert side in (6,7,8,9)
         for r1,c1,r2,c2 in a['rects']:
-            assert 1<=r1<=r2<=8 and 1<=c1<=c2<=8
+            assert 1<=r1<=r2<=side and 1<=c1<=c2<=side
             occupied.extend((r,c) for r in range(r1,r2+1) for c in range(c1,c2+1))
-        assert len(occupied)==len(set(occupied))==64
+        assert len(occupied)==len(set(occupied))==side*side
     if t=='sumplete':
         grid=a['grid'];kept=a['kept'];rt=a['rowTargets'];ct=a['colTargets']
         assert len(grid)==len(kept)==len(rt)==len(ct)==5
