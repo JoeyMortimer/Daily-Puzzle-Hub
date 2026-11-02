@@ -53,7 +53,7 @@ def solution_section(text,game,kind='Solution'):
     matches=list(re.finditer(pattern,text,re.I))
     if not matches:return ''
     s=text[matches[-1].end():]
-    return re.split(r'How to Solve Today|How to play|How the game works|Help a friend',s,1,flags=re.I)[0]
+    return re.split(r'How to Solve Today|How to play|How the game works|Help a friend',s,maxsplit=1,flags=re.I)[0]
 
 def check_grid(grid,size):
     return len(grid)==size and all(len(row)==size for row in grid)
@@ -283,6 +283,83 @@ def update_strands(day,out):
     out['games']['strands']={'status':'missing','number':f'#{973+(day-BASE).days}','answer':None,'source':url}
     print('  - strands not confirmed')
 
+# DPH-OPTIONAL-DAILY-IMPORTS-V1
+# Do not manufacture solutions: this requires a date-matched published source.
+import ast
+from fractions import Fraction
+
+def checked_mathler(day, out):
+    url='https://www.gfinityesports.com/article/answer-solution'
+    raw=fetch(url)
+    if not raw:return
+    soup=BeautifulSoup(raw,'html.parser')
+    for el in soup(['script','style','nav','footer']):el.decompose()
+    headings=' '.join(x.get_text(' ',strip=True) for x in soup.find_all(['h1','h2']))
+    text=soup.get_text(' ',strip=True)
+    stamp=f'{day.strftime("%B")} {day.day}'
+    if f'Mathler Answer Today ({stamp})'.lower() not in headings.lower():return
+    if not re.search(rf'(?:Updated|Last Verified)\s*:?\s*{re.escape(stamp)},?\s*{day.year}',text,re.I):return
+    match=re.search(r'Today.s normal Mathler solution is\s*([0-9+*/-]{6})\b',text,re.I)
+    if not match:return
+    expression=match.group(1)
+    def evaluate(node):
+        if isinstance(node,ast.Expression):return evaluate(node.body)
+        if isinstance(node,ast.Constant) and type(node.value)==int and 0<=node.value<=999:return Fraction(node.value)
+        if isinstance(node,ast.BinOp):
+            left,right=evaluate(node.left),evaluate(node.right)
+            if isinstance(node.op,ast.Add):return left+right
+            if isinstance(node.op,ast.Sub):return left-right
+            if isinstance(node.op,ast.Mult):return left*right
+            if isinstance(node.op,ast.Div):return left/right
+        raise ValueError('Unsupported expression')
+    try:result=evaluate(ast.parse(expression,mode='eval'))
+    except (ValueError,SyntaxError,ZeroDivisionError,OverflowError):return
+    if result.denominator!=1 or not 0<=result<=100000:return
+    out['games']['mathler']={'status':'verified','number':'Normal','hint':[],
+        'answer':{'type':'math','value':expression,'target':int(result),'description':'Published independently for this exact date.'},'source':url}
+    print('  ✓ mathler: dated independent answer')
+
+def checked_wend_board(day,out):
+    entry=out['games'].get('wend')
+    if not entry or entry.get('status')!='verified':return
+    words=entry['answer'].get('words',[])
+    number=BASE_NUM['wend']+(day-BASE).days
+    url='https://hintsheet.com/wend/answer-today'
+    raw=fetch(url)
+    if not raw:return
+    soup=BeautifulSoup(raw,'html.parser')
+    for el in soup(['script','style','nav','footer']):el.decompose()
+    text=soup.get_text(' ',strip=True)
+    # Source heading must say the requested date AND requested puzzle number.
+    stamp=f'{day.strftime("%b")} {day.day}, {day.year}'
+    if stamp.lower() not in text.lower() or not re.search(rf'Wend\s*#\s*{number}\b',text,re.I):return
+    match=re.search(r'Step.by.step walkthrough(.+?)(?:Full solution|How a Wend|Frequently Asked|$)',text,re.I|re.S)
+    if not match:return
+    section=match.group(1)
+    paths=[]
+    for word in words:
+        pat=rf'\b{re.escape(word)}\s*[—–:-]\s*((?:R\d+C\d+\s*(?:→|->)\s*)*R\d+C\d+)'
+        found=re.search(pat,section,re.I)
+        if not found:return
+        pos=[list(map(int,xy)) for xy in re.findall(r'R(\d+)C(\d+)',found.group(1),re.I)]
+        if len(pos)!=len(word):return
+        paths.append(pos)
+    used={};limit=0
+    for word,path in zip(words,paths):
+        for i,(r,c) in enumerate(path):
+            if (r,c) in used:return
+            used[(r,c)]=word[i].upper()
+            limit=max(limit,r,c)
+        if any(abs(a[0]-b[0])+abs(a[1]-b[1])!=1 for a,b in zip(path,path[1:])):return
+    size=re.search(r'\b([5-9])\s*[x×]\s*\1\b',text)
+    n=int(size.group(1)) if size else limit
+    if not 5<=n<=9 or limit>n:return
+    grid=[['#']*n for _ in range(n)]
+    for (r,c),letter in used.items():grid[r-1][c-1]=letter
+    entry['answer'].update({'grid':grid,'paths':paths})
+    entry['boardSource']=url
+    print('  ✓ wend: original grid and paths')
+
 def update(day,force=False):
     output=ROOT/'data'/f'{day}.json'
     if output.exists() and not force:
@@ -295,6 +372,8 @@ def update(day,force=False):
     update_strands(day,obj)
     update_sumplete(day,obj)
     update_linkedin(day,obj)
+    checked_wend_board(day,obj)
+    checked_mathler(day,obj)
     # A temporary failure must not erase a verified record for the SAME date.
     if output.exists():
         try:
@@ -303,6 +382,12 @@ def update(day,force=False):
                 for name,old in previous.get('games',{}).items():
                     if old.get('status')=='verified' and obj['games'].get(name,{}).get('status')!='verified':
                         obj['games'][name]=old
+                    elif name=='wend' and old.get('status')=='verified' and obj['games'].get(name,{}).get('status')=='verified':
+                        earlier=old.get('answer',{})
+                        current=obj['games'][name]['answer']
+                        if earlier.get('words')==current.get('words') and earlier.get('grid') and earlier.get('paths') and not current.get('grid'):
+                            current['grid']=earlier['grid']
+                            current['paths']=earlier['paths']
         except (ValueError,KeyError,TypeError):pass
     output.write_text(json.dumps(obj,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(f'Wrote {output}: {sum(v["status"]=="verified" for v in obj["games"].values())}/13 verified')

@@ -44,25 +44,13 @@ body.dark .wend-word-tiles span, body.dark .queens-board .queen {color:#163630!i
 .zip-path-wrap .board-cell span {font-size:12px;min-width:20px;min-height:20px;font-weight:850}
 
 
-/* Mini Sudoku: six 2x3 boxes */
-[data-game="mini-sudoku"] .game-board {
-    position: relative;
-    border: 3px solid #26384b !important;
-    box-shadow: none !important;
-    overflow: hidden;
-}
 
-[data-game="mini-sudoku"] .game-board::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 5;
-    background:
-        linear-gradient(#26384b, #26384b)
-            center / 3px 100% no-repeat,
-        linear-gradient(#26384b, #26384b)
-            center 33.333% / 100% 3px no-repeat,
-        linear-gradient(#26384b, #26384b)
-            center 66.666% / 100% 3px no-repeat;
-}
+/* SUDOKU-SUBGRID-V5 */
+.game-card[data-game="mini-sudoku"] .sudoku-board{gap:0!important;border:3px solid #29463d!important;border-radius:2px;overflow:hidden;box-shadow:none!important}
+.game-card[data-game="mini-sudoku"] .sudoku-board::after{display:none!important;content:none!important}
+.game-card[data-game="mini-sudoku"] .sudoku-board>.board-cell{background:#f8fbf8;border:0!important;border-radius:0!important;border-right:1px solid #a9bdb1!important;border-bottom:1px solid #a9bdb1!important;box-shadow:none!important;font-size:clamp(13px,2vw,18px)}
+.game-card[data-game="mini-sudoku"] .sudoku-board>.board-cell:nth-child(6n + 3){border-right:3px solid #29463d!important}
+.game-card[data-game="mini-sudoku"] .sudoku-board>.board-cell:nth-child(n + 13):nth-child(-n + 18),.game-card[data-game="mini-sudoku"] .sudoku-board>.board-cell:nth-child(n + 25):nth-child(-n + 30){border-top:3px solid #29463d!important}
+.game-card[data-game="mini-sudoku"] .sudoku-board>.board-cell:nth-child(6n){border-right:0!important}
+body.dark .game-card[data-game="mini-sudoku"] .sudoku-board>.board-cell{background:#284239!important;color:#eaf8ee!important}
+.crosswordle-board{gap:0;border:2px solid #29463d}.crosswordle-board .board-cell{border:1px solid #a9bdb1;border-radius:0;background:#fafcfa}.crosswordle-board .board-cell.wall{background:#29463d}

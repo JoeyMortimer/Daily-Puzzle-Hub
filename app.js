@@ -33,7 +33,7 @@ function gameStatus(d){if(!d)return {label:'NOT YET VERIFIED',cls:'missing'};if(
 function cardHTML(g){const d=dayData?.games?.[g.id];const status=gameStatus(d);const saved=favourites.includes(g.id),isRevealed=revealed.has(g.id);const number=d?.number?esc(d.number):'Awaiting answer';let answer='';if(isRevealed)answer=`<div class="answer-area"><div class="answer-label">${d?.status==='verified'?'THE ANSWER':'WHAT WE KNOW'}</div>${answerHTML(d?.answer,g)}${d?.status==='example'?'<p class="answer-desc">Example, not an independently verified daily solution.</p>':''}</div>`;
  const source=d?.source?`<a href="${esc(safeExternal(d.source))}" target="_blank" rel="noopener noreferrer">View source ↗</a>`:'<span style="font-size:10px;color:#97a69e">No checked source for this date</span>';
  const hints=d?.hint?.length?`<details class="hint-details"><summary>Need a hint instead?</summary><ol class="hint-list">${d.hint.map(h=>`<li>${esc(h)}</li>`).join('')}</ol></details>`:'';
- const other=g.id==='crosswordle'?`<a href="https://www.wordunscrambler.net/crosswordle-solver/" target="_blank" rel="noopener noreferrer">Open daily grid solver ↗</a>`:g.id==='mathler'?`<a href="https://www.fiveletterwords.io/mathler-solver" target="_blank" rel="noopener noreferrer">Open Mathler helper ↗</a>`:'';
+ const other=g.id==='crosswordle'?`<a href="https://www.wordunscrambler.net/crosswordle-solver/" target="_blank" rel="noopener noreferrer">Open daily grid solver ↗</a>`:g.id==='mathler'?`<a href="https://www.fiveletterwords.io/mathler-solver" target="_blank" rel="noopener noreferrer">Open Mathler helper ↗</a>`:g.id==='wend'?`<a href="https://www.thewordfinder.com/linkedin-games-hub/wend-hints/" target="_blank" rel="noopener noreferrer">Open full Wend grid ↗</a>`:'';
  return `<article class="game-card" data-game="${esc(g.id)}"><div class="card-top"><div class="game-identity"><div class="game-icon ${g.colour}" aria-hidden="true">${esc(g.icon)}</div><div><h3 class="game-title">${esc(g.title)}</h3><div class="game-type">${esc(g.kind)}</div></div></div><button class="save-btn ${saved?'is-saved':''}" type="button" data-save="${g.id}" aria-label="${saved?'Remove':'Add'} ${g.title} ${saved?'from':'to'} favourites" aria-pressed="${saved}">${saved?'★':'☆'}</button></div><p class="card-desc">${esc(g.desc)}</p><div class="card-meta"><span class="card-number">${number}</span><span class="card-status ${status.cls}">${status.label}</span></div><div class="card-actions"><button class="reveal-button" type="button" data-reveal="${g.id}" aria-expanded="${isRevealed}" ${!d||d.status==='missing'?'disabled title="No checked answer for this date"':''}>${isRevealed?'Hide answer ↑':d?.status==='verified'?'Reveal answer ↓':d?.status==='missing'||!d?'Awaiting answer':'View guide ↓'}</button><a class="play-button" href="${esc(safeExternal(g.play))}" target="_blank" rel="noopener noreferrer" aria-label="Play ${esc(g.title)} on the original website">Play ↗</a></div>${hints}${answer}<div class="source-row">${source}${other}</div></article>`;
 }
 function gridHTML(rows,cls,extraClass=(r,c,v)=>'',renderCell=(r,c,v)=>esc(v)){const cols=rows[0]?.length||0;return `<div class="game-board ${cls}" style="grid-template-columns:repeat(${cols},minmax(0,1fr))">${rows.map((row,r)=>row.map((v,c)=>`<div class="board-cell ${extraClass(r,c,v)}" aria-label="Row ${r+1}, column ${c+1}: ${esc(v)}">${renderCell(r,c,v)}</div>`).join('')).join('')}</div>`}
@@ -129,6 +129,10 @@ function dphWend(a){
  return `<div class="wend-word-rows">${rows}</div><p class="answer-desc">These are the solved words shown as letter tiles, not their original board positions. The full board and connected word paths need additional source data.</p>`;
 }
 
+/* CROSSWORDLE-BOARD-V1 */
+function dphCrosswordle(a){const rows=a.rows;
+ if(!Array.isArray(rows)||![7,9].includes(rows.length)||!rows.every(row=>Array.isArray(row)&&row.length===rows.length&&row.every(ch=>typeof ch==='string'&&(ch==='#'||/^[A-Z]$/i.test(ch)))))return '<p class="answer-desc">No verified completed Crosswordle board available.</p>';
+ return gridHTML(rows,'crosswordle-board',(_r,_c,v)=>v==='#'?'wall':'',(_r,_c,v)=>v==='#'?'':esc(v.toUpperCase()));}
 function answerHTML(a,g){if(!a)return `<p class="answer-desc">Not verified for this date. Choose “Play” to open the game.</p>`;
  switch(a.type){
   case 'word':return `<div class="answer-word">${esc(a.value)}</div>`;
@@ -136,6 +140,7 @@ function answerHTML(a,g){if(!a)return `<p class="answer-desc">Not verified for t
   case 'words':return g.id==='wend'?dphWend(a):`<div class="answer-tag-row">${a.words.map(w=>`<span class="answer-tag">${esc(w)}</span>`).join('')}</div>`;
   case 'ladder':return `<div class="answer-ladder">${a.words.map(w=>`<span>${esc(w)}</span>`).join('')}</div><p class="answer-desc">${esc(a.description||'')}</p>`;
   case 'queens':return dphQueens(a);
+  case 'crosswordle':return dphCrosswordle(a);
   case 'sudoku':return gridHTML(a.rows,'sudoku-board');
   case 'tango':return gridHTML(a.rows,'tango-board',(_r,_c,v)=>v==='M'?'moon':'',(_r,_c,v)=>v==='M'?'☾':'☀');
   case 'zip':return dphZip(a);

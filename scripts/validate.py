@@ -2,7 +2,7 @@
 import json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-SUPPORTED={'word','strands','words','ladder','queens','tango','zip','sudoku','patches','sumplete','math','notice'}
+SUPPORTED={'crosswordle','word','strands','words','ladder','queens','tango','zip','sudoku','patches','sumplete','math','notice'}
 
 def validate(game_id,entry):
     a=entry.get('answer')
@@ -42,6 +42,24 @@ def validate(game_id,entry):
             assert 1<=r1<=r2<=side and 1<=c1<=c2<=side
             occupied.extend((r,c) for r in range(r1,r2+1) for c in range(c1,c2+1))
         assert len(occupied)==len(set(occupied))==side*side
+    # DPH-OPTIONAL-BOARD-VALIDATION-V1
+    if t=='crosswordle':
+        rows=a['rows'];n=len(rows)
+        assert n in (7,9) and all(len(row)==n for row in rows)
+        assert all(isinstance(ch,str) and (ch=='#' or len(ch)==1 and ch.isalpha()) for row in rows for ch in row)
+    if t=='words' and game_id=='wend' and ('paths' in a or 'grid' in a):
+        rows=a['grid']; paths=a['paths']; words=a['words']; n=len(rows)
+        assert 5<=n<=9 and all(len(row)==n for row in rows)
+        assert len(words)==len(paths)
+        used=[]
+        for word,path in zip(words,paths):
+            assert len(word)==len(path)
+            assert all(1<=r<=n and 1<=c<=n for r,c in path)
+            assert ''.join(rows[r-1][c-1] for r,c in path).upper()==word.upper()
+            assert all(abs(x[0]-y[0])+abs(x[1]-y[1])==1 for x,y in zip(path,path[1:]))
+            used.extend(tuple(x) for x in path)
+        assert len(used)==len(set(used))
+        assert set(used)=={(r+1,c+1) for r,row in enumerate(rows) for c,ch in enumerate(row) if ch not in ('#','',None)}
     if t=='sumplete':
         grid=a['grid'];kept=a['kept'];rt=a['rowTargets'];ct=a['colTargets']
         assert len(grid)==len(kept)==len(rt)==len(ct)==5
