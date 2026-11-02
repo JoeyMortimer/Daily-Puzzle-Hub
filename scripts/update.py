@@ -93,8 +93,8 @@ def zipgame(text):
     side=int(n**0.5)
     if len({tuple(x) for x in path})!=n or any(not 1<=r<=side or not 1<=c<=side for r,c in path):return None
     if any(abs(path[i][0]-path[i-1][0])+abs(path[i][1]-path[i-1][1])!=1 for i in range(1,n)):return None
-    # Website renderer currently supports 8x8. Smaller boards should remain unavailable.
-    return {'type':'zip','path':path} if side==8 else None
+    # Render every valid 6x6 to 9x9 board.
+    return {'type':'zip','path':path}
 
 def sudoku(text):
     s=solution_section(text,'Mini Sudoku')
@@ -118,10 +118,12 @@ def patches(text):
     rectangles=[[int(v) for v in match] for match in re.findall(r'from R(\d+)C(\d+) to R(\d+)C(\d+)',m.group(1))]
     if not rectangles:return None
     cells=[]
+    side=max(max(r2,c2) for _,_,r2,c2 in rectangles)
+    if side not in (6,7,8,9):return None
     for r1,c1,r2,c2 in rectangles:
-        if not (1<=r1<=r2<=8 and 1<=c1<=c2<=8):return None
+        if not (1<=r1<=r2<=side and 1<=c1<=c2<=side):return None
         cells.extend((r,c) for r in range(r1,r2+1) for c in range(c1,c2+1))
-    if len(cells)!=64 or len(set(cells))!=64:return None
+    if len(cells)!=side*side or len(set(cells))!=side*side:return None
     return {'type':'patches','rects':rectangles}
 
 def pinpoint(text):
@@ -156,7 +158,7 @@ def update_linkedin(day,out):
         n=base+diff
         if n<1:continue
         url=f'{BASE_LINK}{game}/{n}-answer/'
-        txt=checked_page(fetch(url),day,game,n)
+        txt=checked_page(fetch(url),day,game.replace('-', ' '),n)
         result=PARSERS[game](txt) if txt else None
         if result:
             out['games'][game]={'status':'verified','number':f'#{n}','hint':[],'answer':result,'source':url}
@@ -223,16 +225,24 @@ def update_strands(day,out):
     slug=day.strftime('%B').lower()+'-'+str(day.day)+'-'+str(day.year)
     url=f'https://walkthroughs.net/strands-answers/{slug}'
     txt=checked_page(fetch(url),day,'Strands')
-    # Use only a matching day and a recognisable exact section; don't guess.
     if txt:
-        m=re.search(r'Theme\s*[“\"]([^”\"]+)[”\"].*?The answers\s+Spangram\s+Spangram\s+([A-Z]+)\s+Theme words\s*\(\d+\)\s+([A-Z\s]+?)\s+How to play',txt,re.S|re.I)
-        if m:
-            words=re.findall(r'\b[A-Z]{3,}\b',m.group(3))
-            if 3<=len(words)<=12:
-                out['games']['strands']={'status':'verified','number':f'#{973+(day-BASE).days}','hint':[], 'answer':{'type':'strands','theme':m.group(1),'spangram':m.group(2),'words':words},'source':url}
+        theme=re.search(r'Theme\s*[“\"‘\']([^”\"’\']+)[”\"’\']',txt,re.I)
+        section=re.split(r'\bThe answers\b',txt,maxsplit=1,flags=re.I)[-1]
+        sp=re.search(r'\bSpangram\s+(?:Spangram\s+)?([A-Z]{4,})\b',section,re.I)
+        wt=re.search(r'\bTheme words\s*\((\d+)\)\s*(.*)',section,re.I|re.S)
+        if theme and sp and wt:
+            count=int(wt.group(1))
+            tail=re.split(r'\b(?:How to play|Yesterday|More puzzles|Frequently asked questions)\b',wt.group(2),maxsplit=1,flags=re.I)[0]
+            words=re.findall(r'\b[A-Z]{3,}\b',tail)[:count]
+            spangram=sp.group(1).upper()
+            if 3<=count<=12 and len(words)==count and len(spangram)+sum(map(len,words))==48:
+                out['games']['strands']={'status':'verified','number':f'#{973+(day-BASE).days}','hint':[],'answer':{'type':'strands','theme':theme.group(1),'spangram':spangram,'words':words},'source':url}
                 print('  ✓ strands')
                 return
-    out['games']['strands']={'status':'missing','number':f'#{973+(day-BASE).days}','answer':None,'source':'https://hintsheet.com/strands/answer-today'}
+        print('  - strands page fetched, but its solution failed extraction/validation')
+    else:
+        print('  - strands page missing or date mismatch')
+    out['games']['strands']={'status':'missing','number':f'#{973+(day-BASE).days}','answer':None,'source':url}
     print('  - strands not confirmed')
 
 def update(day,force=False):
