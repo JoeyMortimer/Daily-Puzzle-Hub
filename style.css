@@ -501,3 +501,67 @@ body.dark .mathler-board .board-cell.empty{
 .zip-path-wrap .board-cell{
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.85) !important;
 }
+
+
+/* DPH TWEAKS V4 */
+
+/* 1) SUMPLETE: pull targets in closer */
+.sumplete-table{
+  gap: 8px !important;
+  width: max-content !important;
+  margin: 0 auto !important;
+}
+.sumplete-table .board-cell.target{
+  min-width: 26px !important;
+  width: 26px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+}
+.sumplete-table .board-cell.target:last-child{
+  margin-left: -2px !important;
+}
+.sumplete-table > .board-cell.target:nth-last-child(-n+6){
+  margin-top: -2px !important;
+}
+
+/* 2) CROSSCLIMB: make rows fill the answer area */
+[data-game="crossclimb"] .answer-body{
+  display: grid !important;
+  gap: 8px !important;
+}
+[data-game="crossclimb"] .answer-body > *{
+  width: 100% !important;
+  max-width: none !important;
+}
+[data-game="crossclimb"] .answer-body ul,
+[data-game="crossclimb"] .answer-body ol,
+[data-game="crossclimb"] .answer-body div{
+  width: 100% !important;
+  max-width: none !important;
+  box-sizing: border-box !important;
+}
+[data-game="crossclimb"] .answer-body li,
+[data-game="crossclimb"] .answer-body .answer-row,
+[data-game="crossclimb"] .answer-body .ladder-row,
+[data-game="crossclimb"] .answer-body .answer-pill,
+[data-game="crossclimb"] .answer-body .ladder-word{
+  width: 100% !important;
+  max-width: none !important;
+  box-sizing: border-box !important;
+}
+
+/* 3) ZIP: use black internal grid lines */
+.zip-path-wrap .board-cell{
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.4) !important;
+}
+
+/* 4) TANGO: flip crescent direction */
+.tango-board .board-cell.moon::after{
+  left: calc(50% - 7px) !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
