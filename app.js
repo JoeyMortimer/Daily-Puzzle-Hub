@@ -143,7 +143,106 @@ function dphWend(a){
 function dphCrosswordle(a){const rows=a.rows;
  if(!Array.isArray(rows)||![7,9].includes(rows.length)||!rows.every(row=>Array.isArray(row)&&row.length===rows.length&&row.every(ch=>typeof ch==='string'&&(ch==='#'||/^[A-Z]$/i.test(ch)))))return '<p class="answer-desc">No verified completed Crosswordle board available.</p>';
  return gridHTML(rows,'crosswordle-board',(_r,_c,v)=>v==='#'?'wall':'',(_r,_c,v)=>v==='#'?'':esc(v.toUpperCase()));}
-function answerHTML(a,g){if(!a)return `<p class="answer-desc">Not verified for this date. Choose “Play” to open the game.</p>`;
+
+function dphWordle(a){
+  const word = String(a?.value || a?.word || '').toUpperCase().trim();
+  if(!/^[A-Z]{5}$/.test(word)) return null;
+
+  const rows = [];
+  for(let r=0;r<6;r++){
+    for(let c=0;c<5;c++){
+      const filled = r===2;
+      rows.push(
+        `<div class="board-cell ${filled?'filled correct':'empty'}">${
+          filled ? esc(word[c]) : ''
+        }</div>`
+      );
+    }
+  }
+
+  return `<div class="wordle-wrap">
+    <div class="game-board wordle-board"
+      style="grid-template-columns:repeat(5,minmax(0,1fr))">
+      ${rows.join('')}
+    </div>
+    <p class="answer-desc">Answer shown in a Wordle-style grid.</p>
+  </div>`;
+}
+
+function dphMathler(a){
+  const expr = String(a?.value || a?.equation || '').replace(/\s+/g,'');
+  if(!expr || expr.length < 3) return null;
+
+  const chars = expr.split('');
+  const cols = chars.length;
+  const cells = [];
+
+  for(let r=0;r<6;r++){
+    for(let c=0;c<cols;c++){
+      const filled = r===3;
+      cells.push(
+        `<div class="board-cell ${filled?'filled correct':'empty'}">${
+          filled ? esc(chars[c]) : ''
+        }</div>`
+      );
+    }
+  }
+
+  return `<div class="mathler-wrap">
+    <div class="mathler-title">MATHLER</div>
+    <div class="game-board mathler-board"
+      style="grid-template-columns:repeat(${cols},minmax(0,1fr))">
+      ${cells.join('')}
+    </div>
+    <p class="answer-desc">Verified daily equation shown in a Mathler-style grid.</p>
+  </div>`;
+}
+
+function dphPatches(a){
+  const rects = Array.isArray(a?.rects) ? a.rects : [];
+  if(!rects.length) return null;
+
+  const side = Math.max(...rects.flat());
+  const colours = [
+    '#a78bfa','#6ee7b7','#7dd3fc','#f87171','#fdba74',
+    '#f472b6','#c4b5fd','#fcd34d','#86efac','#93c5fd'
+  ];
+
+  const bgCells = [];
+  for(let r=1;r<=side;r++){
+    for(let c=1;c<=side;c++){
+      bgCells.push(`<div class="patch-bg-cell"></div>`);
+    }
+  }
+
+  const blocks = rects.map((rect,i)=>{
+    const [r1,c1,r2,c2] = rect;
+    const area = (r2-r1+1)*(c2-c1+1);
+    const height = r2-r1+1;
+    const width = c2-c1+1;
+    return `<div class="patch-shape"
+      style="
+        grid-row:${r1} / ${r2+1};
+        grid-column:${c1} / ${c2+1};
+        --patch-col:${colours[i%colours.length]};
+      ">
+      <span>${area}</span>
+    </div>`;
+  }).join('');
+
+  return `<div class="patches-wrap">
+    <div class="patches-canvas"
+      style="grid-template-columns:repeat(${side},1fr);grid-template-rows:repeat(${side},1fr)">
+      ${bgCells.join('')}
+      ${blocks}
+    </div>
+    <p class="answer-desc">Solved rectangles shown as coloured patches. Numbers indicate patch size.</p>
+  </div>`;
+}
+
+function answerHTML(a,g){
+  const special = g?.id==='wordle' ? dphWordle(a) : g?.id==='mathler' ? dphMathler(a) : g?.id==='patches' ? dphPatches(a) : null;
+  if(special) return special;if(!a)return `<p class="answer-desc">Not verified for this date. Choose “Play” to open the game.</p>`;
  switch(a.type){
   case 'word':return `<div class="answer-word">${esc(a.value)}</div>`;
   case 'strands':return `<div class="answer-desc">THEME · ${esc(a.theme)}</div><p class="answer-desc">SPANGRAM</p><div class="answer-word">${esc(a.spangram)}</div><p class="answer-desc">THEME WORDS</p><div class="answer-tag-row">${a.words.map(w=>`<span class="answer-tag">${esc(w)}</span>`).join('')}</div>`;
