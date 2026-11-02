@@ -16,17 +16,16 @@
       "source": "https://crosswordle.com/"
     },
     "mathler": {
-      "status": "guide",
-      "number": "Daily equation",
-      "hint": [
-        "The exact equation has to match the hidden answer, not merely equal the target."
-      ],
+      "status": "verified",
+      "number": "Normal",
+      "hint": [],
       "answer": {
-        "type": "notice",
-        "title": "Solution not independently verified",
-        "value": "Use the original puzzle clues or choose an independent solver. We do not invent an equation."
+        "type": "math",
+        "value": "18+2*7",
+        "target": 32,
+        "description": "Published independently for this exact date."
       },
-      "source": "https://www.mathler.com/"
+      "source": "https://www.gfinityesports.com/article/answer-solution"
     },
     "wordle": {
       "status": "verified",
