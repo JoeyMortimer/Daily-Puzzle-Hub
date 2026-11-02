@@ -386,3 +386,80 @@ body.dark .wordle-board .board-cell.empty,
 body.dark .mathler-board .board-cell.empty{
   background:#213532!important;
 }
+
+
+/* DPH VISUAL CORRECTIONS V2 */
+
+/* ZIP: restore the route underneath the numbers */
+.zip-path-wrap {
+  background: #fff !important;
+  border-radius: 18px;
+}
+.zip-path-wrap .game-board {
+  background: transparent !important;
+  z-index: 4;
+}
+.zip-path-wrap .board-cell {
+  background: transparent !important;
+}
+.zip-path-wrap svg.zip-route {
+  z-index: 3 !important;
+}
+.zip-path-wrap .board-cell span {
+  position: relative;
+  z-index: 7;
+}
+
+/* PATCHES: eliminate extra background grid items */
+.patches-canvas .patch-bg-cell {
+  display: none !important;
+}
+
+/* TANGO: flat suns and correctly oriented crescents */
+.tango-board .board-cell::before {
+  background: #ffbb33 !important;
+  box-shadow: none !important;
+  border: 1px solid #df9b20;
+}
+.tango-board .board-cell.moon::before {
+  background: #4679e8 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.tango-board .board-cell.moon::after {
+  left: calc(50% + 7px) !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 24px !important;
+  height: 24px !important;
+  background: #fff !important;
+}
+
+/* SUMPLETE: readable numbers with circles and crosses */
+.sumplete-table .board-cell.keep::before {
+  content: "" !important;
+  inset: 6px !important;
+  border: 7px solid #83ce90 !important;
+  background: transparent !important;
+  z-index: 1;
+}
+.sumplete-table .board-cell.delete::before,
+.sumplete-table .board-cell.delete::after {
+  height: 5px !important;
+  opacity: .65;
+  z-index: 1;
+}
+.sumplete-table .sumplete-num {
+  position: relative;
+  z-index: 3;
+  color: #252525 !important;
+  font-size: 18px !important;
+  font-weight: 850;
+  line-height: 1;
+}
+
+/* WORDLE / MATHLER: only show the answer row */
+.wordle-board .board-cell.empty,
+.mathler-board .board-cell.empty {
+  display: none !important;
+}
