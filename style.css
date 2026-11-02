@@ -42,3 +42,27 @@ body.dark .wend-word-tiles span, body.dark .queens-board .queen {color:#163630!i
 .game-card > .card-desc {flex-grow:0!important}
 /* Numbers are original checkpoints. Keep route line below them. */
 .zip-path-wrap .board-cell span {font-size:12px;min-width:20px;min-height:20px;font-weight:850}
+
+
+/* Mini Sudoku: six 2x3 boxes */
+[data-game="mini-sudoku"] .game-board {
+    position: relative;
+    border: 3px solid #26384b !important;
+    box-shadow: none !important;
+    overflow: hidden;
+}
+
+[data-game="mini-sudoku"] .game-board::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+    background:
+        linear-gradient(#26384b, #26384b)
+            center / 3px 100% no-repeat,
+        linear-gradient(#26384b, #26384b)
+            center 33.333% / 100% 3px no-repeat,
+        linear-gradient(#26384b, #26384b)
+            center 66.666% / 100% 3px no-repeat;
+}
