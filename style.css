@@ -28,3 +28,9 @@ body.dark{--bg:#0c191a;--paper:#192b2a;--ink:#f0f6ee;--muted:#a2b6ad;--line:#334
 .wend-board .board-cell{border:1px solid #97b9aa88;border-radius:4px;font-size:clamp(14px,3vw,22px);font-weight:850}
 .wend-board .wend-wall{box-shadow:inset 0 0 0 1px #324449}
 body.dark .wend-word-tiles span, body.dark .queens-board .queen {color:#163630!important}
+
+
+/* Prevent neighbouring puzzle cards stretching */
+.game-grid {
+    align-items: start;
+}
