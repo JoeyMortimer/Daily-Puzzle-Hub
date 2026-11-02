@@ -161,8 +161,58 @@ function answerHTML(a,g){if(!a)return `<p class="answer-desc">Not verified for t
   default:return '<p class="answer-desc">No compatible answer format.</p>';
  }
 }
+
+function markWendDirections(){
+  const answer = dayData?.games?.wend?.answer;
+  const board = document.querySelector(
+    '[data-game="wend"] .wend-board'
+  );
+
+  if(!board || !Array.isArray(answer?.paths) ||
+     !Array.isArray(answer?.grid)) return;
+
+  const cols = answer.grid[0]?.length;
+  if(!cols || board.children.length !==
+     answer.grid.length * cols) return;
+
+  answer.paths.forEach((path,wi)=>{
+    path.forEach(([r,c],index)=>{
+      const cell = board.children[(r-1)*cols+c-1];
+      if(!cell) return;
+
+      const next = path[index+1];
+      let arrow = '';
+
+      if(next){
+        if(next[0] < r) arrow = '↑';
+        else if(next[0] > r) arrow = '↓';
+        else if(next[1] < c) arrow = '←';
+        else if(next[1] > c) arrow = '→';
+      }
+
+      const marker = index===0 ? 'S' :
+        index===path.length-1 ? 'E' : '';
+
+      const markerHTML = marker
+        ? `<span class="wend-path-marker ${marker==='E'?'end':''}">${marker}</span>`
+        : '';
+
+      cell.insertAdjacentHTML('beforeend',
+        `${markerHTML}
+         <span class="wend-path-step">${index+1}</span>
+         ${arrow?`<span class="wend-path-arrow">${arrow}</span>`:''}`
+      );
+
+      cell.setAttribute('aria-label',
+        `${answer.words?.[wi]||'Word'}: letter ${index+1} of ${path.length}; `+
+        (marker==='S'?'start':marker==='E'?'end':`next ${arrow}`)
+      );
+    });
+  });
+}
+
 function render(){const visible=GAMES.filter(g=>(activeFilter==='all'||g.category===activeFilter||(activeFilter==='favourites'&&favourites.includes(g.id)))&&(`${g.title} ${g.desc} ${g.kind}`.toLowerCase().includes(searchText)));
- visible.sort((a,b)=>Number(favourites.includes(b.id))-Number(favourites.includes(a.id))||GAMES.indexOf(a)-GAMES.indexOf(b));$('cards').innerHTML=visible.map(cardHTML).join('');$('game-count').textContent=visible.length;$('empty-search').hidden=!!visible.length;const verified=GAMES.filter(g=>dayData?.games?.[g.id]?.status==='verified').length;$('date-subtitle').textContent=`${verified} checked solutions · ${GAMES.length} games in one place.`;document.querySelectorAll('[data-filter]').forEach(el=>{const active=el.dataset.filter===activeFilter;el.classList.toggle('active',active);if(el.tagName==='BUTTON')el.setAttribute('aria-pressed',String(active))})}
+ visible.sort((a,b)=>Number(favourites.includes(b.id))-Number(favourites.includes(a.id))||GAMES.indexOf(a)-GAMES.indexOf(b));$('cards').innerHTML=visible.map(cardHTML).join('');markWendDirections();$('game-count').textContent=visible.length;$('empty-search').hidden=!!visible.length;const verified=GAMES.filter(g=>dayData?.games?.[g.id]?.status==='verified').length;$('date-subtitle').textContent=`${verified} checked solutions · ${GAMES.length} games in one place.`;document.querySelectorAll('[data-filter]').forEach(el=>{const active=el.dataset.filter===activeFilter;el.classList.toggle('active',active);if(el.tagName==='BUTTON')el.setAttribute('aria-pressed',String(active))})}
 function setFilter(filter){activeFilter=filter;render();if(window.innerWidth<850)$('games').scrollIntoView({behavior:'smooth',block:'start'})}
 document.addEventListener('click',event=>{const filter=event.target.closest('[data-filter]');if(filter){setFilter(filter.dataset.filter);return}const btn=event.target.closest('[data-reveal]');if(btn){if(revealed.has(btn.dataset.reveal))revealed.delete(btn.dataset.reveal);else revealed.add(btn.dataset.reveal);render();return}const save=event.target.closest('[data-save]');if(save){const id=save.dataset.save;favourites=favourites.includes(id)?favourites.filter(x=>x!==id):[...favourites,id];storage.set('dph:favourites',favourites);render();return}});
 $('search-input').addEventListener('input',event=>{searchText=event.target.value.trim().toLowerCase();render()});

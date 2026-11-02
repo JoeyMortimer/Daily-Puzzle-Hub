@@ -61,3 +61,45 @@ body.dark .game-card[data-game="mini-sudoku"] .sudoku-board>.board-cell{backgrou
 .wend-board{gap:2px;max-width:330px}
 .wend-board>.board-cell{aspect-ratio:1;min-width:0;border-radius:4px!important;color:#183a37!important}
 body.dark .wend-board>.board-cell{color:#102e2b!important}
+
+/* WEND PATH DIRECTIONS V2 */
+[data-game="wend"] .wend-board .board-cell {
+  position: relative;
+  overflow: hidden;
+}
+
+.wend-path-marker {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  background: #185c43;
+  color: white;
+  font-size: 10px;
+  font-weight: 900;
+  border-radius: 4px;
+  padding: 2px 4px;
+  line-height: 1.2;
+}
+
+.wend-path-marker.end {
+  background: #a13f69;
+}
+
+.wend-path-step {
+  position: absolute;
+  top: 3px;
+  right: 4px;
+  font-size: 9px;
+  font-weight: 800;
+  color: #315147;
+}
+
+.wend-path-arrow {
+  position: absolute;
+  bottom: 2px;
+  right: 3px;
+  font-size: 18px;
+  font-weight: 900;
+  color: #185c43;
+  line-height: 1;
+}
