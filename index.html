@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#132b31">
+  <meta name="description" content="Today's daily puzzle answers in one place. Wordle, Strands, Crosswordle, Mathler, Sumplete and every LinkedIn game, with spoiler-safe reveals and visual solutions.">
+  <meta property="og:title" content="Daily Puzzle Hub — One place for every answer">
+  <meta property="og:description" content="13 daily games. No accidental spoilers. Wordle, Strands, Mathler, Sumplete and every LinkedIn game.">
+  <title>Daily Puzzle Hub | Today's Puzzle Answers</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="./" aria-label="Daily Puzzle Hub homepage">
+        <span class="brand-symbol" aria-hidden="true">✳</span>
+        <span>daily<span class="brand-em">puzzle</span><small>HUB</small></span>
+      </a>
+      <div class="side-caption">YOUR DAILY SHORTCUT</div>
+      <nav class="side-nav" aria-label="Game categories">
+        <button class="nav-link active" data-filter="all"><span class="nav-icon">▦</span> All games <span class="count">13</span></button>
+        <button class="nav-link" data-filter="nyt"><span class="nav-icon">Aa</span> Word games <span class="count">3</span></button>
+        <button class="nav-link" data-filter="math"><span class="nav-icon">∑</span> Numbers & logic <span class="count">2</span></button>
+        <button class="nav-link" data-filter="linkedin"><span class="nav-icon">in</span> LinkedIn games <span class="count">8</span></button>
+        <button class="nav-link" data-filter="favourites"><span class="nav-icon">☆</span> Favourites</button>
+      </nav>
+      <div class="sidebar-note"><span class="note-spark">✦</span><strong>Made for the daily ritual.</strong><p>Find a hint, reveal the answer, get back to your game.</p></div>
+      <div class="sidebar-bottom">Independent puzzle guide<br>Not affiliated with game publishers</div>
+    </aside>
+
+    <main id="main" class="main-area">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-symbol mini">✳</span><strong>daily<span>puzzle</span></strong></div>
+        <span class="topbar-label"><span class="live-dot"></span> YOUR DAILY ANSWER DESK</span>
+        <div class="topbar-right"><span id="clock-day">UK EDITION</span><button id="theme-toggle" class="icon-button" type="button" aria-label="Toggle dark theme" title="Toggle dark theme">☾</button></div>
+      </header>
+
+      <div class="content">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-glow"></div>
+          <div class="hero-text"><div class="eyebrow"><span class="eyebrow-dot">●</span> ONE TAB. EVERY ANSWER.</div>
+            <h1 id="hero-title">Stuck on today's<br><em>puzzle?</em> You're in the<br class="desktop-break"> right place<span class="hero-period">.</span></h1>
+            <p>Thirteen daily games. Helpful hints first, answers only when you want them. All neatly in one place.</p>
+            <a href="#games" class="hero-button">Explore today's answers <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="float-card float-word"><span class="art-muted">WORDLE</span><div class="letter-row"><b>?</b><b>?</b><b>?</b><b>?</b><b>?</b></div><span class="art-tag">SOLVED ✓</span></div>
+            <div class="float-card float-queen"><span>♛</span><i>QUEENS</i></div>
+            <div class="float-card float-math"><strong>12 ÷ 4</strong><small>= 3</small></div>
+            <div class="float-spark spark-one">✳</div><div class="float-spark spark-two">✦</div>
+          </div>
+        </section>
+
+        <section class="daily-controls" aria-label="Choose puzzle date">
+          <div class="date-heading"><div class="section-kicker">THE DAILY LINEUP</div><h2 id="date-heading">Sunday, 1 November 2026</h2><p id="date-subtitle">Browse all thirteen games below.</p></div>
+          <div class="date-widget"><label for="date-input">PUZZLE DATE</label><div class="date-row"><button id="prev-day" aria-label="Previous day" class="date-arrow" type="button">‹</button><input id="date-input" type="date" value="2026-11-01"><button id="next-day" aria-label="Next day" class="date-arrow" type="button">›</button></div><button id="today-button" class="today-button" type="button">Jump to today</button></div>
+        </section>
+
+        <div id="data-notice" class="data-notice" role="status" hidden></div>
+
+        <section id="games" class="games-section" aria-labelledby="game-heading">
+          <div class="games-title-line"><div><span class="section-kicker">YOUR GAMES</span><h2 id="game-heading">All daily puzzles <span id="game-count" class="game-count">13</span></h2></div><div class="search-wrap"><span aria-hidden="true">⌕</span><input id="search-input" type="search" placeholder="Search a game..." aria-label="Search games" autocomplete="off"></div></div>
+          <div class="mobile-filters" role="group" aria-label="Game filters"><button data-filter="all" class="chip active">All 13</button><button data-filter="nyt" class="chip">Words</button><button data-filter="math" class="chip">Numbers</button><button data-filter="linkedin" class="chip">LinkedIn</button><button data-filter="favourites" class="chip">☆ Saved</button></div>
+          <div id="cards" class="game-grid" aria-live="polite"></div>
+          <div id="empty-search" class="empty-search" hidden>No games match your search.</div>
+        </section>
+
+        <section class="bottom-info"><div><span class="section-kicker">A QUICK NOTE</span><h2>No spoilers unless you ask.</h2><p>Answers are tucked away until you tap Reveal. Each card links to the original game and an independent source. If a particular day's answer hasn't been checked, you'll see that clearly rather than an invented solution.</p></div><div class="info-symbol" aria-hidden="true">✳</div></section>
+        <footer><span>© <span id="footer-year">2026</span> Daily Puzzle Hub</span><span>Unofficial companion · Publisher trademarks belong to their owners</span></footer>
+      </div>
+    </main>
+  </div>
+  <script id="embedded-data" type="application/json">{"date":"2026-11-01","editorialNote":"Solutions recorded for 1 November 2026. Other dates only appear when their own data has been supplied.","games":{"wordle":{"status":"verified","number":"#1961","hint":["Five letters.","Two vowels, no repeated letters.","Starts with V and ends with R."],"answer":{"type":"word","value":"VIPER"},"source":"https://www.today-wordle.com/"},"strands":{"status":"verified","number":"#973","hint":["Theme: “For the rest of the day”.","Seven theme words, one eight-letter spangram.","Think sleep and taking a break."],"answer":{"type":"strands","theme":"For the rest of the day","spangram":"ZZZZZZZZ","words":["CATNAP","DOZE","DROWSE","SIESTA","SLEEP","SLUMBER","SNOOZE"]},"source":"https://hintsheet.com/strands/answer-today"},"crosswordle":{"status":"guide","number":"Original game","hint":["This version works backwards: you see the target word and coloured tiles.","More than one set of valid guess words may solve a board."],"answer":{"type":"notice","title":"No single fixed answer","value":"The original reverse-Wordle Crosswordle accepts multiple valid rows. Open the game for the coloured pattern; a unique daily word list is not available here."},"source":"https://allthedles.com/games/crosswordle/"},"mathler":{"status":"example","number":"Normal · target 2","hint":["The screenshot you shared has target 2.","Your green clues fix ÷6 at the end.","An expression matching the visible clues: 8−36÷6."],"answer":{"type":"math","value":"8−36÷6","description":"This is a valid calculation matching the screenshot clues, not a verified official hidden equation."},"source":"https://www.mathler.com/"},"sumplete":{"status":"verified","number":"5×5 · #1334","hint":["The first row keeps 5 and 7.","The fourth row removes everything.","The second column keeps nothing."],"answer":{"type":"sumplete","grid":[[5,2,7,3,9],[7,5,9,8,1],[8,8,4,5,6],[7,3,6,4,7],[5,6,6,9,4]],"kept":[[1,0,1,0,0],[0,0,1,1,0],[1,0,1,1,1],[0,0,0,0,0],[1,0,0,0,0]],"rowTargets":[12,17,23,0,5],"colTargets":[18,0,20,13,6]},"source":"https://walkthroughs.net/sumplete-answers/november-1-2026"},"pinpoint":{"status":"verified","number":"#915","hint":["Clues: Hard, Digital, Advance.","Two further clues: Backup, Carbon (the second C of CC)."],"answer":{"type":"word","value":"Words that come before “copy”"},"source":"https://awa.games/linkedin-games/"},"crossclimb":{"status":"verified","number":"#915","hint":["A four-letter word ladder.","The two outer answers describe what some people do at the end of daylight saving time."],"answer":{"type":"ladder","words":["FALL","CALL","CULL","BULL","BULK","BUCK","BACK"],"description":"Bookend phrase: FALL BACK. Middle words form the one-letter-change ladder."},"source":"https://www.thewordfinder.com/linkedin-games-hub/crossclimb-hints/"},"queens":{"status":"verified","number":"#915","hint":["Nine queens on a 9×9 board.","Rows 2 and 3 use columns 2 and 5.","Last three rows use columns 8, 6 and 3."],"answer":{"type":"queens","cols":[9,2,5,7,1,4,8,6,3]},"source":"https://lianswers.com/linkedin/queens/915-answer/"},"tango":{"status":"verified","number":"#755","hint":["Six-by-six board, three suns and three moons per row.","Row 1 begins moon, moon, sun.","Use the = and × constraints in the original game."],"answer":{"type":"tango","rows":[["M","M","S","S","M","S"],["M","S","M","S","S","M"],["S","M","S","M","M","S"],["M","S","M","S","S","M"],["S","S","M","M","S","M"],["S","M","S","M","M","S"]]},"source":"https://lianswers.com/linkedin/tango/755-answer/"},"zip":{"status":"verified","number":"#594","hint":["The path uses every cell in an 8×8 board.","Start at R4C2 and travel down three cells.","The route finishes at R5C4."],"answer":{"type":"zip","path":[[4,2],[5,2],[6,2],[7,2],[7,3],[6,3],[5,3],[4,3],[4,4],[4,5],[4,6],[3,6],[2,6],[1,6],[1,5],[1,4],[1,3],[1,2],[1,1],[2,1],[2,2],[2,3],[2,4],[2,5],[3,5],[3,4],[3,3],[3,2],[3,1],[4,1],[5,1],[6,1],[7,1],[8,1],[8,2],[8,3],[8,4],[7,4],[6,4],[6,5],[7,5],[8,5],[8,6],[8,7],[8,8],[7,8],[6,8],[5,8],[4,8],[3,8],[2,8],[1,8],[1,7],[2,7],[3,7],[4,7],[5,7],[6,7],[7,7],[7,6],[6,6],[5,6],[5,5],[5,4]]},"source":"https://gridpuzzles.app/zip/answers/2026-11-01/"},"mini-sudoku":{"status":"verified","number":"#447","hint":["Six-by-six Sudoku with 2×3 regions.","Each row has digits 1–6 exactly once."],"answer":{"type":"sudoku","rows":[[6,5,2,1,3,4],[3,1,4,6,2,5],[1,4,3,5,6,2],[2,6,5,4,1,3],[5,2,1,3,4,6],[4,3,6,2,5,1]]},"source":"https://lianswers.com/linkedin/mini-sudoku/447-answer/"},"patches":{"status":"verified","number":"#229","hint":["Fourteen rectangular patches cover the 8×8 grid.","Two 4-cell vertical strips occupy columns 1 and 2 at the top.","Row 6 has a five-cell horizontal strip."],"answer":{"type":"patches","rects":[[1,1,4,1],[1,2,4,2],[1,3,3,4],[1,5,1,8],[2,5,2,7],[2,8,8,8],[3,5,3,7],[4,3,5,5],[4,6,5,7],[5,1,6,2],[6,3,6,7],[7,1,8,1],[7,2,8,4],[7,5,8,7]]},"source":"https://lianswers.com/linkedin/patches/229-answer/"},"wend":{"status":"verified","number":"#146","hint":["Six words with lengths 5 through 10.","One is a volcano-related phenomenon.","The shortest word is NOVEL."],"answer":{"type":"words","words":["NOVEL","VISION","VOLCANO","TURNOVER","SUPERNOVA","INNOVATION"]},"source":"https://lianswers.com/linkedin/wend/146-answer/"}}}</script>
+  <script src="app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,267 @@
+#!/usr/bin/env python3
+"""Best-effort daily *answer-data* importer.
+
+IMPORTANT: The sources below are independent puzzle guides, not APIs. They may change,
+block automation, or have reuse restrictions. Respect their terms and update sources or
+switch to a licensed feed if necessary. Nothing unverified is published as 'verified'.
+"""
+from __future__ import annotations
+import argparse
+from datetime import date, datetime
+import itertools
+import json
+from pathlib import Path
+import re
+import sys
+import time
+from urllib.request import Request, urlopen
+from zoneinfo import ZoneInfo
+from bs4 import BeautifulSoup
+
+ROOT=Path(__file__).resolve().parents[1]
+BASE=date(2026,11,1)
+BASE_NUM={'pinpoint':915,'crossclimb':915,'queens':915,'tango':755,'zip':594,'mini-sudoku':447,'patches':229,'wend':146}
+BASE_LINK='https://lianswers.com/linkedin/'
+HEADERS={'User-Agent':'DailyPuzzleHub/0.1 (+https://github.com/; independent puzzle guide)','Accept':'text/html,application/json;q=0.9,*/*;q=0.8'}
+
+def fetch(url):
+    try:
+        req=Request(url,headers=HEADERS)
+        with urlopen(req,timeout=15) as res:
+            if res.status!=200: raise RuntimeError(f'HTTP {res.status}')
+            return res.read().decode('utf-8','replace')
+    except Exception as exc:
+        print(f'  Unavailable: {url} ({str(exc)[:100]})')
+        return ''
+
+def date_formatted(day):
+    return f'{day.strftime("%B")} {day.day}, {day.year}'
+
+def checked_page(html,day,name=None,number=None):
+    if not html:return ''
+    soup=BeautifulSoup(html,'html.parser')
+    for tag in soup(['script','style','nav','footer']):tag.decompose()
+    txt=soup.get_text(' ',strip=True)
+    heading=(soup.find('h1').get_text(' ',strip=True) if soup.find('h1') else '')
+    if date_formatted(day).lower() not in heading.lower():return ''
+    if name and name.lower() not in heading.lower():return ''
+    if number and f'#{number}' not in heading:return ''
+    return txt
+
+def solution_section(text,game,kind='Solution'):
+    pattern=rf'Today.s {re.escape(game)} {kind}\s+'
+    matches=list(re.finditer(pattern,text,re.I))
+    if not matches:return ''
+    s=text[matches[-1].end():]
+    return re.split(r'How to Solve Today|How to play|How the game works|Help a friend',s,1,flags=re.I)[0]
+
+def check_grid(grid,size):
+    return len(grid)==size and all(len(row)==size for row in grid)
+
+def queens(text):
+    s=solution_section(text,'Queens')
+    m=re.search(r'Queen positions \(row, column\):\s*((?:R\d+C\d+[,\s.]*)+)',s,re.I)
+    if not m:return None
+    cells=[(int(r),int(c)) for r,c in re.findall(r'R(\d+)C(\d+)',m.group(1))]
+    n=len(cells)
+    if not 5<=n<=12 or [r for r,c in cells]!=list(range(1,n+1)):return None
+    cols=[c for r,c in cells]
+    if set(cols)!=set(range(1,n+1)) or any(abs(cols[i]-cols[i-1])<=1 for i in range(1,n)):return None
+    return {'type':'queens','cols':cols}
+
+def tango(text):
+    s=solution_section(text,'Tango')
+    rows=[]
+    for i in range(1,7):
+        m=re.search(rf'Row {i}:\s*(.*?)(?=Row {i+1}:|$)',s,re.I|re.S)
+        if not m:return None
+        vals=[{'sun':'S','moon':'M'}[v.lower()] for v in re.findall(r'\b(?:Sun|Moon)\b',m.group(1))[:6]]
+        if len(vals)!=6 or vals.count('S')!=3:return None
+        rows.append(vals)
+    if not all([rows[r][c] for r in range(6)].count('S')==3 for c in range(6)):return None
+    if any(rows[r][c]==rows[r][c+1]==rows[r][c+2] for r in range(6) for c in range(4)):return None
+    if any(rows[r][c]==rows[r+1][c]==rows[r+2][c] for c in range(6) for r in range(4)):return None
+    return {'type':'tango','rows':rows}
+
+def zipgame(text):
+    s=solution_section(text,'Zip')
+    m=re.search(r'Path sequence:\s*(.*?)(?=\s+How to Solve|\s+The route|$)',s,re.I|re.S)
+    if not m:return None
+    path=[[int(r),int(c)] for r,c in re.findall(r'R(\d+)C(\d+)',m.group(1))]
+    n=len(path)
+    if n not in [36,49,64,81]:return None
+    side=int(n**0.5)
+    if len({tuple(x) for x in path})!=n or any(not 1<=r<=side or not 1<=c<=side for r,c in path):return None
+    if any(abs(path[i][0]-path[i-1][0])+abs(path[i][1]-path[i-1][1])!=1 for i in range(1,n)):return None
+    # Website renderer currently supports 8x8. Smaller boards should remain unavailable.
+    return {'type':'zip','path':path} if side==8 else None
+
+def sudoku(text):
+    s=solution_section(text,'Mini Sudoku')
+    rows=[]
+    for i in range(1,7):
+        m=re.search(rf'Row {i}:\s*(.*?)(?=Row {i+1}:|$)',s,re.I|re.S)
+        if not m:return None
+        vals=list(map(int,re.findall(r'\b[1-6]\b',m.group(1))[:6]))
+        if len(vals)!=6 or set(vals)!=set(range(1,7)):return None
+        rows.append(vals)
+    if not all({row[c] for row in rows}==set(range(1,7)) for c in range(6)):return None
+    for r in range(0,6,2):
+        for c in range(0,6,3):
+            if {rows[rr][cc] for rr in range(r,r+2) for cc in range(c,c+3)}!=set(range(1,7)):return None
+    return {'type':'sudoku','rows':rows}
+
+def patches(text):
+    s=solution_section(text,'Patches')
+    m=re.search(r'Patches:\s*(.*)',s,re.S|re.I)
+    if not m:return None
+    rectangles=[[int(v) for v in match] for match in re.findall(r'from R(\d+)C(\d+) to R(\d+)C(\d+)',m.group(1))]
+    if not rectangles:return None
+    cells=[]
+    for r1,c1,r2,c2 in rectangles:
+        if not (1<=r1<=r2<=8 and 1<=c1<=c2<=8):return None
+        cells.extend((r,c) for r in range(r1,r2+1) for c in range(c1,c2+1))
+    if len(cells)!=64 or len(set(cells))!=64:return None
+    return {'type':'patches','rects':rectangles}
+
+def pinpoint(text):
+    s=solution_section(text,'Pinpoint','Answer')
+    m=re.search(r'Category\s+(.+?)(?=\s+Clues:|\s+How to|$)',s,re.S|re.I)
+    if not m:return None
+    word=m.group(1).strip(' .')
+    return {'type':'word','value':word} if 2<len(word)<110 else None
+
+def crossclimb(text):
+    s=solution_section(text,'Crossclimb')
+    m=re.search(r'Answer\s+([A-Z]{3,10}(?:,\s*[A-Z]{3,10}){6})',s)
+    if not m:return None
+    words=[w.strip() for w in m.group(1).split(',')]
+    if len({len(w) for w in words})!=1:return None
+    if any(sum(a!=b for a,b in zip(words[i],words[i+1]))!=1 for i in range(6)):return None
+    return {'type':'ladder','words':words,'description':f'Bookend phrase: {words[0]} {words[-1]}.'}
+
+def wend(text):
+    s=solution_section(text,'Wend')
+    m=re.search(r'Words:\s*([A-Z]+(?:,\s*[A-Z]+){2,7})',s)
+    if not m:return None
+    words=[w.strip() for w in m.group(1).split(',')]
+    if not 3<=len(words)<=8 or len(words)!=len(set(words)):return None
+    return {'type':'words','words':words}
+
+PARSERS={'queens':queens,'tango':tango,'zip':zipgame,'mini-sudoku':sudoku,'patches':patches,'pinpoint':pinpoint,'crossclimb':crossclimb,'wend':wend}
+
+def update_linkedin(day,out):
+    diff=(day-BASE).days
+    for game,base in BASE_NUM.items():
+        n=base+diff
+        if n<1:continue
+        url=f'{BASE_LINK}{game}/{n}-answer/'
+        txt=checked_page(fetch(url),day,game,n)
+        result=PARSERS[game](txt) if txt else None
+        if result:
+            out['games'][game]={'status':'verified','number':f'#{n}','hint':[],'answer':result,'source':url}
+            print('  ✓',game,'#'+str(n))
+        else:
+            out['games'][game]={'status':'missing','number':f'#{n}','hint':[],'answer':None,'source':f'{BASE_LINK}{game}/'}
+            print('  -',game,'not confirmed')
+        time.sleep(.2)
+
+def update_wordle(day,out):
+    url=f'https://www.nytimes.com/svc/wordle/v2/{day.isoformat()}.json'
+    raw=fetch(url)
+    try:
+        obj=json.loads(raw)
+        word=str(obj['solution']).upper()
+        if len(word)==5 and word.isalpha():
+            num=1961+(day-BASE).days
+            out['games']['wordle']={'status':'verified','number':f'#{num}','hint':[],'answer':{'type':'word','value':word},'source':url}
+            print('  ✓ wordle')
+            return
+    except (ValueError,KeyError,TypeError):pass
+    out['games']['wordle']={'status':'missing','number':f'#{1961+(day-BASE).days}','answer':None,'source':'https://www.today-wordle.com/'}
+    print('  - wordle not confirmed')
+
+def solve_sumplete(matrix,targets,cols):
+    candidates=[]
+    for row,target in zip(matrix,targets):
+        choices=[]
+        for bits in itertools.product([0,1],repeat=5):
+            if sum(a*b for a,b in zip(row,bits))==target:choices.append(bits)
+        candidates.append(choices)
+    def backtrack(i,sums,chosen):
+        if i==5:return chosen if sums==cols else None
+        for mask in candidates[i]:
+            nexts=[sums[c]+matrix[i][c]*mask[c] for c in range(5)]
+            if any(nexts[c]>cols[c] for c in range(5)):continue
+            result=backtrack(i+1,nexts,chosen+[list(mask)])
+            if result is not None:return result
+        return None
+    return backtrack(0,[0]*5,[])
+
+def update_sumplete(day,out):
+    slug=day.strftime('%B').lower()+'-'+str(day.day)+'-'+str(day.year)
+    url=f'https://walkthroughs.net/sumplete-answers/{slug}'
+    txt=checked_page(fetch(url),day,'Sumplete')
+    if txt:
+        m=re.search(r'5x5 solution.*?Keep Delete\s+(.*?)\s+Reveal the solution',txt,re.I|re.S)
+        if m:
+            nums=list(map(int,re.findall(r'\b\d{1,3}\b',m.group(1))))
+            if len(nums)==35:
+                matrix=[nums[r*6:r*6+5] for r in range(5)]
+                targets=[nums[r*6+5] for r in range(5)]
+                cols=nums[30:35]
+                kept=solve_sumplete(matrix,targets,cols)
+                if kept is not None:
+                    n=1334+(day-BASE).days
+                    out['games']['sumplete']={'status':'verified','number':f'5×5 · #{n}','hint':[],'answer':{'type':'sumplete','grid':matrix,'kept':kept,'rowTargets':targets,'colTargets':cols},'source':url}
+                    print('  ✓ sumplete')
+                    return
+    out['games']['sumplete']={'status':'missing','number':f'#{1334+(day-BASE).days}','answer':None,'source':'https://walkthroughs.net/sumplete-answers'}
+    print('  - sumplete not confirmed')
+
+def update_strands(day,out):
+    slug=day.strftime('%B').lower()+'-'+str(day.day)+'-'+str(day.year)
+    url=f'https://walkthroughs.net/strands-answers/{slug}'
+    txt=checked_page(fetch(url),day,'Strands')
+    # Use only a matching day and a recognisable exact section; don't guess.
+    if txt:
+        m=re.search(r'Theme\s*[“\"]([^”\"]+)[”\"].*?The answers\s+Spangram\s+Spangram\s+([A-Z]+)\s+Theme words\s*\(\d+\)\s+([A-Z\s]+?)\s+How to play',txt,re.S|re.I)
+        if m:
+            words=re.findall(r'\b[A-Z]{3,}\b',m.group(3))
+            if 3<=len(words)<=12:
+                out['games']['strands']={'status':'verified','number':f'#{973+(day-BASE).days}','hint':[], 'answer':{'type':'strands','theme':m.group(1),'spangram':m.group(2),'words':words},'source':url}
+                print('  ✓ strands')
+                return
+    out['games']['strands']={'status':'missing','number':f'#{973+(day-BASE).days}','answer':None,'source':'https://hintsheet.com/strands/answer-today'}
+    print('  - strands not confirmed')
+
+def update(day,force=False):
+    output=ROOT/'data'/f'{day}.json'
+    if output.exists() and not force:
+        print(f'{output.name} already exists; use --force to regenerate')
+        return
+    obj={'date':day.isoformat(),'editorialNote':'Daily answers are imported on a best-effort basis, validated, and linked to the original reference. Missing results are never passed off as verified.','games':{}}
+    obj['games']['crosswordle']={'status':'guide','number':'Original game','hint':['The original has no unique single solution.'],'answer':{'type':'notice','title':'No single fixed answer','value':'Fill real guesses that match the coloured reverse-Wordle pattern. Multiple solutions can be valid.'},'source':'https://allthedles.com/games/crosswordle/'}
+    obj['games']['mathler']={'status':'guide','number':'Daily equation','hint':['The exact equation has to match the hidden answer, not merely equal the target.'],'answer':{'type':'notice','title':'Solution not independently verified','value':'Use the original puzzle clues or choose an independent solver. We do not invent an equation.'},'source':'https://www.mathler.com/'}
+    update_wordle(day,obj)
+    update_strands(day,obj)
+    update_sumplete(day,obj)
+    update_linkedin(day,obj)
+    # A temporary failure must not erase a verified record for the SAME date.
+    if output.exists():
+        try:
+            previous=json.loads(output.read_text(encoding='utf-8'))
+            if previous.get('date')==day.isoformat():
+                for name,old in previous.get('games',{}).items():
+                    if old.get('status')=='verified' and obj['games'].get(name,{}).get('status')!='verified':
+                        obj['games'][name]=old
+        except (ValueError,KeyError,TypeError):pass
+    output.write_text(json.dumps(obj,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+    print(f'Wrote {output}: {sum(v["status"]=="verified" for v in obj["games"].values())}/13 verified')
+
+if __name__=='__main__':
+    arg=argparse.ArgumentParser(description='Import verified daily answers for Daily Puzzle Hub')
+    arg.add_argument('--date',default=datetime.now(ZoneInfo('Europe/London')).date().isoformat())
+    arg.add_argument('--force',action='store_true')
+    args=arg.parse_args()
+    update(date.fromisoformat(args.date),force=args.force)
