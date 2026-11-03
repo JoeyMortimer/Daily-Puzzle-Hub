@@ -486,6 +486,8 @@ def update(day,force=False):
                             current['grid']=earlier['grid']
                             current['paths']=earlier['paths']
         except (ValueError,KeyError,TypeError):pass
+    from logic_solvers import enrich_daily as _enrich_logic_daily
+    _enrich_logic_daily(day, obj)
     output.write_text(json.dumps(obj,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(f'Wrote {output}: {sum(v["status"]=="verified" for v in obj["games"].values())}/13 verified')
 
