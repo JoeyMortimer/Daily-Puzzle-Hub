@@ -1,0 +1,1261 @@
+{
+  "date": "2026-11-07",
+  "editorialNote": "Daily answers are imported on a best-effort basis, validated, and linked to the original reference. Missing results are never passed off as verified.",
+  "games": {
+    "crosswordle": {
+      "status": "guide",
+      "number": "Daily 7×7 / 9×9",
+      "hint": [
+        "Swap the scrambled letters into solved words."
+      ],
+      "answer": {
+        "type": "notice",
+        "title": "Daily grid not yet verified",
+        "value": "This is the tile-swapping Crosswordle at crosswordle.com. A validated completed board has not yet been imported. The daily solver link below may help."
+      },
+      "source": "https://crosswordle.com/"
+    },
+    "mathler": {
+      "status": "guide",
+      "number": "Daily equation",
+      "hint": [
+        "The exact equation has to match the hidden answer, not merely equal the target."
+      ],
+      "answer": {
+        "type": "notice",
+        "title": "Solution not independently verified",
+        "value": "Use the original puzzle clues or choose an independent solver. We do not invent an equation."
+      },
+      "source": "https://www.mathler.com/"
+    },
+    "wordle": {
+      "status": "verified",
+      "number": "#1967",
+      "hint": [],
+      "answer": {
+        "type": "word",
+        "value": "PRATE"
+      },
+      "source": "https://www.nytimes.com/svc/wordle/v2/2026-11-07.json"
+    },
+    "strands": {
+      "status": "verified",
+      "number": "#979",
+      "hint": [],
+      "answer": {
+        "type": "strands",
+        "theme": "In the blink of an eye",
+        "spangram": "WHATSTHEHURRY",
+        "words": [
+          "FLASH",
+          "HURTLE",
+          "RUSH",
+          "STREAK",
+          "WHIZ",
+          "WHOOSH",
+          "ZOOM"
+        ],
+        "grid": [
+          [
+            "O",
+            "O",
+            "H",
+            "S",
+            "Y",
+            "R"
+          ],
+          [
+            "S",
+            "W",
+            "R",
+            "T",
+            "W",
+            "R"
+          ],
+          [
+            "H",
+            "T",
+            "U",
+            "R",
+            "H",
+            "U"
+          ],
+          [
+            "W",
+            "L",
+            "H",
+            "E",
+            "I",
+            "H"
+          ],
+          [
+            "H",
+            "E",
+            "A",
+            "K",
+            "Z",
+            "E"
+          ],
+          [
+            "O",
+            "A",
+            "T",
+            "S",
+            "T",
+            "H"
+          ],
+          [
+            "O",
+            "Z",
+            "F",
+            "L",
+            "R",
+            "H"
+          ],
+          [
+            "M",
+            "H",
+            "S",
+            "A",
+            "U",
+            "S"
+          ]
+        ],
+        "paths": {
+          "ZOOM": [
+            [
+              7,
+              2
+            ],
+            [
+              6,
+              1
+            ],
+            [
+              7,
+              1
+            ],
+            [
+              8,
+              1
+            ]
+          ],
+          "RUSH": [
+            [
+              7,
+              5
+            ],
+            [
+              8,
+              5
+            ],
+            [
+              8,
+              6
+            ],
+            [
+              7,
+              6
+            ]
+          ],
+          "FLASH": [
+            [
+              7,
+              3
+            ],
+            [
+              7,
+              4
+            ],
+            [
+              8,
+              4
+            ],
+            [
+              8,
+              3
+            ],
+            [
+              8,
+              2
+            ]
+          ],
+          "WHOOSH": [
+            [
+              2,
+              2
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              1
+            ]
+          ],
+          "WHATSTHEHURRY": [
+            [
+              4,
+              1
+            ],
+            [
+              5,
+              1
+            ],
+            [
+              6,
+              2
+            ],
+            [
+              6,
+              3
+            ],
+            [
+              6,
+              4
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              6,
+              6
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              1,
+              6
+            ],
+            [
+              1,
+              5
+            ]
+          ],
+          "HURTLE": [
+            [
+              4,
+              3
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              4,
+              2
+            ],
+            [
+              5,
+              2
+            ]
+          ],
+          "WHIZ": [
+            [
+              2,
+              5
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              5
+            ]
+          ],
+          "STREAK": [
+            [
+              1,
+              4
+            ],
+            [
+              2,
+              4
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              5,
+              3
+            ],
+            [
+              5,
+              4
+            ]
+          ]
+        }
+      },
+      "source": "https://walkthroughs.net/strands-answers/november-7-2026"
+    },
+    "sumplete": {
+      "status": "verified",
+      "number": "5×5 · #1340",
+      "hint": [],
+      "answer": {
+        "type": "sumplete",
+        "grid": [
+          [
+            5,
+            1,
+            2,
+            2,
+            5
+          ],
+          [
+            7,
+            4,
+            8,
+            8,
+            1
+          ],
+          [
+            5,
+            9,
+            4,
+            3,
+            8
+          ],
+          [
+            7,
+            3,
+            6,
+            5,
+            1
+          ],
+          [
+            1,
+            8,
+            6,
+            2,
+            6
+          ]
+        ],
+        "kept": [
+          [
+            1,
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            1
+          ]
+        ],
+        "rowTargets": [
+          8,
+          9,
+          17,
+          11,
+          14
+        ],
+        "colTargets": [
+          10,
+          10,
+          12,
+          20,
+          7
+        ]
+      },
+      "source": "https://walkthroughs.net/sumplete-answers/november-7-2026"
+    },
+    "pinpoint": {
+      "status": "verified",
+      "number": "#921",
+      "hint": [],
+      "answer": {
+        "type": "word",
+        "value": "Different definitions of “coach”"
+      },
+      "source": "https://lianswers.com/linkedin/pinpoint/921-answer/",
+      "clues": [
+        "Guide",
+        "Carriage",
+        "Handbag brand",
+        "Airplane section",
+        "Sports team leader"
+      ]
+    },
+    "crossclimb": {
+      "status": "verified",
+      "number": "#921",
+      "hint": [],
+      "answer": {
+        "type": "ladder",
+        "words": [
+          "GOOD",
+          "GOLD",
+          "SOLD",
+          "SOLE",
+          "SOME",
+          "HOME",
+          "HOPE"
+        ],
+        "description": "Bookend phrase: GOOD HOPE."
+      },
+      "source": "https://lianswers.com/linkedin/crossclimb/921-answer/"
+    },
+    "queens": {
+      "status": "verified",
+      "number": "#921",
+      "hint": [],
+      "answer": {
+        "type": "queens",
+        "cols": [
+          7,
+          5,
+          8,
+          3,
+          9,
+          2,
+          4,
+          6,
+          1
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/queens/921-answer/"
+    },
+    "tango": {
+      "status": "verified",
+      "number": "#761",
+      "hint": [],
+      "answer": {
+        "type": "tango",
+        "rows": [
+          [
+            "M",
+            "S",
+            "S",
+            "M",
+            "M",
+            "S"
+          ],
+          [
+            "S",
+            "S",
+            "M",
+            "M",
+            "S",
+            "M"
+          ],
+          [
+            "M",
+            "M",
+            "S",
+            "S",
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "S",
+            "M",
+            "S",
+            "M"
+          ],
+          [
+            "S",
+            "M",
+            "M",
+            "S",
+            "S",
+            "M"
+          ],
+          [
+            "S",
+            "M",
+            "M",
+            "S",
+            "M",
+            "S"
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/tango/761-answer/"
+    },
+    "zip": {
+      "status": "verified",
+      "number": "#600",
+      "hint": [],
+      "answer": {
+        "type": "zip",
+        "path": [
+          [
+            6,
+            5
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            6,
+            3
+          ],
+          [
+            7,
+            3
+          ],
+          [
+            7,
+            4
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            7,
+            6
+          ],
+          [
+            7,
+            7
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            5,
+            7
+          ],
+          [
+            4,
+            7
+          ],
+          [
+            3,
+            7
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            7
+          ],
+          [
+            1,
+            8
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            3,
+            8
+          ],
+          [
+            4,
+            8
+          ],
+          [
+            5,
+            8
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            7,
+            8
+          ],
+          [
+            8,
+            8
+          ],
+          [
+            8,
+            7
+          ],
+          [
+            8,
+            6
+          ],
+          [
+            8,
+            5
+          ],
+          [
+            8,
+            4
+          ],
+          [
+            8,
+            3
+          ],
+          [
+            8,
+            2
+          ],
+          [
+            8,
+            1
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            7,
+            2
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            6
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/zip/600-answer/"
+    },
+    "mini-sudoku": {
+      "status": "verified",
+      "number": "#453",
+      "hint": [],
+      "answer": {
+        "type": "sudoku",
+        "rows": [
+          [
+            1,
+            2,
+            6,
+            5,
+            3,
+            4
+          ],
+          [
+            3,
+            4,
+            5,
+            2,
+            6,
+            1
+          ],
+          [
+            2,
+            1,
+            3,
+            6,
+            4,
+            5
+          ],
+          [
+            6,
+            5,
+            4,
+            3,
+            1,
+            2
+          ],
+          [
+            5,
+            3,
+            1,
+            4,
+            2,
+            6
+          ],
+          [
+            4,
+            6,
+            2,
+            1,
+            5,
+            3
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/mini-sudoku/453-answer/"
+    },
+    "patches": {
+      "status": "verified",
+      "number": "#235",
+      "hint": [],
+      "answer": {
+        "type": "patches",
+        "rects": [
+          [
+            1,
+            1,
+            1,
+            3
+          ],
+          [
+            1,
+            4,
+            3,
+            4
+          ],
+          [
+            1,
+            5,
+            1,
+            7
+          ],
+          [
+            1,
+            8,
+            2,
+            8
+          ],
+          [
+            2,
+            1,
+            4,
+            1
+          ],
+          [
+            2,
+            2,
+            4,
+            2
+          ],
+          [
+            2,
+            3,
+            4,
+            3
+          ],
+          [
+            2,
+            5,
+            2,
+            7
+          ],
+          [
+            3,
+            5,
+            3,
+            7
+          ],
+          [
+            3,
+            8,
+            6,
+            8
+          ],
+          [
+            4,
+            4,
+            4,
+            6
+          ],
+          [
+            4,
+            7,
+            6,
+            7
+          ],
+          [
+            5,
+            1,
+            8,
+            1
+          ],
+          [
+            5,
+            2,
+            6,
+            3
+          ],
+          [
+            5,
+            4,
+            6,
+            5
+          ],
+          [
+            5,
+            6,
+            8,
+            6
+          ],
+          [
+            7,
+            2,
+            8,
+            2
+          ],
+          [
+            7,
+            3,
+            8,
+            4
+          ],
+          [
+            7,
+            5,
+            8,
+            5
+          ],
+          [
+            7,
+            7,
+            8,
+            8
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/patches/235-answer/"
+    },
+    "wend": {
+      "status": "verified",
+      "number": "#152",
+      "hint": [],
+      "answer": {
+        "type": "words",
+        "words": [
+          "BRONZE",
+          "CLASSIC",
+          "REVERSAL",
+          "INTERJECT",
+          "SUBSEQUENT"
+        ],
+        "grid": [
+          [
+            "J",
+            "R",
+            "#",
+            "R",
+            "O",
+            "N",
+            "Z"
+          ],
+          [
+            "E",
+            "E",
+            "T",
+            "B",
+            "#",
+            "C",
+            "E"
+          ],
+          [
+            "C",
+            "#",
+            "N",
+            "I",
+            "S",
+            "I",
+            "#"
+          ],
+          [
+            "T",
+            "A",
+            "L",
+            "#",
+            "S",
+            "T",
+            "N"
+          ],
+          [
+            "#",
+            "S",
+            "C",
+            "L",
+            "A",
+            "#",
+            "E"
+          ],
+          [
+            "E",
+            "R",
+            "#",
+            "U",
+            "B",
+            "S",
+            "U"
+          ],
+          [
+            "V",
+            "E",
+            "R",
+            "S",
+            "#",
+            "E",
+            "Q"
+          ]
+        ],
+        "paths": [
+          [
+            [
+              2,
+              4
+            ],
+            [
+              1,
+              4
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              6
+            ],
+            [
+              1,
+              7
+            ],
+            [
+              2,
+              7
+            ]
+          ],
+          [
+            [
+              5,
+              3
+            ],
+            [
+              5,
+              4
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              2,
+              6
+            ]
+          ],
+          [
+            [
+              7,
+              3
+            ],
+            [
+              7,
+              2
+            ],
+            [
+              7,
+              1
+            ],
+            [
+              6,
+              1
+            ],
+            [
+              6,
+              2
+            ],
+            [
+              5,
+              2
+            ],
+            [
+              4,
+              2
+            ],
+            [
+              4,
+              3
+            ]
+          ],
+          [
+            [
+              3,
+              4
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              1
+            ],
+            [
+              4,
+              1
+            ]
+          ],
+          [
+            [
+              7,
+              4
+            ],
+            [
+              6,
+              4
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              6,
+              6
+            ],
+            [
+              7,
+              6
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              5,
+              7
+            ],
+            [
+              4,
+              7
+            ],
+            [
+              4,
+              6
+            ]
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/wend/152-answer/",
+      "boardSource": "https://lianswers.com/linkedin/wend/152-answer/"
+    }
+  }
+}
