@@ -1,0 +1,946 @@
+{
+  "date": "2026-11-08",
+  "editorialNote": "Daily answers are imported on a best-effort basis, validated, and linked to the original reference. Missing results are never passed off as verified.",
+  "games": {
+    "crosswordle": {
+      "status": "guide",
+      "number": "Daily 7×7 / 9×9",
+      "hint": [
+        "Swap the scrambled letters into solved words."
+      ],
+      "answer": {
+        "type": "notice",
+        "title": "Daily grid not yet verified",
+        "value": "This is the tile-swapping Crosswordle at crosswordle.com. A validated completed board has not yet been imported. The daily solver link below may help."
+      },
+      "source": "https://crosswordle.com/"
+    },
+    "mathler": {
+      "status": "guide",
+      "number": "Daily equation",
+      "hint": [
+        "The exact equation has to match the hidden answer, not merely equal the target."
+      ],
+      "answer": {
+        "type": "notice",
+        "title": "Solution not independently verified",
+        "value": "Use the original puzzle clues or choose an independent solver. We do not invent an equation."
+      },
+      "source": "https://www.mathler.com/"
+    },
+    "wordle": {
+      "status": "verified",
+      "number": "#1968",
+      "hint": [],
+      "answer": {
+        "type": "word",
+        "value": "FIRST"
+      },
+      "source": "https://www.nytimes.com/svc/wordle/v2/2026-11-08.json"
+    },
+    "strands": {
+      "status": "verified",
+      "number": "#980",
+      "hint": [],
+      "answer": {
+        "type": "strands",
+        "theme": "Disciplined combat",
+        "spangram": "MARTIALARTS",
+        "words": [
+          "JUDO",
+          "KARATE",
+          "KICKBOXING",
+          "NINJUTSU",
+          "TAEKWONDO"
+        ],
+        "grid": [
+          [
+            "U",
+            "J",
+            "C",
+            "K",
+            "B",
+            "I"
+          ],
+          [
+            "D",
+            "K",
+            "I",
+            "O",
+            "X",
+            "N"
+          ],
+          [
+            "O",
+            "R",
+            "T",
+            "I",
+            "A",
+            "G"
+          ],
+          [
+            "A",
+            "U",
+            "R",
+            "A",
+            "K",
+            "L"
+          ],
+          [
+            "M",
+            "S",
+            "A",
+            "T",
+            "E",
+            "A"
+          ],
+          [
+            "N",
+            "T",
+            "N",
+            "D",
+            "O",
+            "R"
+          ],
+          [
+            "I",
+            "U",
+            "O",
+            "W",
+            "K",
+            "T"
+          ],
+          [
+            "N",
+            "J",
+            "T",
+            "A",
+            "E",
+            "S"
+          ]
+        ],
+        "paths": {
+          "JUDO": [
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              1
+            ]
+          ],
+          "KICKBOXING": [
+            [
+              2,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              4
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              2,
+              4
+            ],
+            [
+              2,
+              5
+            ],
+            [
+              1,
+              6
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              3,
+              6
+            ]
+          ],
+          "MARTIALARTS": [
+            [
+              5,
+              1
+            ],
+            [
+              4,
+              1
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              6,
+              6
+            ],
+            [
+              7,
+              6
+            ],
+            [
+              8,
+              6
+            ]
+          ],
+          "NINJUTSU": [
+            [
+              6,
+              1
+            ],
+            [
+              7,
+              1
+            ],
+            [
+              8,
+              1
+            ],
+            [
+              8,
+              2
+            ],
+            [
+              7,
+              2
+            ],
+            [
+              6,
+              2
+            ],
+            [
+              5,
+              2
+            ],
+            [
+              4,
+              2
+            ]
+          ],
+          "KARATE": [
+            [
+              4,
+              5
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              4,
+              3
+            ],
+            [
+              5,
+              3
+            ],
+            [
+              5,
+              4
+            ],
+            [
+              5,
+              5
+            ]
+          ],
+          "TAEKWONDO": [
+            [
+              8,
+              3
+            ],
+            [
+              8,
+              4
+            ],
+            [
+              8,
+              5
+            ],
+            [
+              7,
+              5
+            ],
+            [
+              7,
+              4
+            ],
+            [
+              7,
+              3
+            ],
+            [
+              6,
+              3
+            ],
+            [
+              6,
+              4
+            ],
+            [
+              6,
+              5
+            ]
+          ]
+        }
+      },
+      "source": "https://walkthroughs.net/strands-answers/november-8-2026"
+    },
+    "sumplete": {
+      "status": "verified",
+      "number": "5×5 · #1341",
+      "hint": [],
+      "answer": {
+        "type": "sumplete",
+        "grid": [
+          [
+            7,
+            6,
+            6,
+            4,
+            1
+          ],
+          [
+            4,
+            8,
+            2,
+            9,
+            7
+          ],
+          [
+            7,
+            5,
+            1,
+            8,
+            1
+          ],
+          [
+            3,
+            4,
+            3,
+            7,
+            3
+          ],
+          [
+            5,
+            7,
+            6,
+            9,
+            3
+          ]
+        ],
+        "kept": [
+          [
+            0,
+            1,
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            1
+          ]
+        ],
+        "rowTargets": [
+          7,
+          9,
+          5,
+          7,
+          8
+        ],
+        "colTargets": [
+          8,
+          15,
+          2,
+          0,
+          11
+        ]
+      },
+      "source": "https://walkthroughs.net/sumplete-answers/november-8-2026"
+    },
+    "pinpoint": {
+      "status": "verified",
+      "number": "#922",
+      "hint": [],
+      "answer": {
+        "type": "word",
+        "value": "Words that come after “ground”"
+      },
+      "source": "https://lianswers.com/linkedin/pinpoint/922-answer/",
+      "clues": [
+        "Rules",
+        "Control",
+        "Water",
+        "Floor",
+        "-breaking (new and innovative)"
+      ]
+    },
+    "crossclimb": {
+      "status": "verified",
+      "number": "#922",
+      "hint": [],
+      "answer": {
+        "type": "ladder",
+        "words": [
+          "LEFT",
+          "DEFT",
+          "DAFT",
+          "WAFT",
+          "WART",
+          "PART",
+          "PORT"
+        ],
+        "description": "Bookend phrase: LEFT PORT."
+      },
+      "source": "https://lianswers.com/linkedin/crossclimb/922-answer/"
+    },
+    "queens": {
+      "status": "verified",
+      "number": "#922",
+      "hint": [],
+      "answer": {
+        "type": "queens",
+        "cols": [
+          5,
+          9,
+          4,
+          6,
+          2,
+          7,
+          1,
+          3,
+          8
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/queens/922-answer/"
+    },
+    "tango": {
+      "status": "verified",
+      "number": "#762",
+      "hint": [],
+      "answer": {
+        "type": "tango",
+        "rows": [
+          [
+            "S",
+            "S",
+            "M",
+            "S",
+            "M",
+            "M"
+          ],
+          [
+            "M",
+            "S",
+            "M",
+            "S",
+            "S",
+            "M"
+          ],
+          [
+            "M",
+            "M",
+            "S",
+            "M",
+            "S",
+            "S"
+          ],
+          [
+            "S",
+            "S",
+            "M",
+            "S",
+            "M",
+            "M"
+          ],
+          [
+            "S",
+            "M",
+            "S",
+            "M",
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "M",
+            "S",
+            "M",
+            "S",
+            "S"
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/tango/762-answer/"
+    },
+    "zip": {
+      "status": "verified",
+      "number": "#601",
+      "hint": [],
+      "answer": {
+        "type": "zip",
+        "path": [
+          [
+            2,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            8,
+            1
+          ],
+          [
+            8,
+            2
+          ],
+          [
+            8,
+            3
+          ],
+          [
+            8,
+            4
+          ],
+          [
+            7,
+            4
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            6,
+            3
+          ],
+          [
+            7,
+            3
+          ],
+          [
+            7,
+            2
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            7
+          ],
+          [
+            1,
+            8
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            3,
+            8
+          ],
+          [
+            4,
+            8
+          ],
+          [
+            4,
+            7
+          ],
+          [
+            3,
+            7
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            7,
+            7
+          ],
+          [
+            7,
+            6
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            8,
+            5
+          ],
+          [
+            8,
+            6
+          ],
+          [
+            8,
+            7
+          ],
+          [
+            8,
+            8
+          ],
+          [
+            7,
+            8
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            5,
+            8
+          ],
+          [
+            5,
+            7
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/zip/601-answer/"
+    },
+    "mini-sudoku": {
+      "status": "verified",
+      "number": "#454",
+      "hint": [],
+      "answer": {
+        "type": "sudoku",
+        "rows": [
+          [
+            4,
+            5,
+            1,
+            2,
+            6,
+            3
+          ],
+          [
+            2,
+            6,
+            3,
+            4,
+            1,
+            5
+          ],
+          [
+            6,
+            1,
+            2,
+            3,
+            5,
+            4
+          ],
+          [
+            5,
+            3,
+            4,
+            1,
+            2,
+            6
+          ],
+          [
+            3,
+            2,
+            5,
+            6,
+            4,
+            1
+          ],
+          [
+            1,
+            4,
+            6,
+            5,
+            3,
+            2
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/mini-sudoku/454-answer/"
+    },
+    "patches": {
+      "status": "verified",
+      "number": "#236",
+      "hint": [],
+      "answer": {
+        "type": "patches",
+        "rects": [
+          [
+            1,
+            1,
+            3,
+            3
+          ],
+          [
+            1,
+            4,
+            3,
+            5
+          ],
+          [
+            1,
+            6,
+            3,
+            8
+          ],
+          [
+            4,
+            1,
+            4,
+            8
+          ],
+          [
+            5,
+            1,
+            6,
+            4
+          ],
+          [
+            5,
+            5,
+            8,
+            6
+          ],
+          [
+            5,
+            7,
+            8,
+            8
+          ],
+          [
+            7,
+            1,
+            8,
+            4
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/patches/236-answer/"
+    },
+    "wend": {
+      "status": "verified",
+      "number": "#153",
+      "hint": [],
+      "answer": {
+        "type": "words",
+        "words": [
+          "FLEE",
+          "SNEAK",
+          "SEARCH",
+          "CONCEAL",
+          "FETCHING",
+          "DISGUISED"
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/wend/153-answer/"
+    }
+  }
+}
