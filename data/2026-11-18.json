@@ -1,0 +1,820 @@
+{
+  "date": "2026-11-18",
+  "editorialNote": "Daily answers are imported on a best-effort basis, validated, and linked to the original reference. Missing results are never passed off as verified.",
+  "games": {
+    "crosswordle": {
+      "status": "guide",
+      "number": "Daily 7×7 / 9×9",
+      "hint": [
+        "Swap the scrambled letters into solved words."
+      ],
+      "answer": {
+        "type": "notice",
+        "title": "Daily grid not yet verified",
+        "value": "This is the tile-swapping Crosswordle at crosswordle.com. A validated completed board has not yet been imported. The daily solver link below may help."
+      },
+      "source": "https://crosswordle.com/"
+    },
+    "mathler": {
+      "status": "verified",
+      "number": "Normal",
+      "hint": [],
+      "answer": {
+        "type": "math",
+        "value": "26/2-5",
+        "target": 8,
+        "description": "Published independently for this exact date."
+      },
+      "source": "https://www.gfinityesports.com/article/answer-solution"
+    },
+    "wordle": {
+      "status": "verified",
+      "number": "#1978",
+      "hint": [],
+      "answer": {
+        "type": "word",
+        "value": "BLURT"
+      },
+      "source": "https://www.nytimes.com/svc/wordle/v2/2026-11-18.json"
+    },
+    "strands": {
+      "status": "verified",
+      "number": "#990",
+      "hint": [],
+      "answer": {
+        "type": "strands",
+        "theme": "You",
+        "spangram": "BRASSBAND",
+        "words": [
+          "BUGLE",
+          "CORNET",
+          "EUPHONIUM",
+          "TROMBONE",
+          "TRUMPET",
+          "TUBA"
+        ],
+        "grid": [
+          [
+            "R",
+            "O",
+            "M",
+            "B",
+            "C",
+            "O"
+          ],
+          [
+            "T",
+            "N",
+            "O",
+            "T",
+            "N",
+            "R"
+          ],
+          [
+            "R",
+            "A",
+            "E",
+            "E",
+            "B",
+            "N"
+          ],
+          [
+            "A",
+            "B",
+            "S",
+            "S",
+            "A",
+            "D"
+          ],
+          [
+            "B",
+            "E",
+            "P",
+            "O",
+            "I",
+            "M"
+          ],
+          [
+            "U",
+            "T",
+            "U",
+            "H",
+            "N",
+            "U"
+          ],
+          [
+            "E",
+            "L",
+            "T",
+            "U",
+            "P",
+            "T"
+          ],
+          [
+            "B",
+            "U",
+            "G",
+            "R",
+            "M",
+            "E"
+          ]
+        ],
+        "paths": {
+          "BUGLE": [
+            [
+              8,
+              1
+            ],
+            [
+              8,
+              2
+            ],
+            [
+              8,
+              3
+            ],
+            [
+              7,
+              2
+            ],
+            [
+              7,
+              1
+            ]
+          ],
+          "BRASSBAND": [
+            [
+              4,
+              2
+            ],
+            [
+              3,
+              1
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              4,
+              3
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              4,
+              6
+            ]
+          ],
+          "CORNET": [
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              6
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              2,
+              5
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              2,
+              4
+            ]
+          ],
+          "TUBA": [
+            [
+              6,
+              2
+            ],
+            [
+              6,
+              1
+            ],
+            [
+              5,
+              1
+            ],
+            [
+              4,
+              1
+            ]
+          ],
+          "TRUMPET": [
+            [
+              7,
+              3
+            ],
+            [
+              8,
+              4
+            ],
+            [
+              7,
+              4
+            ],
+            [
+              8,
+              5
+            ],
+            [
+              7,
+              5
+            ],
+            [
+              8,
+              6
+            ],
+            [
+              7,
+              6
+            ]
+          ],
+          "TROMBONE": [
+            [
+              2,
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              4
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              3
+            ]
+          ],
+          "EUPHONIUM": [
+            [
+              5,
+              2
+            ],
+            [
+              6,
+              3
+            ],
+            [
+              5,
+              3
+            ],
+            [
+              6,
+              4
+            ],
+            [
+              5,
+              4
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              6,
+              6
+            ],
+            [
+              5,
+              6
+            ]
+          ]
+        }
+      },
+      "source": "https://walkthroughs.net/strands-answers/november-18-2026"
+    },
+    "sumplete": {
+      "status": "verified",
+      "number": "5×5 · #1351",
+      "hint": [],
+      "answer": {
+        "type": "sumplete",
+        "grid": [
+          [
+            4,
+            2,
+            5,
+            3,
+            6
+          ],
+          [
+            7,
+            2,
+            5,
+            6,
+            3
+          ],
+          [
+            7,
+            1,
+            1,
+            9,
+            5
+          ],
+          [
+            1,
+            6,
+            8,
+            4,
+            4
+          ],
+          [
+            7,
+            2,
+            9,
+            9,
+            6
+          ]
+        ],
+        "kept": [
+          [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            0
+          ]
+        ],
+        "rowTargets": [
+          18,
+          2,
+          16,
+          19,
+          9
+        ],
+        "colTargets": [
+          12,
+          11,
+          14,
+          12,
+          15
+        ]
+      },
+      "source": "https://walkthroughs.net/sumplete-answers/november-18-2026"
+    },
+    "pinpoint": {
+      "status": "verified",
+      "number": "#932",
+      "hint": [],
+      "answer": {
+        "type": "word",
+        "value": "Names of card games"
+      },
+      "source": "https://lianswers.com/linkedin/pinpoint/932-answer/",
+      "clues": [
+        "500",
+        "21",
+        "Uno",
+        "Crazy Eights",
+        "52 Pickup (using a scattered deck)"
+      ]
+    },
+    "crossclimb": {
+      "status": "verified",
+      "number": "#932",
+      "hint": [],
+      "answer": {
+        "type": "ladder",
+        "words": [
+          "SINK",
+          "SILK",
+          "SULK",
+          "SUCK",
+          "SOCK",
+          "SOAK",
+          "SOAP"
+        ],
+        "description": "Bookend phrase: SINK SOAP."
+      },
+      "source": "https://lianswers.com/linkedin/crossclimb/932-answer/"
+    },
+    "queens": {
+      "status": "verified",
+      "number": "#932",
+      "hint": [],
+      "answer": {
+        "type": "queens",
+        "cols": [
+          5,
+          7,
+          3,
+          6,
+          2,
+          4,
+          1
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/queens/932-answer/"
+    },
+    "tango": {
+      "status": "verified",
+      "number": "#772",
+      "hint": [],
+      "answer": {
+        "type": "tango",
+        "rows": [
+          [
+            "M",
+            "M",
+            "S",
+            "S",
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "M",
+            "S",
+            "S",
+            "M",
+            "S"
+          ],
+          [
+            "S",
+            "S",
+            "M",
+            "M",
+            "S",
+            "M"
+          ],
+          [
+            "M",
+            "S",
+            "M",
+            "M",
+            "S",
+            "S"
+          ],
+          [
+            "S",
+            "M",
+            "S",
+            "S",
+            "M",
+            "M"
+          ],
+          [
+            "S",
+            "S",
+            "M",
+            "M",
+            "S",
+            "M"
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/tango/772-answer/"
+    },
+    "zip": {
+      "status": "verified",
+      "number": "#611",
+      "hint": [],
+      "answer": {
+        "type": "zip",
+        "path": [
+          [
+            4,
+            4
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            6,
+            3
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/zip/611-answer/"
+    },
+    "mini-sudoku": {
+      "status": "verified",
+      "number": "#464",
+      "hint": [],
+      "answer": {
+        "type": "sudoku",
+        "rows": [
+          [
+            6,
+            2,
+            3,
+            1,
+            5,
+            4
+          ],
+          [
+            5,
+            1,
+            4,
+            3,
+            6,
+            2
+          ],
+          [
+            3,
+            5,
+            6,
+            4,
+            2,
+            1
+          ],
+          [
+            1,
+            4,
+            2,
+            6,
+            3,
+            5
+          ],
+          [
+            4,
+            6,
+            5,
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            3,
+            1,
+            5,
+            4,
+            6
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/mini-sudoku/464-answer/"
+    },
+    "patches": {
+      "status": "verified",
+      "number": "#246",
+      "hint": [],
+      "answer": {
+        "type": "patches",
+        "rects": [
+          [
+            1,
+            1,
+            1,
+            6
+          ],
+          [
+            2,
+            1,
+            6,
+            2
+          ],
+          [
+            2,
+            3,
+            3,
+            5
+          ],
+          [
+            2,
+            6,
+            6,
+            6
+          ],
+          [
+            4,
+            3,
+            4,
+            5
+          ],
+          [
+            5,
+            3,
+            6,
+            5
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/patches/246-answer/"
+    },
+    "wend": {
+      "status": "verified",
+      "number": "#163",
+      "hint": [],
+      "answer": {
+        "type": "words",
+        "words": [
+          "NEW",
+          "GAME",
+          "LAUNCH",
+          "TODAY"
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/wend/163-answer/"
+    }
+  }
+}
