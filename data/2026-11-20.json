@@ -1,0 +1,278 @@
+{
+  "date": "2026-11-20",
+  "editorialNote": "Daily answers are imported on a best-effort basis, validated, and linked to the original reference. Missing results are never passed off as verified.",
+  "games": {
+    "crosswordle": {
+      "status": "guide",
+      "number": "Daily 7×7 / 9×9",
+      "hint": [
+        "Swap the scrambled letters into solved words."
+      ],
+      "answer": {
+        "type": "notice",
+        "title": "Daily grid not yet verified",
+        "value": "This is the tile-swapping Crosswordle at crosswordle.com. A validated completed board has not yet been imported. The daily solver link below may help."
+      },
+      "source": "https://crosswordle.com/"
+    },
+    "mathler": {
+      "status": "verified",
+      "number": "Normal",
+      "hint": [],
+      "answer": {
+        "type": "math",
+        "value": "8+3-10",
+        "target": 1,
+        "description": "Published independently for this exact date."
+      },
+      "source": "https://www.gfinityesports.com/article/answer-solution"
+    },
+    "wordle": {
+      "status": "verified",
+      "number": "#1980",
+      "hint": [],
+      "answer": {
+        "type": "word",
+        "value": "AROSE"
+      },
+      "source": "https://www.nytimes.com/svc/wordle/v2/2026-11-20.json"
+    },
+    "strands": {
+      "status": "verified",
+      "number": "#992",
+      "hint": [],
+      "answer": {
+        "type": "strands",
+        "theme": "There",
+        "spangram": "AFLYINTHEOINTMENT",
+        "words": [
+          "HICCUP",
+          "HINDRANCE",
+          "HITCH",
+          "SETBACK",
+          "SNAG"
+        ],
+        "grid": [
+          [
+            "A",
+            "F",
+            "L",
+            "Y",
+            "N",
+            "A"
+          ],
+          [
+            "N",
+            "C",
+            "H",
+            "I",
+            "S",
+            "G"
+          ],
+          [
+            "A",
+            "E",
+            "I",
+            "N",
+            "C",
+            "K"
+          ],
+          [
+            "R",
+            "D",
+            "N",
+            "T",
+            "S",
+            "A"
+          ],
+          [
+            "I",
+            "O",
+            "E",
+            "H",
+            "E",
+            "B"
+          ],
+          [
+            "N",
+            "H",
+            "C",
+            "U",
+            "T",
+            "C"
+          ],
+          [
+            "T",
+            "I",
+            "C",
+            "P",
+            "H",
+            "T"
+          ],
+          [
+            "M",
+            "E",
+            "N",
+            "T",
+            "H",
+            "I"
+          ]
+        ]
+      },
+      "source": "https://walkthroughs.net/strands-answers/november-20-2026"
+    },
+    "sumplete": {
+      "status": "verified",
+      "number": "5×5 · #1353",
+      "hint": [],
+      "answer": {
+        "type": "sumplete",
+        "grid": [
+          [
+            7,
+            7,
+            3,
+            7,
+            7
+          ],
+          [
+            7,
+            2,
+            4,
+            3,
+            2
+          ],
+          [
+            2,
+            9,
+            6,
+            5,
+            4
+          ],
+          [
+            8,
+            3,
+            7,
+            6,
+            7
+          ],
+          [
+            6,
+            4,
+            9,
+            1,
+            3
+          ]
+        ],
+        "kept": [
+          [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            1,
+            0,
+            0
+          ]
+        ],
+        "rowTargets": [
+          14,
+          9,
+          11,
+          15,
+          13
+        ],
+        "colTargets": [
+          17,
+          11,
+          20,
+          8,
+          6
+        ]
+      },
+      "source": "https://walkthroughs.net/sumplete-answers/november-20-2026"
+    },
+    "pinpoint": {
+      "status": "missing",
+      "number": "#934",
+      "hint": [],
+      "answer": null,
+      "source": "https://lianswers.com/linkedin/pinpoint/"
+    },
+    "crossclimb": {
+      "status": "missing",
+      "number": "#934",
+      "hint": [],
+      "answer": null,
+      "source": "https://lianswers.com/linkedin/crossclimb/"
+    },
+    "queens": {
+      "status": "missing",
+      "number": "#934",
+      "hint": [],
+      "answer": null,
+      "source": "https://lianswers.com/linkedin/queens/"
+    },
+    "tango": {
+      "status": "missing",
+      "number": "#774",
+      "hint": [],
+      "answer": null,
+      "source": "https://lianswers.com/linkedin/tango/"
+    },
+    "zip": {
+      "status": "missing",
+      "number": "#613",
+      "hint": [],
+      "answer": null,
+      "source": "https://lianswers.com/linkedin/zip/"
+    },
+    "mini-sudoku": {
+      "status": "missing",
+      "number": "#466",
+      "hint": [],
+      "answer": null,
+      "source": "https://lianswers.com/linkedin/mini-sudoku/"
+    },
+    "patches": {
+      "status": "missing",
+      "number": "#248",
+      "hint": [],
+      "answer": null,
+      "source": "https://lianswers.com/linkedin/patches/"
+    },
+    "wend": {
+      "status": "missing",
+      "number": "#165",
+      "hint": [],
+      "answer": null,
+      "source": "https://lianswers.com/linkedin/wend/"
+    }
+  }
+}
