@@ -1,0 +1,110 @@
+{
+  "date": "2026-11-22",
+  "editorialNote": "Daily answers are imported on a best-effort basis, validated, and linked to the original reference. Missing results are never passed off as verified.",
+  "games": {
+    "crosswordle": {
+      "status": "guide",
+      "number": "Daily 7×7 / 9×9",
+      "hint": [
+        "Swap the scrambled letters into solved words."
+      ],
+      "answer": {
+        "type": "notice",
+        "title": "Daily grid not yet verified",
+        "value": "This is the tile-swapping Crosswordle at crosswordle.com. A validated completed board has not yet been imported. The daily solver link below may help."
+      },
+      "source": "https://crosswordle.com/"
+    },
+    "mathler": {
+      "status": "guide",
+      "number": "Daily equation",
+      "hint": [
+        "The exact equation has to match the hidden answer, not merely equal the target."
+      ],
+      "answer": {
+        "type": "notice",
+        "title": "Solution not independently verified",
+        "value": "Use the original puzzle clues or choose an independent solver. We do not invent an equation."
+      },
+      "source": "https://www.mathler.com/"
+    },
+    "wordle": {
+      "status": "verified",
+      "number": "#1982",
+      "hint": [],
+      "answer": {
+        "type": "word",
+        "value": "UPEND"
+      },
+      "source": "https://www.nytimes.com/svc/wordle/v2/2026-11-22.json"
+    },
+    "strands": {
+      "status": "missing",
+      "number": "#994",
+      "answer": null,
+      "source": "https://walkthroughs.net/strands-answers/november-22-2026"
+    },
+    "sumplete": {
+      "status": "missing",
+      "number": "#1355",
+      "answer": null,
+      "source": "https://walkthroughs.net/sumplete-answers"
+    },
+    "pinpoint": {
+      "status": "missing",
+      "number": "#936",
+      "hint": [],
+      "answer": null,
+      "source": "https://lianswers.com/linkedin/pinpoint/"
+    },
+    "crossclimb": {
+      "status": "missing",
+      "number": "#936",
+      "hint": [],
+      "answer": null,
+      "source": "https://lianswers.com/linkedin/crossclimb/"
+    },
+    "queens": {
+      "status": "missing",
+      "number": "#936",
+      "hint": [],
+      "answer": null,
+      "source": "https://lianswers.com/linkedin/queens/"
+    },
+    "tango": {
+      "status": "missing",
+      "number": "#776",
+      "hint": [],
+      "answer": null,
+      "source": "https://lianswers.com/linkedin/tango/"
+    },
+    "zip": {
+      "status": "missing",
+      "number": "#615",
+      "hint": [],
+      "answer": null,
+      "source": "https://lianswers.com/linkedin/zip/"
+    },
+    "mini-sudoku": {
+      "status": "missing",
+      "number": "#468",
+      "hint": [],
+      "answer": null,
+      "source": "https://lianswers.com/linkedin/mini-sudoku/"
+    },
+    "patches": {
+      "status": "missing",
+      "number": "#250",
+      "hint": [],
+      "answer": null,
+      "source": "https://lianswers.com/linkedin/patches/"
+    },
+    "wend": {
+      "status": "missing",
+      "number": "#167",
+      "hint": [],
+      "answer": null,
+      "source": "https://lianswers.com/linkedin/wend/"
+    }
+  }
+}
