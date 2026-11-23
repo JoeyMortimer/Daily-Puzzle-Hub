@@ -1,0 +1,649 @@
+{
+  "date": "2026-11-23",
+  "editorialNote": "Daily answers are imported on a best-effort basis, validated, and linked to the original reference. Missing results are never passed off as verified.",
+  "games": {
+    "crosswordle": {
+      "status": "guide",
+      "number": "Daily 7×7 / 9×9",
+      "hint": [
+        "Swap the scrambled letters into solved words."
+      ],
+      "answer": {
+        "type": "notice",
+        "title": "Daily grid not yet verified",
+        "value": "This is the tile-swapping Crosswordle at crosswordle.com. A validated completed board has not yet been imported. The daily solver link below may help."
+      },
+      "source": "https://crosswordle.com/"
+    },
+    "mathler": {
+      "status": "verified",
+      "number": "Normal",
+      "hint": [],
+      "answer": {
+        "type": "math",
+        "value": "8-35/5",
+        "target": 1,
+        "description": "Published independently for this exact date."
+      },
+      "source": "https://www.gfinityesports.com/article/answer-solution"
+    },
+    "wordle": {
+      "status": "verified",
+      "number": "#1983",
+      "hint": [],
+      "answer": {
+        "type": "word",
+        "value": "FILTH"
+      },
+      "source": "https://www.nytimes.com/svc/wordle/v2/2026-11-23.json"
+    },
+    "strands": {
+      "status": "verified",
+      "number": "#995",
+      "hint": [],
+      "answer": {
+        "type": "strands",
+        "theme": "Don",
+        "spangram": "BADMOOD",
+        "words": [
+          "CHURLISH",
+          "CRABBY",
+          "CROSS",
+          "IRRITABLE",
+          "PETULANT",
+          "TESTY"
+        ],
+        "grid": [
+          [
+            "B",
+            "B",
+            "A",
+            "B",
+            "Y",
+            "T"
+          ],
+          [
+            "A",
+            "Y",
+            "T",
+            "L",
+            "E",
+            "S"
+          ],
+          [
+            "D",
+            "R",
+            "I",
+            "R",
+            "R",
+            "E"
+          ],
+          [
+            "O",
+            "C",
+            "M",
+            "I",
+            "A",
+            "T"
+          ],
+          [
+            "I",
+            "O",
+            "H",
+            "D",
+            "C",
+            "B"
+          ],
+          [
+            "L",
+            "S",
+            "A",
+            "L",
+            "R",
+            "S"
+          ],
+          [
+            "R",
+            "C",
+            "N",
+            "U",
+            "O",
+            "S"
+          ],
+          [
+            "U",
+            "H",
+            "T",
+            "T",
+            "E",
+            "P"
+          ]
+        ]
+      },
+      "source": "https://walkthroughs.net/strands-answers/november-23-2026"
+    },
+    "sumplete": {
+      "status": "verified",
+      "number": "5×5 · #1356",
+      "hint": [],
+      "answer": {
+        "type": "sumplete",
+        "grid": [
+          [
+            8,
+            1,
+            9,
+            7,
+            3
+          ],
+          [
+            7,
+            8,
+            7,
+            7,
+            8
+          ],
+          [
+            2,
+            3,
+            2,
+            5,
+            1
+          ],
+          [
+            9,
+            5,
+            3,
+            6,
+            5
+          ],
+          [
+            6,
+            6,
+            5,
+            2,
+            3
+          ]
+        ],
+        "kept": [
+          [
+            1,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            1
+          ]
+        ],
+        "rowTargets": [
+          18,
+          7,
+          6,
+          12,
+          9
+        ],
+        "colTargets": [
+          17,
+          9,
+          12,
+          7,
+          7
+        ]
+      },
+      "source": "https://walkthroughs.net/sumplete-answers/november-23-2026"
+    },
+    "pinpoint": {
+      "status": "verified",
+      "number": "#937",
+      "hint": [],
+      "answer": {
+        "type": "word",
+        "value": "Types of birds"
+      },
+      "source": "https://lianswers.com/linkedin/pinpoint/937-answer/",
+      "clues": [
+        "Rail",
+        "Swift",
+        "Quail",
+        "Owl",
+        "Eagle"
+      ]
+    },
+    "crossclimb": {
+      "status": "verified",
+      "number": "#937",
+      "hint": [],
+      "answer": {
+        "type": "ladder",
+        "words": [
+          "HAND",
+          "LAND",
+          "LANE",
+          "LAKE",
+          "SAKE",
+          "SAVE",
+          "WAVE"
+        ],
+        "description": "Bookend phrase: HAND WAVE."
+      },
+      "source": "https://lianswers.com/linkedin/crossclimb/937-answer/"
+    },
+    "queens": {
+      "status": "verified",
+      "number": "#937",
+      "hint": [],
+      "answer": {
+        "type": "queens",
+        "cols": [
+          8,
+          2,
+          5,
+          3,
+          7,
+          4,
+          6,
+          1
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/queens/937-answer/"
+    },
+    "tango": {
+      "status": "verified",
+      "number": "#777",
+      "hint": [],
+      "answer": {
+        "type": "tango",
+        "rows": [
+          [
+            "S",
+            "S",
+            "M",
+            "S",
+            "M",
+            "M"
+          ],
+          [
+            "M",
+            "M",
+            "S",
+            "S",
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "S",
+            "M",
+            "S",
+            "M"
+          ],
+          [
+            "S",
+            "M",
+            "M",
+            "S",
+            "S",
+            "M"
+          ],
+          [
+            "S",
+            "M",
+            "S",
+            "M",
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "M",
+            "M",
+            "S",
+            "S"
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/tango/777-answer/"
+    },
+    "zip": {
+      "status": "verified",
+      "number": "#616",
+      "hint": [],
+      "answer": {
+        "type": "zip",
+        "path": [
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            6,
+            3
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            6,
+            1
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/zip/616-answer/"
+    },
+    "mini-sudoku": {
+      "status": "verified",
+      "number": "#469",
+      "hint": [],
+      "answer": {
+        "type": "sudoku",
+        "rows": [
+          [
+            1,
+            3,
+            5,
+            6,
+            4,
+            2
+          ],
+          [
+            2,
+            4,
+            6,
+            1,
+            3,
+            5
+          ],
+          [
+            5,
+            1,
+            4,
+            3,
+            2,
+            6
+          ],
+          [
+            6,
+            2,
+            3,
+            4,
+            5,
+            1
+          ],
+          [
+            3,
+            6,
+            2,
+            5,
+            1,
+            4
+          ],
+          [
+            4,
+            5,
+            1,
+            2,
+            6,
+            3
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/mini-sudoku/469-answer/"
+    },
+    "patches": {
+      "status": "verified",
+      "number": "#251",
+      "hint": [],
+      "answer": {
+        "type": "patches",
+        "rects": [
+          [
+            1,
+            1,
+            1,
+            2
+          ],
+          [
+            1,
+            3,
+            1,
+            6
+          ],
+          [
+            2,
+            1,
+            6,
+            1
+          ],
+          [
+            2,
+            2,
+            3,
+            2
+          ],
+          [
+            2,
+            3,
+            3,
+            3
+          ],
+          [
+            2,
+            4,
+            3,
+            4
+          ],
+          [
+            2,
+            5,
+            3,
+            6
+          ],
+          [
+            4,
+            2,
+            6,
+            2
+          ],
+          [
+            4,
+            3,
+            6,
+            3
+          ],
+          [
+            4,
+            4,
+            6,
+            4
+          ],
+          [
+            4,
+            5,
+            6,
+            5
+          ],
+          [
+            4,
+            6,
+            6,
+            6
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/patches/251-answer/"
+    },
+    "wend": {
+      "status": "verified",
+      "number": "#168",
+      "hint": [],
+      "answer": {
+        "type": "words",
+        "words": [
+          "ADD",
+          "MORE",
+          "MERGE",
+          "DOUBLE"
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/wend/168-answer/"
+    }
+  }
+}
