@@ -1,0 +1,454 @@
+{
+  "date": "2026-11-24",
+  "editorialNote": "Daily answers are imported on a best-effort basis, validated, and linked to the original reference. Missing results are never passed off as verified.",
+  "games": {
+    "crosswordle": {
+      "status": "guide",
+      "number": "Daily 7×7 / 9×9",
+      "hint": [
+        "Swap the scrambled letters into solved words."
+      ],
+      "answer": {
+        "type": "notice",
+        "title": "Daily grid not yet verified",
+        "value": "This is the tile-swapping Crosswordle at crosswordle.com. A validated completed board has not yet been imported. The daily solver link below may help."
+      },
+      "source": "https://crosswordle.com/"
+    },
+    "mathler": {
+      "status": "verified",
+      "number": "Normal",
+      "hint": [],
+      "answer": {
+        "type": "math",
+        "value": "40*2+4",
+        "target": 84,
+        "description": "Published independently for this exact date."
+      },
+      "source": "https://www.gfinityesports.com/article/answer-solution"
+    },
+    "wordle": {
+      "status": "verified",
+      "number": "#1984",
+      "hint": [],
+      "answer": {
+        "type": "word",
+        "value": "SNEER"
+      },
+      "source": "https://www.nytimes.com/svc/wordle/v2/2026-11-24.json"
+    },
+    "strands": {
+      "status": "missing",
+      "number": "#996",
+      "answer": null,
+      "source": "https://walkthroughs.net/strands-answers/november-24-2026"
+    },
+    "sumplete": {
+      "status": "missing",
+      "number": "#1357",
+      "answer": null,
+      "source": "https://walkthroughs.net/sumplete-answers"
+    },
+    "pinpoint": {
+      "status": "verified",
+      "number": "#938",
+      "hint": [],
+      "answer": {
+        "type": "word",
+        "value": "Title characters from Shakespeare’s plays"
+      },
+      "source": "https://lianswers.com/linkedin/pinpoint/938-answer/",
+      "clues": [
+        "Timon",
+        "Cressida",
+        "Cleopatra",
+        "Othello",
+        "Romeo and Juliet"
+      ]
+    },
+    "crossclimb": {
+      "status": "verified",
+      "number": "#938",
+      "hint": [],
+      "answer": {
+        "type": "ladder",
+        "words": [
+          "HOME",
+          "HOPE",
+          "POPE",
+          "PIPE",
+          "PILE",
+          "PALE",
+          "PAGE"
+        ],
+        "description": "Bookend phrase: HOME PAGE."
+      },
+      "source": "https://lianswers.com/linkedin/crossclimb/938-answer/"
+    },
+    "queens": {
+      "status": "verified",
+      "number": "#938",
+      "hint": [],
+      "answer": {
+        "type": "queens",
+        "cols": [
+          1,
+          4,
+          7,
+          3,
+          6,
+          2,
+          5
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/queens/938-answer/"
+    },
+    "tango": {
+      "status": "verified",
+      "number": "#778",
+      "hint": [],
+      "answer": {
+        "type": "tango",
+        "rows": [
+          [
+            "S",
+            "M",
+            "S",
+            "S",
+            "M",
+            "M"
+          ],
+          [
+            "M",
+            "M",
+            "S",
+            "M",
+            "S",
+            "S"
+          ],
+          [
+            "S",
+            "S",
+            "M",
+            "M",
+            "S",
+            "M"
+          ],
+          [
+            "S",
+            "M",
+            "M",
+            "S",
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "S",
+            "M",
+            "M",
+            "S"
+          ],
+          [
+            "M",
+            "S",
+            "M",
+            "S",
+            "S",
+            "M"
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/tango/778-answer/"
+    },
+    "zip": {
+      "status": "verified",
+      "number": "#617",
+      "hint": [],
+      "answer": {
+        "type": "zip",
+        "path": [
+          [
+            6,
+            5
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            6,
+            3
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            2,
+            2
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/zip/617-answer/"
+    },
+    "mini-sudoku": {
+      "status": "verified",
+      "number": "#470",
+      "hint": [],
+      "answer": {
+        "type": "sudoku",
+        "rows": [
+          [
+            4,
+            3,
+            6,
+            1,
+            2,
+            5
+          ],
+          [
+            1,
+            5,
+            2,
+            3,
+            4,
+            6
+          ],
+          [
+            6,
+            1,
+            3,
+            4,
+            5,
+            2
+          ],
+          [
+            2,
+            4,
+            5,
+            6,
+            1,
+            3
+          ],
+          [
+            5,
+            6,
+            1,
+            2,
+            3,
+            4
+          ],
+          [
+            3,
+            2,
+            4,
+            5,
+            6,
+            1
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/mini-sudoku/470-answer/"
+    },
+    "patches": {
+      "status": "verified",
+      "number": "#252",
+      "hint": [],
+      "answer": {
+        "type": "patches",
+        "rects": [
+          [
+            1,
+            1,
+            2,
+            1
+          ],
+          [
+            1,
+            2,
+            2,
+            2
+          ],
+          [
+            1,
+            3,
+            2,
+            4
+          ],
+          [
+            1,
+            5,
+            2,
+            6
+          ],
+          [
+            3,
+            1,
+            5,
+            2
+          ],
+          [
+            3,
+            3,
+            5,
+            4
+          ],
+          [
+            3,
+            5,
+            5,
+            6
+          ],
+          [
+            6,
+            1,
+            6,
+            6
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/patches/252-answer/"
+    },
+    "wend": {
+      "status": "verified",
+      "number": "#169",
+      "hint": [],
+      "answer": {
+        "type": "words",
+        "words": [
+          "FIT",
+          "DUTY",
+          "BUFFER",
+          "PUDDING"
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/wend/169-answer/"
+    }
+  }
+}
