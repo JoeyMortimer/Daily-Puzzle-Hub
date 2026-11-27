@@ -1,0 +1,740 @@
+{
+  "date": "2026-11-27",
+  "editorialNote": "Daily answers are imported on a best-effort basis, validated, and linked to the original reference. Missing results are never passed off as verified.",
+  "games": {
+    "crosswordle": {
+      "status": "guide",
+      "number": "Daily 7×7 / 9×9",
+      "hint": [
+        "Swap the scrambled letters into solved words."
+      ],
+      "answer": {
+        "type": "notice",
+        "title": "Daily grid not yet verified",
+        "value": "This is the tile-swapping Crosswordle at crosswordle.com. A validated completed board has not yet been imported. The daily solver link below may help."
+      },
+      "source": "https://crosswordle.com/"
+    },
+    "mathler": {
+      "status": "verified",
+      "number": "Normal",
+      "hint": [],
+      "answer": {
+        "type": "math",
+        "value": "21/3-5",
+        "target": 2,
+        "description": "Published independently for this exact date."
+      },
+      "source": "https://www.gfinityesports.com/article/answer-solution"
+    },
+    "wordle": {
+      "status": "verified",
+      "number": "#1987",
+      "hint": [],
+      "answer": {
+        "type": "word",
+        "value": "SHEAF"
+      },
+      "source": "https://www.nytimes.com/svc/wordle/v2/2026-11-27.json"
+    },
+    "strands": {
+      "status": "missing",
+      "number": "#999",
+      "answer": null,
+      "source": "https://walkthroughs.net/strands-answers/november-27-2026"
+    },
+    "sumplete": {
+      "status": "missing",
+      "number": "#1360",
+      "answer": null,
+      "source": "https://walkthroughs.net/sumplete-answers"
+    },
+    "pinpoint": {
+      "status": "verified",
+      "number": "#941",
+      "hint": [],
+      "answer": {
+        "type": "word",
+        "value": "Different ways to score points in sports"
+      },
+      "source": "https://lianswers.com/linkedin/pinpoint/941-answer/",
+      "clues": [
+        "Try",
+        "Goal",
+        "Ace",
+        "Home run",
+        "Free throw (worth 1 if made)"
+      ]
+    },
+    "crossclimb": {
+      "status": "verified",
+      "number": "#941",
+      "hint": [],
+      "answer": {
+        "type": "ladder",
+        "words": [
+          "NERD",
+          "NEED",
+          "FEED",
+          "FEEL",
+          "PEEL",
+          "PEEK",
+          "GEEK"
+        ],
+        "description": "Bookend phrase: NERD GEEK."
+      },
+      "source": "https://lianswers.com/linkedin/crossclimb/941-answer/"
+    },
+    "queens": {
+      "status": "verified",
+      "number": "#941",
+      "hint": [],
+      "answer": {
+        "type": "queens",
+        "cols": [
+          1,
+          5,
+          9,
+          3,
+          8,
+          6,
+          2,
+          4,
+          7
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/queens/941-answer/"
+    },
+    "tango": {
+      "status": "verified",
+      "number": "#781",
+      "hint": [],
+      "answer": {
+        "type": "tango",
+        "rows": [
+          [
+            "S",
+            "S",
+            "M",
+            "S",
+            "M",
+            "M"
+          ],
+          [
+            "S",
+            "S",
+            "M",
+            "S",
+            "M",
+            "M"
+          ],
+          [
+            "M",
+            "M",
+            "S",
+            "M",
+            "S",
+            "S"
+          ],
+          [
+            "M",
+            "M",
+            "S",
+            "S",
+            "M",
+            "S"
+          ],
+          [
+            "S",
+            "S",
+            "M",
+            "M",
+            "S",
+            "M"
+          ],
+          [
+            "M",
+            "M",
+            "S",
+            "M",
+            "S",
+            "S"
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/tango/781-answer/"
+    },
+    "zip": {
+      "status": "verified",
+      "number": "#620",
+      "hint": [],
+      "answer": {
+        "type": "zip",
+        "path": [
+          [
+            5,
+            5
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            7,
+            6
+          ],
+          [
+            7,
+            7
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            5,
+            7
+          ],
+          [
+            4,
+            7
+          ],
+          [
+            3,
+            7
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            1,
+            7
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            7,
+            2
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            6,
+            3
+          ],
+          [
+            7,
+            3
+          ],
+          [
+            7,
+            4
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            4,
+            2
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/zip/620-answer/"
+    },
+    "mini-sudoku": {
+      "status": "verified",
+      "number": "#473",
+      "hint": [],
+      "answer": {
+        "type": "sudoku",
+        "rows": [
+          [
+            6,
+            3,
+            1,
+            2,
+            4,
+            5
+          ],
+          [
+            5,
+            2,
+            4,
+            6,
+            3,
+            1
+          ],
+          [
+            3,
+            1,
+            6,
+            4,
+            5,
+            2
+          ],
+          [
+            2,
+            4,
+            5,
+            3,
+            1,
+            6
+          ],
+          [
+            1,
+            6,
+            3,
+            5,
+            2,
+            4
+          ],
+          [
+            4,
+            5,
+            2,
+            1,
+            6,
+            3
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/mini-sudoku/473-answer/"
+    },
+    "patches": {
+      "status": "verified",
+      "number": "#255",
+      "hint": [],
+      "answer": {
+        "type": "patches",
+        "rects": [
+          [
+            1,
+            1,
+            8,
+            2
+          ],
+          [
+            1,
+            3,
+            2,
+            4
+          ],
+          [
+            1,
+            5,
+            2,
+            5
+          ],
+          [
+            1,
+            6,
+            3,
+            7
+          ],
+          [
+            1,
+            8,
+            8,
+            8
+          ],
+          [
+            3,
+            3,
+            3,
+            4
+          ],
+          [
+            3,
+            5,
+            6,
+            5
+          ],
+          [
+            4,
+            3,
+            4,
+            4
+          ],
+          [
+            4,
+            6,
+            4,
+            7
+          ],
+          [
+            5,
+            3,
+            5,
+            4
+          ],
+          [
+            5,
+            6,
+            6,
+            7
+          ],
+          [
+            6,
+            3,
+            6,
+            4
+          ],
+          [
+            7,
+            3,
+            8,
+            3
+          ],
+          [
+            7,
+            4,
+            8,
+            4
+          ],
+          [
+            7,
+            5,
+            8,
+            5
+          ],
+          [
+            7,
+            6,
+            8,
+            7
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/patches/255-answer/"
+    },
+    "wend": {
+      "status": "verified",
+      "number": "#172",
+      "hint": [],
+      "answer": {
+        "type": "words",
+        "words": [
+          "NICE",
+          "CHASM",
+          "MEMORY",
+          "NEUTRON",
+          "MOUNTAIN"
+        ],
+        "grid": [
+          [
+            "#",
+            "U",
+            "N",
+            "T",
+            "A",
+            "#"
+          ],
+          [
+            "M",
+            "O",
+            "E",
+            "C",
+            "I",
+            "N"
+          ],
+          [
+            "#",
+            "M",
+            "O",
+            "I",
+            "N",
+            "#"
+          ],
+          [
+            "M",
+            "E",
+            "R",
+            "Y",
+            "O",
+            "N"
+          ],
+          [
+            "#",
+            "C",
+            "H",
+            "T",
+            "R",
+            "#"
+          ],
+          [
+            "M",
+            "S",
+            "A",
+            "U",
+            "E",
+            "N"
+          ]
+        ],
+        "paths": [
+          [
+            [
+              3,
+              5
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              2,
+              4
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          [
+            [
+              5,
+              2
+            ],
+            [
+              5,
+              3
+            ],
+            [
+              6,
+              3
+            ],
+            [
+              6,
+              2
+            ],
+            [
+              6,
+              1
+            ]
+          ],
+          [
+            [
+              4,
+              1
+            ],
+            [
+              4,
+              2
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              4,
+              3
+            ],
+            [
+              4,
+              4
+            ]
+          ],
+          [
+            [
+              6,
+              6
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              6,
+              4
+            ],
+            [
+              5,
+              4
+            ],
+            [
+              5,
+              5
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              4,
+              6
+            ]
+          ],
+          [
+            [
+              2,
+              1
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              4
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              2,
+              5
+            ],
+            [
+              2,
+              6
+            ]
+          ]
+        ]
+      },
+      "source": "https://lianswers.com/linkedin/wend/172-answer/",
+      "boardSource": "https://lianswers.com/linkedin/wend/172-answer/"
+    }
+  }
+}
